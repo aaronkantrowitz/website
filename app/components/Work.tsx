@@ -9,7 +9,6 @@ const companies = [
   'NOMAD Outdoor',
   'Huk Gear',
   'Spiritú',
-  'ATP Data Services',
   'HYGEAR',
   'AVID Sportswear',
   'Eberjey',
@@ -165,11 +164,6 @@ const companyRoles: Record<string, { role: string; description: string }> = {
     role: 'Lead Developer',
     description:
       'Built and optimized e-commerce and content for a multicultural lifestyle brand.',
-  },
-  'ATP Data Services': {
-    role: 'Lead Developer',
-    description:
-      'Led technical projects and digital transformation for a data services provider.',
   },
   HYGEAR: {
     role: 'Lead Developer',
@@ -375,7 +369,7 @@ export const slides: Slide[] = [
     type: 'intro',
     id: 'section-00',
     title: 'My Work',
-    description: `I've had the privilege of working with leading brands and organizations across various industries, helping them build exceptional digital experiences and drive meaningful results.`,
+    description: `My work is about blending talent and technology to solve puzzles and bring ideas to life.\n\nEvery project is a new journey—making something greater than the sum of its parts.`,
   },
   ...companies.map((company, index) => {
     const roleData = companyRoles[company] || { role: '', description: '' };

@@ -45,7 +45,7 @@ export function Footer() {
       <a
         href="#section-00"
         onClick={handleClick}
-        className="relative text-xs tracking-widest font-light text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 pointer-events-auto"
+        className="relative text-lg tracking-widest font-light text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 pointer-events-auto"
         aria-label="Scroll to top"
       >
         Aaron Kantrowitz

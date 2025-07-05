@@ -21,9 +21,10 @@ export function Hero() {
 
           <div className="space-y-8 max-w-5xl mx-auto">
             <p className="text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-400 font-normal leading-relaxed">
-              Developer, digital strategist, and technology consultant working
-              with leading brands and organizations to build exceptional digital
-              experiences.
+              I turn ideas into digital experiences—part engineer, part
+              storyteller.
+              <br />I build bridges between imagination and reality, leading
+              teams to create work that matters.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-base text-gray-500 dark:text-gray-500 font-light">
