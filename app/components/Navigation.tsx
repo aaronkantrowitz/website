@@ -1,54 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-
-const companies = [
-  'Southtree',
-  'Barnett Outdoors',
-  'Legacybox',
-  'Salted Baked Goods',
-  'Kodak Digitizing',
-  'Shinery Wholesale',
-  'Crewcab Society',
-  'NOMAD Outdoor',
-  'Huk Gear',
-  'Spiritú',
-  'ATP Data Services',
-  'HYGEAR',
-  'AVID Sportswear',
-  'Eberjey',
-  'Static-X',
-  'Roxrite Represents',
-  'The Clear Cut',
-  'Claralips',
-  'Jessica Simpson',
-  'Ghurka',
-  'Bitchin Hearts',
-  'Nat Nast Luxury Originals',
-  'Lost Symphony',
-  'Kopari Beauty',
-  'MVMT Watches',
-  'P&G',
-  'Rebecca Minkoff',
-  'Kylie Cosmetics',
-  'Daya by Zendaya',
-  'Sio Beauty',
-  'Lash Star Beauty',
-  'UTZ Snacks',
-  'Navitas Organics',
-  'SkinTe',
-  'The D Hotel Las Vegas',
-  'Aria Resort & Casino',
-  'National Pen',
-  'SoClean',
-  'Barona Resort & Casino',
-  'Health Net',
-  'Thermo Fisher Scientific',
-  'AutoZone',
-  'Home Depot',
-  'Accumen',
-];
+import { slides, getSortedSlides } from './Work';
 
 export function Navigation() {
   const [activeSection, setActiveSection] = useState(0);
+  const sortedSlides = getSortedSlides();
   const [windowHeight, setWindowHeight] = useState(
     typeof window !== 'undefined' ? window.innerHeight : 1080
   );
@@ -57,11 +12,13 @@ export function Navigation() {
   const activeBtnRef = useRef<HTMLButtonElement>(null);
 
   const scrollToSection = (sectionIndex: number) => {
-    const sectionId = `section-${String(sectionIndex).padStart(2, '0')}`;
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setMobileNavOpen(false); // Close mobile nav after navigation
+    const sectionId = sortedSlides[sectionIndex]?.id;
+    if (sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setMobileNavOpen(false); // Close mobile nav after navigation
+      }
     }
   };
 
@@ -78,17 +35,20 @@ export function Navigation() {
       }
 
       let currentSection = 0;
-      sections.forEach((section, index) => {
+      sections.forEach((section) => {
         const element = section as HTMLElement;
         const offsetTop = element.offsetTop;
         const offsetHeight = element.offsetHeight;
-
         // Check if the section is currently in view (center of viewport)
         if (
           scrollPosition + windowHeight / 2 >= offsetTop &&
           scrollPosition + windowHeight / 2 < offsetTop + offsetHeight
         ) {
-          currentSection = index;
+          // Find the index in sortedSlides by id
+          const idx = sortedSlides.findIndex((s) => s.id === element.id);
+          if (idx !== -1) {
+            currentSection = idx;
+          }
         }
       });
 
@@ -119,8 +79,8 @@ export function Navigation() {
     }
   }, [mobileNavOpen, activeSection]);
 
-  // Total sections: Hero (00) + Work Intro (01) + Companies (02-45)
-  const totalSections = 2 + companies.length;
+  // Total sections: sortedSlides.length (including intro, work, blog, etc.)
+  const totalSections = sortedSlides.length;
 
   // Calculate how many numbers fit on screen
   const getVisibleNumbers = () => {
@@ -228,19 +188,24 @@ export function Navigation() {
       {/* Desktop Navigation */}
       <nav className="fixed left-0 z-50 h-screen w-12 hidden xl:flex items-stretch bg-white/40 dark:bg-gray-900/30 backdrop-blur-md pointer-events-auto">
         <div className="flex flex-col justify-evenly h-full py-8 w-full items-center bg-transparent">
-          {visibleNumbers.map((index) => {
-            const isActive = activeSection === index;
+          {visibleNumbers.map((visibleIdx) => {
+            const slide = sortedSlides[visibleIdx];
+            // Section number: always show 00 for intro
+            const sectionNumber = String(visibleIdx).padStart(2, '0');
+            const isActive = activeSection === visibleIdx;
             return (
               <button
-                key={index}
-                onClick={() => scrollToSection(index)}
+                key={slide?.id || visibleIdx}
+                onClick={() => scrollToSection(visibleIdx)}
                 className={`text-xs tracking-widest transition-all duration-300 hover:text-gray-700 dark:hover:text-gray-300 text-left py-1 ${
                   isActive
                     ? 'font-bold text-gray-700 dark:text-gray-300 scale-110'
                     : 'font-light text-gray-400 dark:text-gray-600'
                 }`}
+                tabIndex={0}
+                aria-label={`Go to section ${sectionNumber}`}
               >
-                {String(index).padStart(2, '0')}
+                {sectionNumber}
               </button>
             );
           })}
