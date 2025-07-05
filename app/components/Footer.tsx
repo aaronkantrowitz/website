@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export function Footer() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = document.getElementById('section-00');
+      if (!section) {
+        setShow(false);
+        return;
+      }
+      const rect = section.getBoundingClientRect();
+      // If the bottom of the first section is above the top of the viewport, show the footer
+      setShow(rect.bottom < 0);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     const topSection = document.getElementById('section-00');
@@ -12,7 +30,11 @@ export function Footer() {
   };
 
   return (
-    <footer className="fixed bottom-0 left-0 w-full z-40 py-3 flex justify-center items-center pointer-events-none">
+    <footer
+      className={`fixed bottom-0 left-0 w-full z-40 py-3 flex justify-center items-center pointer-events-none transition-opacity duration-300 ${
+        show ? 'opacity-100' : 'opacity-0'
+      }`}
+    >
       {/* Smoother, longer gradient fade overlay, no blur */}
       <div
         className="absolute inset-0 w-full h-full pointer-events-none select-none"
