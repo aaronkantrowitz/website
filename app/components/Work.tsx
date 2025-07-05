@@ -43,6 +43,11 @@ const companies = [
   'AutoZone',
   'Home Depot',
   'Accumen',
+  'Spacebox Digital',
+  'Stealth',
+  'Akantro',
+  'REQ',
+  'BVA',
 ];
 
 // Define discriminated union type for slides
@@ -52,85 +57,367 @@ type IntroSlide = {
   title: string;
   description: string;
 };
-type WorkSlide = {
-  type: 'work';
+type ProjectSlide = {
+  type: 'project';
   id: string;
   company: string;
+  role?: string;
+  description?: string;
 };
-type BlogSlide = {
-  type: 'blog';
+type OrganizationSlide = {
+  type: 'organization';
+  id: string;
+  company: string;
+  role?: string;
+  description?: string;
+};
+type ArticleSlide = {
+  type: 'article';
   id: string;
   title: string;
   link: string;
   coverImage?: string;
 };
-type Slide = IntroSlide | WorkSlide | BlogSlide;
+type Slide = IntroSlide | ProjectSlide | OrganizationSlide | ArticleSlide;
 
 // Blog post slides (simple, hardcoded)
-const blogSlides: BlogSlide[] = [
+const articleSlides: ArticleSlide[] = [
   {
-    type: 'blog',
+    type: 'article',
     id: 'section-blog-01',
     title: 'On the Path to Mastery',
     link: 'https://aaronkantrowitz.hashnode.dev/on-the-path-to-mastery',
   },
   {
-    type: 'blog',
+    type: 'article',
     id: 'section-blog-02',
     title: 'RIP: SEO Is Dead',
     link: 'https://aaronkantrowitz.hashnode.dev/rip-seo-is-dead',
   },
   {
-    type: 'blog',
+    type: 'article',
     id: 'section-blog-03',
-    title: '31 Goals for the Remainder of 2016',
+    title: '31 Goals for the Remainder of 2016 ~ 2025',
     link: 'https://aaronkantrowitz.hashnode.dev/31-goals-for-the-remainder-of-2016',
   },
   {
-    type: 'blog',
+    type: 'article',
     id: 'section-blog-04',
     title: 'Being the Best You That You Can Be',
     link: 'https://aaronkantrowitz.hashnode.dev/being-the-best-you-that-you-can-be',
   },
   {
-    type: 'blog',
+    type: 'article',
     id: 'section-blog-05',
     title: "I'm Disappointed in Apple Today",
     link: 'https://aaronkantrowitz.hashnode.dev/im-disappointed-in-apple-today',
   },
 ];
 
+// Role and description mapping for companies
+const companyRoles: Record<string, { role: string; description: string }> = {
+  Southtree: {
+    role: 'Lead Developer',
+    description:
+      'Led end-to-end development, CRO, design, and digital transformation for a leading media digitization brand.',
+  },
+  'Barnett Outdoors': {
+    role: 'Lead Developer',
+    description:
+      'Oversaw web development, CRO, and design for a top outdoor sporting goods company.',
+  },
+  Legacybox: {
+    role: 'Lead Developer',
+    description:
+      'Directed technical strategy, CRO, and design for a major consumer digitization service.',
+  },
+  'Salted Baked Goods': {
+    role: 'Lead Developer',
+    description:
+      'Built and optimized e-commerce and digital presence for a premium baked goods brand.',
+  },
+  'Kodak Digitizing': {
+    role: 'Lead Developer',
+    description:
+      "Managed development and design for Kodak's digitization platform, focusing on user experience and conversion.",
+  },
+  'Shinery Wholesale': {
+    role: 'Lead Developer',
+    description:
+      'Developed wholesale e-commerce solutions and digital strategy for a luxury jewelry care brand.',
+  },
+  'Crewcab Society': {
+    role: 'Lead Developer',
+    description:
+      'Created and optimized digital experiences for a lifestyle and apparel community.',
+  },
+  'NOMAD Outdoor': {
+    role: 'Lead Developer',
+    description:
+      'Led web development and design for a high-performance outdoor apparel brand.',
+  },
+  'Huk Gear': {
+    role: 'Lead Developer',
+    description:
+      'Oversaw digital strategy, CRO, and design for a leading fishing apparel company.',
+  },
+  Spiritú: {
+    role: 'Lead Developer',
+    description:
+      'Built and optimized e-commerce and content for a multicultural lifestyle brand.',
+  },
+  'ATP Data Services': {
+    role: 'Lead Developer',
+    description:
+      'Led technical projects and digital transformation for a data services provider.',
+  },
+  HYGEAR: {
+    role: 'Lead Developer',
+    description:
+      'Directed web and app development for a connected fitness technology startup.',
+  },
+  'AVID Sportswear': {
+    role: 'Lead Developer',
+    description:
+      'Managed e-commerce and digital marketing for a sportswear brand.',
+  },
+  Eberjey: {
+    role: 'Lead Developer',
+    description:
+      'Oversaw digital design and development for a luxury lingerie and loungewear brand.',
+  },
+  'Static-X': {
+    role: 'Lead Developer',
+    description: 'Built and managed digital presence for a renowned rock band.',
+  },
+  'Roxrite Represents': {
+    role: 'Lead Developer',
+    description:
+      'Developed digital branding and content for a world-class breakdancer.',
+  },
+  'The Clear Cut': {
+    role: 'Lead Developer',
+    description:
+      'Led e-commerce and digital strategy for a direct-to-consumer diamond brand.',
+  },
+  Claralips: {
+    role: 'Lead Developer',
+    description: 'Built and optimized e-commerce for a beauty startup.',
+  },
+  'Jessica Simpson': {
+    role: 'Lead Developer',
+    description:
+      'Managed digital projects for a celebrity fashion and lifestyle brand.',
+  },
+  Ghurka: {
+    role: 'Lead Developer',
+    description:
+      'Oversaw web development and design for a luxury leather goods company.',
+  },
+  'Bitchin Hearts': {
+    role: 'Lead Developer',
+    description: 'Created digital experiences for a boutique fashion brand.',
+  },
+  'Nat Nast Luxury Originals': {
+    role: 'Lead Developer',
+    description:
+      'Directed e-commerce and digital marketing for a heritage menswear brand.',
+  },
+  'Lost Symphony': {
+    role: 'Lead Developer',
+    description: 'Managed digital presence for a symphonic metal project.',
+  },
+  'Kopari Beauty': {
+    role: 'Technical Project Lead',
+    description:
+      'Led technical projects, CRO, and design for a clean beauty brand.',
+  },
+  'MVMT Watches': {
+    role: 'Technical Project Lead',
+    description:
+      'Oversaw technical development and digital marketing for a direct-to-consumer watch brand.',
+  },
+  'P&G': {
+    role: 'Technical Project Lead',
+    description:
+      'Directed technical projects and digital strategy for a global CPG leader.',
+  },
+  'Rebecca Minkoff': {
+    role: 'Technical Project Lead',
+    description:
+      'Managed technical projects and e-commerce for a leading fashion designer.',
+  },
+  'Kylie Cosmetics': {
+    role: 'Technical Project Lead',
+    description:
+      'Oversaw technical development and digital marketing for a celebrity beauty brand.',
+  },
+  'Daya by Zendaya': {
+    role: 'Technical Project Lead',
+    description:
+      'Led technical projects and e-commerce for a celebrity fashion line.',
+  },
+  'Sio Beauty': {
+    role: 'Technical Project Lead',
+    description:
+      'Directed technical projects and digital strategy for a skincare startup.',
+  },
+  'Lash Star Beauty': {
+    role: 'Technical Project Lead',
+    description:
+      'Managed technical projects and e-commerce for a beauty brand.',
+  },
+  'UTZ Snacks': {
+    role: 'Technical Project Lead',
+    description: 'Led design and development for a major snack food company.',
+  },
+  'Navitas Organics': {
+    role: 'Technical Project Lead',
+    description:
+      'Oversaw design and development for a superfood and wellness brand.',
+  },
+  SkinTe: {
+    role: 'Technical Project Lead',
+    description:
+      'Directed design and development for a wellness beverage startup.',
+  },
+  'The D Hotel Las Vegas': {
+    role: 'Technical Project Lead',
+    description:
+      'Managed design and development for a Las Vegas hotel and casino.',
+  },
+  'Aria Resort & Casino': {
+    role: 'Technical Project Lead',
+    description:
+      'Oversaw design and development for a luxury resort and casino.',
+  },
+  'National Pen': {
+    role: 'Technical Project Lead',
+    description:
+      'Led design and development for a promotional products company.',
+  },
+  SoClean: {
+    role: 'Technical Project Lead',
+    description:
+      'Directed design and development for a health technology company.',
+  },
+  'Barona Resort & Casino': {
+    role: 'Technical Project Lead',
+    description:
+      'Managed design and development for a California casino and resort.',
+  },
+  'Health Net': {
+    role: 'Technical Project Lead',
+    description:
+      'Oversaw design and development for a health insurance provider.',
+  },
+  'Thermo Fisher Scientific': {
+    role: 'Business & Systems Analyst',
+    description:
+      'Led enterprise eBusiness solutions, managed IAM initiatives, and aligned business needs with technical solutions.',
+  },
+  AutoZone: {
+    role: 'Technical Project Lead / Business Systems Analyst',
+    description:
+      'Directed e-commerce and systems integration for a leading auto parts retailer.',
+  },
+  'Home Depot': {
+    role: 'Senior IT Business Systems Analyst',
+    description:
+      'Led SAP and e-commerce initiatives, optimized SDLC, and mentored junior analysts for a major retailer.',
+  },
+  Accumen: {
+    role: 'UI/UX Engineer & Systems Analyst',
+    description:
+      'Led healthcare startup product development, designed MVPs, and implemented agile methodologies.',
+  },
+  'Spacebox Digital': {
+    role: 'Chief Technology Officer',
+    description:
+      'CTO leading AI, technical strategy, and application development for a digital innovation agency.',
+  },
+  Stealth: {
+    role: 'Founder',
+    description:
+      'Founder building AI and e-commerce applications for a new venture.',
+  },
+  Akantro: {
+    role: 'Co-Founder',
+    description:
+      'Co-founded and led an e-commerce technology consultancy, scaling a team and pioneering Shopify Hydrogen projects.',
+  },
+  REQ: {
+    role: 'Head of Development',
+    description:
+      'Led development team delivering enterprise e-commerce solutions for national brands and DTC companies.',
+  },
+  BVA: {
+    role: 'Head of Technical Project Management',
+    description:
+      'Directed cross-functional teams for Shopify Plus implementations and led flagship projects for major brands.',
+  },
+};
+
+const organizationCompanies = [
+  'Spacebox Digital',
+  'Stealth',
+  'Akantro',
+  'REQ',
+  'BVA',
+  'Thermo Fisher Scientific',
+  'The Home Depot',
+  'Accumen',
+];
+
 // Slide data structure
 export const slides: Slide[] = [
   {
     type: 'intro',
-    id: 'section-01',
+    id: 'section-00',
     title: 'Selected Work',
     description: `I've had the privilege of working with leading brands and organizations across various industries, helping them build exceptional digital experiences and drive meaningful results.`,
   },
-  ...(companies.map((company, index) => ({
-    type: 'work' as const,
-    id: `section-${String(index + 2).padStart(2, '0')}`,
-    company,
-  })) as WorkSlide[]),
-  ...blogSlides,
+  ...companies.map((company, index) => {
+    const roleData = companyRoles[company] || { role: '', description: '' };
+    if (organizationCompanies.includes(company)) {
+      return {
+        type: 'organization' as const,
+        id: `section-${String(index + 2).padStart(2, '0')}`,
+        company,
+        role: roleData.role,
+        description: roleData.description,
+      } as OrganizationSlide;
+    }
+    return {
+      type: 'project' as const,
+      id: `section-${String(index + 2).padStart(2, '0')}`,
+      company,
+      role: roleData.role,
+      description: roleData.description,
+    } as ProjectSlide;
+  }),
+  ...articleSlides,
 ];
 
 export function Work() {
   // Use the exported slides array, sort all except the intro
   const intro = slides.find((s) => s.type === 'intro') as IntroSlide;
-  const rest = slides
-    .filter((s) => s.type !== 'intro')
-    .sort((a, b) => {
+  const rest = slides.filter((s) => s.type !== 'intro');
+  // Mix and sort all slides except intro alphabetically by company/title
+  const sortedSlides: Slide[] = [
+    intro,
+    ...rest.sort((a, b) => {
       let aKey = '';
       let bKey = '';
-      if (a.type === 'work') aKey = (a as WorkSlide).company;
-      else if (a.type === 'blog') aKey = (a as BlogSlide).title;
-      if (b.type === 'work') bKey = (b as WorkSlide).company;
-      else if (b.type === 'blog') bKey = (b as BlogSlide).title;
+      if (a.type === 'project' || a.type === 'organization')
+        aKey = (a as ProjectSlide | OrganizationSlide).company;
+      else if (a.type === 'article') aKey = (a as ArticleSlide).title;
+      if (b.type === 'project' || b.type === 'organization')
+        bKey = (b as ProjectSlide | OrganizationSlide).company;
+      else if (b.type === 'article') bKey = (b as ArticleSlide).title;
       return aKey.localeCompare(bKey);
-    });
-  const sortedSlides: Slide[] = [intro, ...rest];
+    }),
+  ];
 
   return (
     <>
@@ -158,50 +445,91 @@ export function Work() {
               </div>
             </section>
           );
-        } else if (slide.type === 'work') {
-          const work = slide as WorkSlide;
+        } else if (slide.type === 'project') {
+          const project = slide as ProjectSlide;
           const sectionNumber = String(index).padStart(2, '0');
           return (
             <section
-              key={work.id}
-              id={work.id}
+              key={project.id}
+              id={project.id}
               className="min-h-screen flex items-center justify-center px-6 py-12 bg-transparent"
             >
               <div className="max-w-6xl mx-auto text-center">
                 <div className="space-y-12">
                   <div className="text-xs font-light text-gray-400 dark:text-gray-600 tracking-widest uppercase">
-                    {sectionNumber}
+                    {sectionNumber} Project
                   </div>
                   <h3 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter text-gray-900 dark:text-gray-100">
-                    {work.company}
+                    {project.company}
                   </h3>
-                  {/* role and description to be added here */}
+                  {project.role && (
+                    <div className="text-base md:text-lg text-gray-500 dark:text-gray-400 font-medium mt-2">
+                      {project.role}
+                    </div>
+                  )}
+                  {project.description && (
+                    <div className="text-lg text-gray-600 dark:text-gray-400 font-normal mt-4 max-w-3xl mx-auto">
+                      {project.description}
+                    </div>
+                  )}
                   <div className="w-24 h-px bg-gray-900 dark:bg-gray-100 mx-auto"></div>
                 </div>
               </div>
             </section>
           );
-        } else if (slide.type === 'blog') {
-          const blog = slide as BlogSlide;
+        } else if (slide.type === 'organization') {
+          const org = slide as OrganizationSlide;
           const sectionNumber = String(index).padStart(2, '0');
           return (
             <section
-              key={blog.id}
-              id={blog.id}
+              key={org.id}
+              id={org.id}
+              className="min-h-screen flex items-center justify-center px-6 py-12 bg-transparent"
+            >
+              <div className="max-w-6xl mx-auto text-center">
+                <div className="space-y-12">
+                  <div className="text-xs font-light text-gray-400 dark:text-gray-600 tracking-widest uppercase">
+                    {sectionNumber} Organization
+                  </div>
+                  <h3 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter text-gray-900 dark:text-gray-100">
+                    {org.company}
+                  </h3>
+                  {org.role && (
+                    <div className="text-base md:text-lg text-gray-500 dark:text-gray-400 font-medium mt-2">
+                      {org.role}
+                    </div>
+                  )}
+                  {org.description && (
+                    <div className="text-lg text-gray-600 dark:text-gray-400 font-normal mt-4 max-w-3xl mx-auto">
+                      {org.description}
+                    </div>
+                  )}
+                  <div className="w-24 h-px bg-gray-900 dark:bg-gray-100 mx-auto"></div>
+                </div>
+              </div>
+            </section>
+          );
+        } else if (slide.type === 'article') {
+          const article = slide as ArticleSlide;
+          const sectionNumber = String(index).padStart(2, '0');
+          return (
+            <section
+              key={article.id}
+              id={article.id}
               className="min-h-screen flex items-center justify-center px-6 py-12 bg-transparent"
             >
               <div className="max-w-2xl mx-auto text-center">
                 <div className="space-y-8">
                   <div className="text-xs font-light text-gray-400 dark:text-gray-600 tracking-widest uppercase">
-                    {sectionNumber}
+                    {sectionNumber} Article
                   </div>
                   <a
-                    href={blog.link}
+                    href={article.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block text-2xl md:text-4xl font-light tracking-tight text-blue-700 dark:text-blue-300 hover:underline mb-2"
                   >
-                    {blog.title}
+                    {article.title}
                   </a>
                 </div>
               </div>
@@ -222,10 +550,12 @@ export function getSortedSlides(): Slide[] {
     .sort((a, b) => {
       let aKey = '';
       let bKey = '';
-      if (a.type === 'work') aKey = (a as WorkSlide).company;
-      else if (a.type === 'blog') aKey = (a as BlogSlide).title;
-      if (b.type === 'work') bKey = (b as WorkSlide).company;
-      else if (b.type === 'blog') bKey = (b as BlogSlide).title;
+      if (a.type === 'project' || a.type === 'organization')
+        aKey = (a as ProjectSlide | OrganizationSlide).company;
+      else if (a.type === 'article') aKey = (a as ArticleSlide).title;
+      if (b.type === 'project' || b.type === 'organization')
+        bKey = (b as ProjectSlide | OrganizationSlide).company;
+      else if (b.type === 'article') bKey = (b as ArticleSlide).title;
       return aKey.localeCompare(bKey);
     });
   return [intro, ...rest];
