@@ -226,8 +226,8 @@ export function Navigation() {
       </button>
 
       {/* Desktop Navigation */}
-      <nav className="fixed left-0 z-50 h-screen w-12 hidden xl:flex items-stretch">
-        <div className="flex flex-col justify-evenly h-full py-8 w-full items-center">
+      <nav className="fixed left-0 z-50 h-screen w-12 hidden xl:flex items-stretch bg-white/40 dark:bg-gray-900/30 backdrop-blur-md pointer-events-auto">
+        <div className="flex flex-col justify-evenly h-full py-8 w-full items-center bg-transparent">
           {visibleNumbers.map((index) => {
             const isActive = activeSection === index;
             return (

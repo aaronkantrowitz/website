@@ -2,7 +2,7 @@ export function Hero() {
   return (
     <section
       id="section-00"
-      className="min-h-screen flex items-center justify-center px-6 py-12 relative xl:ml-12"
+      className="min-h-screen flex items-center justify-center px-6 py-12 relative"
     >
       <div className="max-w-6xl mx-auto text-center">
         <div className="space-y-16">

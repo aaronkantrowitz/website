@@ -51,7 +51,7 @@ export function Work() {
       {/* Work Section Header */}
       <section
         id="section-01"
-        className="min-h-screen flex items-center justify-center px-6 py-12 bg-gray-50 dark:bg-gray-900 xl:ml-12"
+        className="min-h-screen flex items-center justify-center px-6 py-12 bg-gray-50 dark:bg-gray-900"
       >
         <div className="max-w-6xl mx-auto text-center">
           <div className="space-y-16">
@@ -76,7 +76,7 @@ export function Work() {
         <section
           key={company}
           id={`section-${String(index + 2).padStart(2, '0')}`}
-          className="min-h-screen flex items-center justify-center px-6 py-12 bg-white dark:bg-gray-950 xl:ml-12"
+          className="min-h-screen flex items-center justify-center px-6 py-12 bg-white dark:bg-gray-950"
         >
           <div className="max-w-6xl mx-auto text-center">
             <div className="space-y-12">
