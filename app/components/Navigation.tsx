@@ -1,75 +1,63 @@
 import { useState, useEffect, useRef } from 'react';
-import { slides, getSortedSlides } from './Work';
+import { slides as allSlides, getSortedSlides } from './Work';
+
+function shuffleArray<T>(array: T[]): T[] {
+  const arr = array.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 
 export function Navigation() {
+  // All hooks must be called unconditionally at the top
+  const [hasMounted, setHasMounted] = useState(false);
   const [activeSection, setActiveSection] = useState(0);
-  const sortedSlides = getSortedSlides();
-  const [windowHeight, setWindowHeight] = useState(
-    typeof window !== 'undefined' ? window.innerHeight : 1080
-  );
+  const slides = getSortedSlides();
+  const [windowHeight, setWindowHeight] = useState(1080);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const mobileNavListRef = useRef<HTMLDivElement>(null);
   const activeBtnRef = useRef<HTMLButtonElement>(null);
 
-  const scrollToSection = (sectionIndex: number) => {
-    const sectionId = sortedSlides[sectionIndex]?.id;
-    if (sectionId) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        setMobileNavOpen(false); // Close mobile nav after navigation
-      }
-    }
-  };
-
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+  useEffect(() => {
+    setWindowHeight(window.innerHeight);
+    const handleResize = () => setWindowHeight(window.innerHeight);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll('[id^="section-"]');
       const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-
-      // If we're at the very top, always show section 0
       if (scrollPosition < windowHeight / 3) {
         setActiveSection(0);
         return;
       }
-
       let currentSection = 0;
       sections.forEach((section) => {
         const element = section as HTMLElement;
         const offsetTop = element.offsetTop;
         const offsetHeight = element.offsetHeight;
-        // Check if the section is currently in view (center of viewport)
         if (
           scrollPosition + windowHeight / 2 >= offsetTop &&
           scrollPosition + windowHeight / 2 < offsetTop + offsetHeight
         ) {
-          // Find the index in sortedSlides by id
-          const idx = sortedSlides.findIndex((s) => s.id === element.id);
+          const idx = slides.findIndex((s) => s.id === element.id);
           if (idx !== -1) {
             currentSection = idx;
           }
         }
       });
-
       setActiveSection(currentSection);
     };
-
-    const handleResize = () => {
-      setWindowHeight(window.innerHeight);
-    };
-
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    handleScroll(); // Check initial position
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  // Scroll active number into view when mobile nav opens
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [windowHeight, slides]);
   useEffect(() => {
     if (mobileNavOpen && activeBtnRef.current && mobileNavListRef.current) {
       activeBtnRef.current.scrollIntoView({
@@ -79,42 +67,54 @@ export function Navigation() {
     }
   }, [mobileNavOpen, activeSection]);
 
-  // Total sections: sortedSlides.length (including intro, work, blog, etc.)
-  const totalSections = sortedSlides.length;
+  // Only render after mount (no hooks below this line)
+  if (!hasMounted) return null;
 
-  // Calculate how many numbers fit on screen
+  // Navigation numbers
+  const totalSections = slides.length;
   const getVisibleNumbers = () => {
-    // Estimate: each number takes ~32px (text + padding), plus 128px top/bottom padding
     const availableHeight = windowHeight - 128;
     const numberHeight = 32;
     const maxVisible = Math.floor(availableHeight / numberHeight);
-
-    // Center around active section
     const halfRange = Math.floor(maxVisible / 2);
     let start = Math.max(0, activeSection - halfRange);
     let end = Math.min(totalSections - 1, start + maxVisible - 1);
-
-    // Adjust if we're near the edges
     if (end === totalSections - 1) {
       start = Math.max(0, totalSections - maxVisible);
     }
-
     const visibleNumbers = [];
     for (let i = start; i <= end; i++) {
       visibleNumbers.push(i);
     }
-
     return visibleNumbers;
   };
-
   const visibleNumbers = getVisibleNumbers();
+
+  // Shuffle handler: scroll to a random slide (not the intro)
+  const handleShuffle = () => {
+    if (slides.length <= 1) return;
+    const randomIdx = Math.floor(Math.random() * (slides.length - 1)) + 1;
+    scrollToSection(randomIdx);
+  };
+
+  // Scroll logic
+  const scrollToSection = (sectionIndex: number) => {
+    const sectionId = slides[sectionIndex]?.id;
+    if (sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setMobileNavOpen(false);
+      }
+    }
+  };
 
   return (
     <>
       {/* Mobile Toggle Button */}
       <button
         onClick={() => setMobileNavOpen(!mobileNavOpen)}
-        className="fixed top-6 left-6 z-50 xl:hidden p-2 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+        className="fixed top-6 left-6 z-50 p-2 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded xl:hidden"
         aria-label="Toggle navigation"
       >
         {mobileNavOpen ? (
@@ -186,11 +186,10 @@ export function Navigation() {
       </button>
 
       {/* Desktop Navigation */}
-      <nav className="fixed left-0 z-50 h-screen w-12 hidden xl:flex items-stretch bg-white/40 dark:bg-gray-900/30 backdrop-blur-md pointer-events-auto">
-        <div className="flex flex-col justify-evenly h-full py-8 w-full items-center bg-transparent">
+      <nav className="fixed left-0 z-50 h-screen w-12 hidden xl:flex flex-col items-stretch bg-white/40 dark:bg-gray-900/30 backdrop-blur-md pointer-events-auto">
+        <div className="flex flex-col justify-evenly h-full py-8 w-full items-center bg-transparent flex-1">
           {visibleNumbers.map((visibleIdx) => {
-            const slide = sortedSlides[visibleIdx];
-            // Section number: always show 00 for intro
+            const slide = slides[visibleIdx];
             const sectionNumber = String(visibleIdx).padStart(2, '0');
             const isActive = activeSection === visibleIdx;
             return (
@@ -204,12 +203,39 @@ export function Navigation() {
                 }`}
                 tabIndex={0}
                 aria-label={`Go to section ${sectionNumber}`}
+                ref={isActive ? activeBtnRef : undefined}
               >
                 {sectionNumber}
               </button>
             );
           })}
         </div>
+        {/* Universally recognizable shuffle icon (two crossing arrows) */}
+        <button
+          onClick={handleShuffle}
+          aria-label="Shuffle to random slide"
+          className="mb-4 mx-auto p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-400 dark:text-gray-600 hover:text-gray-700 dark:hover:text-gray-300"
+          style={{ width: '32px', height: '32px' }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="16 3 21 3 21 8" />
+            <line x1="4" y1="20" x2="21" y2="3" />
+            <polyline points="21 16 21 21 16 21" />
+            <line x1="15" y1="15" x2="21" y2="21" />
+            <line x1="4" y1="4" x2="9" y2="9" />
+          </svg>
+        </button>
       </nav>
 
       {/* Mobile Navigation Overlay */}
