@@ -54,7 +54,7 @@ flyctl deploy --remote-only
 app/
 ├── root.tsx          # Root layout and error boundaries
 ├── routes/           # File-based routing
-├── welcome/          # Landing page components
+├── components/       # Reusable UI components
 └── app.css          # Tailwind configuration
 
 public/               # Static assets

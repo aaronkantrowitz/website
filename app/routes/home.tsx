@@ -1,13 +1,25 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import type { Route } from './+types/home';
+import { Hero } from '../components/Hero';
+import { Work } from '../components/Work';
+import { Navigation } from '../components/Navigation';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: 'Aaron Kantrowitz - Developer & Digital Strategist' },
+    {
+      name: 'description',
+      content:
+        'Aaron Kantrowitz - Developer, digital strategist, and technology consultant working with leading brands and organizations.',
+    },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return (
+    <main className="min-h-screen bg-white dark:bg-gray-950">
+      <Navigation />
+      <Hero />
+      <Work />
+    </main>
+  );
 }
