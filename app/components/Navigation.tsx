@@ -49,6 +49,9 @@ const companies = [
 
 export function Navigation() {
   const [activeSection, setActiveSection] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(
+    typeof window !== 'undefined' ? window.innerHeight : 1080
+  );
 
   const scrollToSection = (sectionIndex: number) => {
     const sectionId = `section-${String(sectionIndex).padStart(2, '0')}`;
@@ -88,10 +91,18 @@ export function Navigation() {
       setActiveSection(currentSection);
     };
 
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight);
+    };
+
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
     handleScroll(); // Check initial position
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   // Total sections: Hero (00) + Work Intro (01) + Companies (02-45)
@@ -99,9 +110,9 @@ export function Navigation() {
 
   // Calculate how many numbers fit on screen
   const getVisibleNumbers = () => {
-    // Estimate: each number takes ~32px (text + padding), plus 64px top/bottom padding
-    const availableHeight = window.innerHeight - 128; // Account for padding
-    const numberHeight = 32; // Approximate height per number
+    // Estimate: each number takes ~32px (text + padding), plus 128px top/bottom padding
+    const availableHeight = windowHeight - 128;
+    const numberHeight = 32;
     const maxVisible = Math.floor(availableHeight / numberHeight);
 
     // Center around active section
