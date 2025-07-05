@@ -157,28 +157,77 @@ export function Navigation() {
         className="fixed top-6 left-6 z-50 xl:hidden p-2 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
         aria-label="Toggle navigation"
       >
-        <div className="flex flex-col space-y-1">
-          <span
-            className={`block w-4 h-px bg-gray-600 dark:bg-gray-400 transition-transform duration-300 ${
-              mobileNavOpen ? 'rotate-45 translate-y-1.5' : ''
-            }`}
-          ></span>
-          <span
-            className={`block w-4 h-px bg-gray-600 dark:bg-gray-400 transition-opacity duration-300 ${
-              mobileNavOpen ? 'opacity-0' : ''
-            }`}
-          ></span>
-          <span
-            className={`block w-4 h-px bg-gray-600 dark:bg-gray-400 transition-transform duration-300 ${
-              mobileNavOpen ? '-rotate-45 -translate-y-1.5' : ''
-            }`}
-          ></span>
-        </div>
+        {mobileNavOpen ? (
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="block mx-auto my-auto"
+          >
+            <line
+              x1="7"
+              y1="7"
+              x2="21"
+              y2="21"
+              stroke="#4B5563"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+            <line
+              x1="21"
+              y1="7"
+              x2="7"
+              y2="21"
+              stroke="#4B5563"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+          </svg>
+        ) : (
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="block mx-auto my-auto"
+          >
+            <line
+              x1="6"
+              y1="9"
+              x2="22"
+              y2="9"
+              stroke="#4B5563"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+            <line
+              x1="6"
+              y1="14"
+              x2="22"
+              y2="14"
+              stroke="#4B5563"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+            <line
+              x1="6"
+              y1="19"
+              x2="22"
+              y2="19"
+              stroke="#4B5563"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+          </svg>
+        )}
       </button>
 
       {/* Desktop Navigation */}
-      <nav className="fixed left-4 z-50 h-screen hidden xl:block">
-        <div className="flex flex-col justify-evenly h-full py-8">
+      <nav className="fixed left-0 z-50 h-screen w-12 hidden xl:flex items-stretch">
+        <div className="flex flex-col justify-evenly h-full py-8 w-full items-center">
           {visibleNumbers.map((index) => {
             const isActive = activeSection === index;
             return (

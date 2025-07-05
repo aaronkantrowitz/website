@@ -2,7 +2,7 @@ export function Hero() {
   return (
     <section
       id="section-00"
-      className="min-h-screen flex items-center justify-center px-6 py-12 relative xl:ml-16"
+      className="min-h-screen flex items-center justify-center px-6 py-12 relative xl:ml-12"
     >
       <div className="max-w-6xl mx-auto text-center">
         <div className="space-y-16">
@@ -11,14 +11,14 @@ export function Hero() {
               00
             </div>
 
-            <h1 className="text-7xl md:text-9xl lg:text-[10rem] font-thin tracking-tighter text-gray-900 dark:text-gray-100">
+            <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-light tracking-tighter text-gray-900 dark:text-gray-100">
               Aaron Kantrowitz
             </h1>
             <div className="w-32 h-px bg-gray-900 dark:bg-gray-100 mx-auto"></div>
           </div>
 
           <div className="space-y-8 max-w-5xl mx-auto">
-            <p className="text-2xl md:text-3xl lg:text-4xl text-gray-600 dark:text-gray-400 font-thin leading-relaxed">
+            <p className="text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-400 font-normal leading-relaxed">
               Developer, digital strategist, and technology consultant working
               with leading brands and organizations to build exceptional digital
               experiences.
