@@ -97,17 +97,21 @@ export function Navigation() {
   // Total sections: Hero (00) + Work Intro (01) + Companies (02-45)
   const totalSections = 2 + companies.length;
 
-  // Smart navigation: show numbers around current position
+  // Calculate how many numbers fit on screen
   const getVisibleNumbers = () => {
-    const maxVisible = 15; // Show max 15 numbers at a time
-    const halfRange = Math.floor(maxVisible / 2);
+    // Estimate: each number takes ~32px (text + padding), plus 64px top/bottom padding
+    const availableHeight = window.innerHeight - 128; // Account for padding
+    const numberHeight = 32; // Approximate height per number
+    const maxVisible = Math.floor(availableHeight / numberHeight);
 
+    // Center around active section
+    const halfRange = Math.floor(maxVisible / 2);
     let start = Math.max(0, activeSection - halfRange);
     let end = Math.min(totalSections - 1, start + maxVisible - 1);
 
-    // Adjust start if we're near the end
-    if (end - start < maxVisible - 1) {
-      start = Math.max(0, end - maxVisible + 1);
+    // Adjust if we're near the edges
+    if (end === totalSections - 1) {
+      start = Math.max(0, totalSections - maxVisible);
     }
 
     const visibleNumbers = [];
