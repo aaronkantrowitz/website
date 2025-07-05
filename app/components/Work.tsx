@@ -374,7 +374,7 @@ export const slides: Slide[] = [
   {
     type: 'intro',
     id: 'section-00',
-    title: 'Selected Work',
+    title: 'My Work',
     description: `I've had the privilege of working with leading brands and organizations across various industries, helping them build exceptional digital experiences and drive meaningful results.`,
   },
   ...companies.map((company, index) => {
