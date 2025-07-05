@@ -27,7 +27,7 @@ export function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-base text-gray-500 dark:text-gray-500 font-light">
-              <span>Currently available for new projects</span>
+              <span>CTO @ Spacebox Digital, Co-Founder @ Stealth Startup</span>
               <span className="hidden sm:block">•</span>
               <span>Based in the United States</span>
             </div>
