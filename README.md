@@ -1,40 +1,34 @@
-# Welcome to React Router!
+# Aaron Kantrowitz
 
-A modern, production-ready template for building full-stack React applications using React Router.
+My personal website built with React Router v7 and deployed at [aaronkantrowitz.com](https://aaronkantrowitz.com).
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## Tech Stack
 
-## Features
+- **Framework**: React Router v7 with TypeScript
+- **Styling**: Tailwind CSS v4
+- **Build Tool**: Vite with HMR
+- **Deployment**: Fly.io with automated GitHub Actions
+- **Containerization**: Docker multi-stage build
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+## Development
 
-## Getting Started
+### Local Setup
 
-### Installation
-
-Install the dependencies:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Development
-
-Start the development server with HMR:
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Visit `http://localhost:5173` to see the site locally.
 
-## Building for Production
+### Building
 
 Create a production build:
 
@@ -44,44 +38,38 @@ npm run build
 
 ## Deployment
 
-### Docker Deployment
+The site automatically deploys to Fly.io when changes are pushed to the `main` branch via GitHub Actions.
 
-To build and run using Docker:
+### Manual Deployment
+
+If you need to deploy manually:
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+flyctl deploy --remote-only
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
+## Project Structure
 
 ```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+app/
+├── root.tsx          # Root layout and error boundaries
+├── routes/           # File-based routing
+├── welcome/          # Landing page components
+└── app.css          # Tailwind configuration
+
+public/               # Static assets
 ```
 
-## Styling
+## Features
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+- ⚡️ Server-side rendering with React Router v7
+- 🎨 Modern styling with Tailwind CSS v4
+- 📱 Responsive design
+- 🔄 Hot module replacement in development
+- 🚀 Optimized production builds
+- 🐳 Containerized deployment
+- 🔒 TypeScript throughout
 
 ---
 
-Built with ❤️ using React Router.
+Built with ❤️ using React Router v7.
