@@ -35,8 +35,12 @@ export function Hero() {
             >
               I turn ideas into digital experiences—part engineer, part
               storyteller.
-              <br />I build bridges between imagination and reality, leading
-              teams to create work that matters.
+              <br />
+              <br />
+              <div className="max-w-8/12  mx-auto">
+                I build bridges between imagination and reality, leading teams
+                to create work that matters.
+              </div>
             </p>
 
             <div

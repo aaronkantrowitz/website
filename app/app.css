@@ -83,6 +83,34 @@
 
 html {
   scroll-behavior: smooth;
+  /* Optimize scroll performance */
+  -webkit-overflow-scrolling: touch;
+  scroll-padding-top: 0;
+}
+
+/* Remove global text optimizations - they cause jumping when not scrolling */
+
+/* Add scroll timing optimization */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Target text elements specifically for smooth rendering */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span,
+  div {
+    /* Optimize text elements for smooth scrolling */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
 }
 
 html,
@@ -96,6 +124,10 @@ body {
   letter-spacing: var(--letter-spacing-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Optimize text rendering during animations */
+  text-rendering: optimizeLegibility;
+  font-variant-ligatures: common-ligatures;
+  font-kerning: auto;
 }
 
 /* Ultra-thin typography for modern aesthetic */
@@ -107,6 +139,28 @@ h5,
 h6 {
   font-weight: 100;
   letter-spacing: -0.025em;
+}
+
+/* Minimal section optimization */
+section {
+  /* Basic hardware acceleration only */
+  transform: translateZ(0);
+}
+
+/* Minimal slide section optimization */
+section[id^='section-'] {
+  /* Basic hardware acceleration only */
+  transform: translateZ(0);
+  /* Prevent flickering */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Very minimal optimizations during scroll only */
+html.smooth-scroll section[id^='section-'] {
+  /* Just prevent text shifting during navigation */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom scrollbar for webkit browsers */

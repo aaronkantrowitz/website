@@ -11,53 +11,205 @@ function shuffleArray<T>(array: T[]): T[] {
 }
 
 export function Navigation() {
-  // All hooks must be called unconditionally at the top
+  // Core state
   const [hasMounted, setHasMounted] = useState(false);
   const [activeSection, setActiveSection] = useState(0);
-  const slides = getSortedSlides();
   const [windowHeight, setWindowHeight] = useState(1080);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  // Refs
+  const slides = getSortedSlides();
   const mobileNavListRef = useRef<HTMLDivElement>(null);
   const activeBtnRef = useRef<HTMLButtonElement>(null);
+  const autoSnapTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   useEffect(() => {
     setHasMounted(true);
   }, []);
+
   useEffect(() => {
     setWindowHeight(window.innerHeight);
     const handleResize = () => setWindowHeight(window.innerHeight);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Centralized scroll logic
+  const scrollToSection = (sectionIndex: number) => {
+    const sectionId = slides[sectionIndex]?.id;
+    if (sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        // Add class for optimized text rendering during scroll
+        document.documentElement.classList.add('smooth-scroll');
+
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+        setMobileNavOpen(false);
+
+        // Remove class after scroll animation completes
+        // Use very short duration to minimize impact on static text
+        setTimeout(() => {
+          document.documentElement.classList.remove('smooth-scroll');
+        }, 400);
+      }
+    }
+  };
+
+  // Calculate current position within active section
+  const getCurrentPosition = () => {
+    const currentSection = document.getElementById(slides[activeSection]?.id);
+    if (!currentSection)
+      return { positionInSection: 0.5, isWellCentered: true };
+
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const sectionTop = currentSection.offsetTop;
+    const sectionHeight = currentSection.offsetHeight;
+    const windowHeight = window.innerHeight;
+
+    const positionInSection =
+      (scrollTop - sectionTop) / (sectionHeight - windowHeight);
+    const isWellCentered = positionInSection >= 0.1 && positionInSection <= 0.9;
+
+    return { positionInSection, isWellCentered };
+  };
+
+  // Track active section and handle auto-snap
   useEffect(() => {
     const handleScroll = () => {
+      if (isNavigating) return;
+
+      // Update active section
       const sections = document.querySelectorAll('[id^="section-"]');
       const scrollPosition = window.scrollY;
+
       if (scrollPosition < windowHeight / 3) {
         setActiveSection(0);
-        return;
-      }
-      let currentSection = 0;
-      sections.forEach((section) => {
-        const element = section as HTMLElement;
-        const offsetTop = element.offsetTop;
-        const offsetHeight = element.offsetHeight;
-        if (
-          scrollPosition + windowHeight / 2 >= offsetTop &&
-          scrollPosition + windowHeight / 2 < offsetTop + offsetHeight
-        ) {
-          const idx = slides.findIndex((s) => s.id === element.id);
-          if (idx !== -1) {
-            currentSection = idx;
+      } else {
+        let currentSection = 0;
+        sections.forEach((section) => {
+          const element = section as HTMLElement;
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
+          if (
+            scrollPosition + windowHeight / 2 >= offsetTop &&
+            scrollPosition + windowHeight / 2 < offsetTop + offsetHeight
+          ) {
+            const idx = slides.findIndex((s) => s.id === element.id);
+            if (idx !== -1) {
+              currentSection = idx;
+            }
           }
+        });
+        setActiveSection(currentSection);
+      }
+
+      // Auto-snap logic
+      if (autoSnapTimeoutRef.current) {
+        clearTimeout(autoSnapTimeoutRef.current);
+      }
+
+      autoSnapTimeoutRef.current = setTimeout(() => {
+        const { isWellCentered } = getCurrentPosition();
+        if (!isWellCentered && !isNavigating) {
+          setIsNavigating(true);
+          scrollToSection(activeSection);
+          setTimeout(() => setIsNavigating(false), 300);
         }
-      });
-      setActiveSection(currentSection);
+      }, 150);
     };
+
     window.addEventListener('scroll', handleScroll);
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [windowHeight, slides]);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (autoSnapTimeoutRef.current) {
+        clearTimeout(autoSnapTimeoutRef.current);
+      }
+    };
+  }, [windowHeight, slides, activeSection, isNavigating]);
+
+  // Navigation event handlers
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+
+        if (isNavigating) return;
+
+        let targetSection = activeSection;
+        if (e.key === 'ArrowDown' && activeSection < slides.length - 1) {
+          targetSection = activeSection + 1;
+        } else if (e.key === 'ArrowUp' && activeSection > 0) {
+          targetSection = activeSection - 1;
+        }
+
+        if (targetSection !== activeSection) {
+          setIsNavigating(true);
+
+          // Clear any pending auto-snap timeout
+          if (autoSnapTimeoutRef.current) {
+            clearTimeout(autoSnapTimeoutRef.current);
+            autoSnapTimeoutRef.current = undefined;
+          }
+
+          scrollToSection(targetSection);
+          setTimeout(() => setIsNavigating(false), 500);
+        }
+      }
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (isNavigating) return;
+
+      const { positionInSection } = getCurrentPosition();
+      const scrollStrength = Math.abs(e.deltaY);
+      const isNearEdge = positionInSection < 0.1 || positionInSection > 0.9;
+      const isBetweenSlides =
+        positionInSection < -0.05 || positionInSection > 1.05;
+
+      if (scrollStrength > 15 && (isNearEdge || isBetweenSlides)) {
+        let targetSection = activeSection;
+
+        if (e.deltaY > 0 && activeSection < slides.length - 1) {
+          targetSection = activeSection + 1;
+        } else if (e.deltaY < 0 && activeSection > 0) {
+          targetSection = activeSection - 1;
+        }
+
+        if (targetSection !== activeSection) {
+          e.preventDefault();
+          setIsNavigating(true);
+
+          // Clear any pending auto-snap timeout to prevent conflicts
+          if (autoSnapTimeoutRef.current) {
+            clearTimeout(autoSnapTimeoutRef.current);
+            autoSnapTimeoutRef.current = undefined;
+          }
+
+          scrollToSection(targetSection);
+
+          // Longer timeout to prevent double-triggering
+          setTimeout(() => setIsNavigating(false), 500);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [activeSection, slides.length, isNavigating]);
+
+  // Mobile navigation scroll effect
   useEffect(() => {
     if (mobileNavOpen && activeBtnRef.current && mobileNavListRef.current) {
       activeBtnRef.current.scrollIntoView({
@@ -67,7 +219,7 @@ export function Navigation() {
     }
   }, [mobileNavOpen, activeSection]);
 
-  // Only render after mount (no hooks below this line)
+  // Only render after mount
   if (!hasMounted) return null;
 
   // Navigation numbers
@@ -90,23 +242,11 @@ export function Navigation() {
   };
   const visibleNumbers = getVisibleNumbers();
 
-  // Shuffle handler: scroll to a random slide (not the intro)
+  // Shuffle handler
   const handleShuffle = () => {
     if (slides.length <= 1) return;
     const randomIdx = Math.floor(Math.random() * (slides.length - 1)) + 1;
     scrollToSection(randomIdx);
-  };
-
-  // Scroll logic
-  const scrollToSection = (sectionIndex: number) => {
-    const sectionId = slides[sectionIndex]?.id;
-    if (sectionId) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        setMobileNavOpen(false);
-      }
-    }
   };
 
   return (
