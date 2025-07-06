@@ -52,10 +52,9 @@ export function Navigation() {
         setMobileNavOpen(false);
 
         // Remove class after scroll animation completes
-        // Use very short duration to minimize impact on static text
         setTimeout(() => {
           document.documentElement.classList.remove('smooth-scroll');
-        }, 400);
+        }, 800);
       }
     }
   };

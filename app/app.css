@@ -88,8 +88,6 @@ html {
   scroll-padding-top: 0;
 }
 
-/* Remove global text optimizations - they cause jumping when not scrolling */
-
 /* Add scroll timing optimization */
 @media (prefers-reduced-motion: no-preference) {
   html {
@@ -139,26 +137,64 @@ h5,
 h6 {
   font-weight: 100;
   letter-spacing: -0.025em;
-}
-
-/* Minimal section optimization */
-section {
-  /* Basic hardware acceleration only */
-  transform: translateZ(0);
-}
-
-/* Minimal slide section optimization */
-section[id^='section-'] {
-  /* Basic hardware acceleration only */
-  transform: translateZ(0);
-  /* Prevent flickering */
+  /* Optimize text rendering during animations */
+  will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
-/* Very minimal optimizations during scroll only */
-html.smooth-scroll section[id^='section-'] {
-  /* Just prevent text shifting during navigation */
+/* Smooth text rendering for all sections */
+section {
+  /* Hardware acceleration for smooth animations */
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Ensure crisp text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Optimize specific slide sections */
+section[id^='section-'] {
+  /* Force hardware acceleration */
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  /* Prevent text from becoming blurry during scroll */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Ensure content stays crisp */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Additional optimizations for smooth text rendering */
+  contain: layout style paint;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+/* Prevent text glitching during scroll animations */
+section[id^='section-'] h1,
+section[id^='section-'] h2,
+section[id^='section-'] h3,
+section[id^='section-'] p {
+  /* Force layer creation for text elements */
+  will-change: transform;
+  transform: translateZ(0);
+  /* Enhanced text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+  /* Prevent subpixel shifts */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Optimize during scroll transitions */
+html.smooth-scroll section[id^='section-'] * {
+  /* Temporary optimization during navigation */
+  text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

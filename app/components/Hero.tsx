@@ -29,19 +29,22 @@ export function Hero() {
           </div>
 
           <div className="space-y-8 max-w-5xl mx-auto">
-            <p
-              className="text-xl md:text-2xl lg:text-3xl font-normal leading-relaxed"
-              style={{ color: 'var(--dark-gray)' }}
-            >
-              I turn ideas into digital experiences—part engineer, part
-              storyteller.
-              <br />
-              <br />
-              <div className="max-w-8/12  mx-auto">
+            <div className="space-y-6">
+              <p
+                className="text-xl md:text-2xl lg:text-3xl font-normal leading-relaxed"
+                style={{ color: 'var(--dark-gray)' }}
+              >
+                I turn ideas into digital experiences—part engineer, part
+                storyteller.
+              </p>
+              <p
+                className="text-xl md:text-2xl lg:text-3xl font-normal leading-relaxed max-w-4xl mx-auto"
+                style={{ color: 'var(--dark-gray)' }}
+              >
                 I build bridges between imagination and reality, leading teams
                 to create work that matters.
-              </div>
-            </p>
+              </p>
+            </div>
 
             <div
               className="flex flex-col sm:flex-row gap-6 justify-center items-center text-base font-light"
