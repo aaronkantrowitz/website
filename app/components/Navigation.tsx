@@ -37,6 +37,25 @@ export function Navigation() {
 
   // Centralized scroll logic
   const scrollToSection = (sectionIndex: number) => {
+    // Special handling for slide 0 navigation
+    if (sectionIndex === 0) {
+      // Always scroll to Hero section for slide 0
+      const heroElement = document.getElementById('section-00');
+      if (heroElement) {
+        document.documentElement.classList.add('smooth-scroll');
+        heroElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+        setMobileNavOpen(false);
+        setTimeout(() => {
+          document.documentElement.classList.remove('smooth-scroll');
+        }, 800);
+      }
+      return;
+    }
+
     const sectionId = slides[sectionIndex]?.id;
     if (sectionId) {
       const element = document.getElementById(sectionId);
@@ -61,6 +80,30 @@ export function Navigation() {
 
   // Calculate current position within active section
   const getCurrentPosition = () => {
+    // Special handling for slide 0 (Hero + My Work intro)
+    if (activeSection === 0) {
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const heroSection = document.getElementById('section-00');
+      const workIntroSection = document.getElementById('section-01');
+
+      if (heroSection && workIntroSection) {
+        const heroTop = heroSection.offsetTop;
+        const workIntroBottom =
+          workIntroSection.offsetTop + workIntroSection.offsetHeight;
+        const combinedHeight = workIntroBottom - heroTop;
+
+        // Calculate position within the combined Hero + My Work intro area
+        const positionInCombined =
+          (scrollTop - heroTop) / (combinedHeight - window.innerHeight);
+        const isWellCentered =
+          positionInCombined >= -0.1 && positionInCombined <= 1.1;
+
+        return { positionInSection: positionInCombined, isWellCentered };
+      }
+    }
+
+    // Normal logic for other sections
     const currentSection = document.getElementById(slides[activeSection]?.id);
     if (!currentSection)
       return { positionInSection: 0.5, isWellCentered: true };
@@ -86,25 +129,64 @@ export function Navigation() {
       const sections = document.querySelectorAll('[id^="section-"]');
       const scrollPosition = window.scrollY;
 
-      if (scrollPosition < windowHeight / 3) {
-        setActiveSection(0);
-      } else {
-        let currentSection = 0;
-        sections.forEach((section) => {
-          const element = section as HTMLElement;
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-          if (
-            scrollPosition + windowHeight / 2 >= offsetTop &&
-            scrollPosition + windowHeight / 2 < offsetTop + offsetHeight
-          ) {
-            const idx = slides.findIndex((s) => s.id === element.id);
-            if (idx !== -1) {
-              currentSection = idx;
+      // Special handling for Hero section (section-00)
+      const heroSection = document.getElementById('section-00');
+      const workIntroSection = document.getElementById('section-01');
+
+      if (heroSection && workIntroSection) {
+        const workIntroBottom =
+          workIntroSection.offsetTop + workIntroSection.offsetHeight;
+
+        // If we're anywhere in Hero or My Work intro, consider it slide 0
+        if (scrollPosition < workIntroBottom - windowHeight / 3) {
+          setActiveSection(0);
+        } else {
+          // For other sections, use normal logic
+          let currentSection = 1;
+          sections.forEach((section) => {
+            const element = section as HTMLElement;
+            const sectionId = element.id;
+
+            // Skip Hero and My Work intro since they're handled above
+            if (sectionId === 'section-00' || sectionId === 'section-01')
+              return;
+
+            const offsetTop = element.offsetTop;
+            const offsetHeight = element.offsetHeight;
+            if (
+              scrollPosition + windowHeight / 2 >= offsetTop &&
+              scrollPosition + windowHeight / 2 < offsetTop + offsetHeight
+            ) {
+              const idx = slides.findIndex((s) => s.id === element.id);
+              if (idx !== -1) {
+                currentSection = idx;
+              }
             }
-          }
-        });
-        setActiveSection(currentSection);
+          });
+          setActiveSection(currentSection);
+        }
+      } else {
+        // Fallback to original logic if sections not found
+        if (scrollPosition < windowHeight / 3) {
+          setActiveSection(0);
+        } else {
+          let currentSection = 0;
+          sections.forEach((section) => {
+            const element = section as HTMLElement;
+            const offsetTop = element.offsetTop;
+            const offsetHeight = element.offsetHeight;
+            if (
+              scrollPosition + windowHeight / 2 >= offsetTop &&
+              scrollPosition + windowHeight / 2 < offsetTop + offsetHeight
+            ) {
+              const idx = slides.findIndex((s) => s.id === element.id);
+              if (idx !== -1) {
+                currentSection = idx;
+              }
+            }
+          });
+          setActiveSection(currentSection);
+        }
       }
 
       // Auto-snap logic
@@ -141,6 +223,62 @@ export function Navigation() {
 
         if (isNavigating) return;
 
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        const heroSection = document.getElementById('section-00');
+        const workIntroSection = document.getElementById('section-01');
+
+        // Special handling for Hero <-> My Work intro navigation
+        if (heroSection && workIntroSection) {
+          const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+          const workIntroTop = workIntroSection.offsetTop;
+          const workIntroBottom = workIntroTop + workIntroSection.offsetHeight;
+
+          // If we're in Hero section and pressing down
+          if (e.key === 'ArrowDown' && scrollTop < heroBottom - 100) {
+            setIsNavigating(true);
+
+            if (autoSnapTimeoutRef.current) {
+              clearTimeout(autoSnapTimeoutRef.current);
+              autoSnapTimeoutRef.current = undefined;
+            }
+
+            // Go to My Work intro
+            document.documentElement.classList.add('smooth-scroll');
+            workIntroSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+              inline: 'nearest',
+            });
+
+            setTimeout(() => {
+              document.documentElement.classList.remove('smooth-scroll');
+              setIsNavigating(false);
+            }, 500);
+            return;
+          }
+
+          // If we're in My Work intro and pressing up
+          if (
+            e.key === 'ArrowUp' &&
+            scrollTop >= workIntroTop - 100 &&
+            scrollTop < workIntroBottom + 100
+          ) {
+            setIsNavigating(true);
+
+            if (autoSnapTimeoutRef.current) {
+              clearTimeout(autoSnapTimeoutRef.current);
+              autoSnapTimeoutRef.current = undefined;
+            }
+
+            // Go back to Hero
+            scrollToSection(0);
+            setTimeout(() => setIsNavigating(false), 500);
+            return;
+          }
+        }
+
+        // Normal navigation for other sections
         let targetSection = activeSection;
         if (e.key === 'ArrowDown' && activeSection < slides.length - 1) {
           targetSection = activeSection + 1;
@@ -151,7 +289,6 @@ export function Navigation() {
         if (targetSection !== activeSection) {
           setIsNavigating(true);
 
-          // Clear any pending auto-snap timeout
           if (autoSnapTimeoutRef.current) {
             clearTimeout(autoSnapTimeoutRef.current);
             autoSnapTimeoutRef.current = undefined;
@@ -166,13 +303,73 @@ export function Navigation() {
     const handleWheel = (e: WheelEvent) => {
       if (isNavigating) return;
 
-      const { positionInSection } = getCurrentPosition();
       const scrollStrength = Math.abs(e.deltaY);
+      if (scrollStrength < 15) return;
+
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const heroSection = document.getElementById('section-00');
+      const workIntroSection = document.getElementById('section-01');
+
+      // Special handling for Hero -> My Work intro flow
+      if (heroSection && workIntroSection) {
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        const workIntroTop = workIntroSection.offsetTop;
+        const workIntroBottom = workIntroTop + workIntroSection.offsetHeight;
+
+        // If we're in the Hero section and scrolling down
+        if (e.deltaY > 0 && scrollTop < heroBottom - 100) {
+          e.preventDefault();
+          setIsNavigating(true);
+
+          if (autoSnapTimeoutRef.current) {
+            clearTimeout(autoSnapTimeoutRef.current);
+            autoSnapTimeoutRef.current = undefined;
+          }
+
+          // Scroll to My Work intro
+          document.documentElement.classList.add('smooth-scroll');
+          workIntroSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest',
+          });
+
+          setTimeout(() => {
+            document.documentElement.classList.remove('smooth-scroll');
+            setIsNavigating(false);
+          }, 500);
+          return;
+        }
+
+        // If we're in the My Work intro section and scrolling up
+        if (
+          e.deltaY < 0 &&
+          scrollTop >= workIntroTop - 100 &&
+          scrollTop < workIntroBottom + 100
+        ) {
+          e.preventDefault();
+          setIsNavigating(true);
+
+          if (autoSnapTimeoutRef.current) {
+            clearTimeout(autoSnapTimeoutRef.current);
+            autoSnapTimeoutRef.current = undefined;
+          }
+
+          // Scroll back to Hero
+          scrollToSection(0);
+          setTimeout(() => setIsNavigating(false), 500);
+          return;
+        }
+      }
+
+      // For all other sections, use normal navigation logic
+      const { positionInSection } = getCurrentPosition();
       const isNearEdge = positionInSection < 0.1 || positionInSection > 0.9;
       const isBetweenSlides =
         positionInSection < -0.05 || positionInSection > 1.05;
 
-      if (scrollStrength > 15 && (isNearEdge || isBetweenSlides)) {
+      if (isNearEdge || isBetweenSlides) {
         let targetSection = activeSection;
 
         if (e.deltaY > 0 && activeSection < slides.length - 1) {
@@ -185,15 +382,12 @@ export function Navigation() {
           e.preventDefault();
           setIsNavigating(true);
 
-          // Clear any pending auto-snap timeout to prevent conflicts
           if (autoSnapTimeoutRef.current) {
             clearTimeout(autoSnapTimeoutRef.current);
             autoSnapTimeoutRef.current = undefined;
           }
 
           scrollToSection(targetSection);
-
-          // Longer timeout to prevent double-triggering
           setTimeout(() => setIsNavigating(false), 500);
         }
       }

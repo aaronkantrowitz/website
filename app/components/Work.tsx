@@ -367,7 +367,7 @@ const organizationCompanies = [
 export const slides: Slide[] = [
   {
     type: 'intro',
-    id: 'section-00',
+    id: 'section-01',
     title: 'My Work',
     description: `My work is about blending talent and technology to solve puzzles and bring ideas to life.\n\nEvery project is a new journey—making something greater than the sum of its parts.`,
   },
@@ -440,7 +440,7 @@ export function Work() {
                     ></div>
                   </div>
                   <p
-                    className="text-xl md:text-2xl lg:text-3xl font-normal leading-relaxed max-w-5xl mx-auto"
+                    className="text-xl md:text-2xl lg:text-3xl font-normal leading-relaxed max-w-4xl mx-auto"
                     style={{ color: 'var(--dark-gray)' }}
                   >
                     {intro.description}
