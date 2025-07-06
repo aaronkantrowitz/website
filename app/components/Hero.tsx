@@ -7,7 +7,7 @@ export function Hero() {
       className="min-h-screen flex items-center justify-center px-6 py-12 relative"
     >
       <div className="max-w-6xl mx-auto text-center">
-        <div className="space-y-16">
+        <div className="space-y-16 pb-16 sm:pb-20 md:pb-24 lg:pb-16">
           <div className="space-y-12">
             <div
               className="text-xs font-light tracking-widest uppercase"
@@ -51,9 +51,11 @@ export function Hero() {
         </div>
       </div>
 
-      {/* AI-inspired, minimal ASCII morph indicator */}
+      {/* AI-inspired, minimal ASCII morph indicator - responsive positioning */}
       <div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 select-none"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 select-none
+                   sm:bottom-8 md:bottom-12 lg:bottom-16
+                   scale-75 sm:scale-85 md:scale-90 lg:scale-100"
         aria-hidden="true"
       >
         <AsciiMorphIndicator />
@@ -97,7 +99,7 @@ function AsciiMorphIndicator() {
   const [morph, setMorph] = useState(0); // 0 = wave, 1 = AK
   const [display, setDisplay] = useState<string[][]>([[], []]);
   const tRef = useRef(0);
-  const morphDir = useRef(1); // 1 = to AK, -1 = to wave
+  const morphDir = useRef(1);
 
   useEffect(() => {
     let frame: number;
@@ -166,14 +168,14 @@ function AsciiMorphIndicator() {
       style={{
         fontFamily:
           'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-        fontSize: '0.82rem',
-        letterSpacing: '0.06em',
+        fontSize: '0.7rem', // Reduced from 0.82rem for better mobile scaling
+        letterSpacing: '0.05em', // Slightly reduced letter spacing
         color: 'var(--gray)',
         textAlign: 'center',
         userSelect: 'none',
-        opacity: 0.82,
-        lineHeight: 1.04,
-        minHeight: '2.2em',
+        opacity: 0.75, // Slightly reduced opacity to be less intrusive
+        lineHeight: 1.02,
+        minHeight: '2em', // Reduced from 2.2em
         whiteSpace: 'pre',
         fontVariantLigatures: 'none',
       }}
@@ -182,7 +184,7 @@ function AsciiMorphIndicator() {
       {display.map((line, y) => (
         <div
           key={y}
-          style={{ height: '1em' }}
+          style={{ height: '0.9em' }} // Reduced from 1em
           dangerouslySetInnerHTML={{ __html: line.join('') }}
         />
       ))}
