@@ -114,7 +114,19 @@ export function Navigation() {
       {/* Mobile Toggle Button */}
       <button
         onClick={() => setMobileNavOpen(!mobileNavOpen)}
-        className="fixed top-6 left-6 z-50 p-2 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded xl:hidden"
+        className="fixed top-6 left-6 z-50 p-2 transition-all duration-300 rounded xl:hidden"
+        style={{
+          backgroundColor: mobileNavOpen ? 'var(--ivory-med)' : 'transparent',
+          color: 'var(--text-color)',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = 'var(--ivory-med)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = mobileNavOpen
+            ? 'var(--ivory-med)'
+            : 'transparent';
+        }}
         aria-label="Toggle navigation"
       >
         {mobileNavOpen ? (
@@ -131,7 +143,7 @@ export function Navigation() {
               y1="7"
               x2="21"
               y2="21"
-              stroke="#4B5563"
+              stroke="var(--dark-gray)"
               strokeWidth="1.2"
               strokeLinecap="round"
             />
@@ -140,7 +152,7 @@ export function Navigation() {
               y1="7"
               x2="7"
               y2="21"
-              stroke="#4B5563"
+              stroke="var(--dark-gray)"
               strokeWidth="1.2"
               strokeLinecap="round"
             />
@@ -159,7 +171,7 @@ export function Navigation() {
               y1="9"
               x2="22"
               y2="9"
-              stroke="#4B5563"
+              stroke="var(--dark-gray)"
               strokeWidth="1.2"
               strokeLinecap="round"
             />
@@ -168,7 +180,7 @@ export function Navigation() {
               y1="14"
               x2="22"
               y2="14"
-              stroke="#4B5563"
+              stroke="var(--dark-gray)"
               strokeWidth="1.2"
               strokeLinecap="round"
             />
@@ -177,7 +189,7 @@ export function Navigation() {
               y1="19"
               x2="22"
               y2="19"
-              stroke="#4B5563"
+              stroke="var(--dark-gray)"
               strokeWidth="1.2"
               strokeLinecap="round"
             />
@@ -186,8 +198,13 @@ export function Navigation() {
       </button>
 
       {/* Desktop Navigation */}
-      <nav className="fixed left-0 z-50 h-screen w-12 hidden xl:flex flex-col items-stretch bg-white/40 dark:bg-gray-900/30 backdrop-blur-md pointer-events-auto">
-        <div className="flex flex-col justify-evenly h-full py-8 w-full items-center bg-transparent flex-1">
+      <nav
+        className="fixed left-0 z-50 h-screen w-12 hidden xl:flex flex-col items-stretch backdrop-blur-md pointer-events-auto"
+        style={{
+          backgroundColor: 'rgba(240, 238, 230, 0.6)', // --ivory-med with transparency
+        }}
+      >
+        <div className="flex flex-col justify-evenly h-full py-4 w-full items-center bg-transparent flex-1">
           {visibleNumbers.map((visibleIdx) => {
             const slide = slides[visibleIdx];
             const sectionNumber = String(visibleIdx).padStart(2, '0');
@@ -196,11 +213,20 @@ export function Navigation() {
               <button
                 key={slide?.id || visibleIdx}
                 onClick={() => scrollToSection(visibleIdx)}
-                className={`text-xs tracking-widest transition-all duration-300 hover:text-gray-700 dark:hover:text-gray-300 text-left py-1 ${
-                  isActive
-                    ? 'font-bold text-gray-700 dark:text-gray-300 scale-110'
-                    : 'font-light text-gray-400 dark:text-gray-600'
-                }`}
+                className="text-xs tracking-widest transition-all duration-300 text-left py-1"
+                style={{
+                  color: isActive ? 'var(--slate)' : 'var(--gray)',
+                  fontWeight: isActive ? 'bold' : '300',
+                  transform: isActive ? 'scale(1.1)' : 'scale(1)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = 'var(--slate)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = isActive
+                    ? 'var(--slate)'
+                    : 'var(--gray)';
+                }}
                 tabIndex={0}
                 aria-label={`Go to section ${sectionNumber}`}
                 ref={isActive ? activeBtnRef : undefined}
@@ -210,12 +236,23 @@ export function Navigation() {
             );
           })}
         </div>
-        {/* Universally recognizable shuffle icon (two crossing arrows) */}
+        {/* Shuffle button */}
         <div className="flex justify-center w-full pb-2">
           <button
             onClick={handleShuffle}
             aria-label="Shuffle to random slide"
-            className="w-8 h-8 flex items-center justify-center rounded transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-400 dark:text-gray-600 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="w-8 h-8 flex items-center justify-center rounded transition-colors focus:outline-none focus:ring-2"
+            style={{
+              color: 'var(--gray)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = 'var(--slate)';
+              e.currentTarget.style.backgroundColor = 'var(--ivory-dark)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'var(--gray)';
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -244,12 +281,21 @@ export function Navigation() {
         <div className="fixed inset-0 z-40 xl:hidden flex flex-col">
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black/5 backdrop-blur-[1px]"
+            className="absolute inset-0 backdrop-blur-[1px]"
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            }}
             onClick={() => setMobileNavOpen(false)}
           ></div>
 
           {/* Navigation Panel */}
-          <div className="relative h-full w-24 bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 shadow-2xl flex flex-col">
+          <div
+            className="relative h-full w-24 shadow-2xl flex flex-col"
+            style={{
+              backgroundColor: 'var(--background-color)',
+              borderRight: '1px solid var(--ivory-dark)',
+            }}
+          >
             <div className="flex flex-col h-full py-20 px-2">
               <div className="flex-1 overflow-y-auto" ref={mobileNavListRef}>
                 <div className="flex flex-col space-y-2">
@@ -260,11 +306,22 @@ export function Navigation() {
                         key={index}
                         ref={isActive ? activeBtnRef : undefined}
                         onClick={() => scrollToSection(index)}
-                        className={`text-xs tracking-widest transition-all duration-300 hover:text-gray-700 dark:hover:text-gray-300 text-center py-2 rounded ${
-                          isActive
-                            ? 'font-bold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800'
-                            : 'font-light text-gray-400 dark:text-gray-600'
-                        }`}
+                        className="text-xs tracking-widest transition-all duration-300 text-center py-2 rounded"
+                        style={{
+                          color: isActive ? 'var(--slate)' : 'var(--gray)',
+                          fontWeight: isActive ? 'bold' : '300',
+                          backgroundColor: isActive
+                            ? 'var(--ivory-med)'
+                            : 'transparent',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = 'var(--slate)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = isActive
+                            ? 'var(--slate)'
+                            : 'var(--gray)';
+                        }}
                       >
                         {String(index).padStart(2, '0')}
                       </button>
@@ -277,7 +334,18 @@ export function Navigation() {
                 <button
                   onClick={handleShuffle}
                   aria-label="Shuffle to random slide"
-                  className="w-8 h-8 mt-4 mr-2 flex items-center justify-center rounded transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-400 dark:text-gray-600 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="w-8 h-8 mt-4 mr-2 flex items-center justify-center rounded transition-colors focus:outline-none focus:ring-2"
+                  style={{
+                    color: 'var(--gray)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--slate)';
+                    e.currentTarget.style.backgroundColor = 'var(--ivory-dark)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--gray)';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

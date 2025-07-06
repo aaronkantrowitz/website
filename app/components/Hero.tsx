@@ -9,25 +9,40 @@ export function Hero() {
       <div className="max-w-6xl mx-auto text-center">
         <div className="space-y-16">
           <div className="space-y-12">
-            <div className="text-xs font-light text-gray-400 dark:text-gray-600 tracking-widest uppercase">
+            <div
+              className="text-xs font-light tracking-widest uppercase"
+              style={{ color: 'var(--gray)' }}
+            >
               00
             </div>
 
-            <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-light tracking-tighter text-gray-900 dark:text-gray-100">
+            <h1
+              className="text-6xl md:text-8xl lg:text-[7rem] font-light tracking-tighter"
+              style={{ color: 'var(--text-color)' }}
+            >
               Aaron Kantrowitz
             </h1>
-            <div className="w-32 h-px bg-gray-900 dark:bg-gray-100 mx-auto"></div>
+            <div
+              className="w-32 h-px mx-auto"
+              style={{ backgroundColor: 'var(--slate)' }}
+            ></div>
           </div>
 
           <div className="space-y-8 max-w-5xl mx-auto">
-            <p className="text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-400 font-normal leading-relaxed">
+            <p
+              className="text-xl md:text-2xl lg:text-3xl font-normal leading-relaxed"
+              style={{ color: 'var(--dark-gray)' }}
+            >
               I turn ideas into digital experiences—part engineer, part
               storyteller.
               <br />I build bridges between imagination and reality, leading
               teams to create work that matters.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-base text-gray-500 dark:text-gray-500 font-light">
+            <div
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center text-base font-light"
+              style={{ color: 'var(--gray)' }}
+            >
               <span>CTO @ Spacebox Digital, Co-Founder @ Stealth Startup</span>
               <span className="hidden sm:block">•</span>
               <span>Based in the United States</span>
@@ -153,7 +168,7 @@ function AsciiMorphIndicator() {
           'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
         fontSize: '0.82rem',
         letterSpacing: '0.06em',
-        color: '#23272e',
+        color: 'var(--gray)',
         textAlign: 'center',
         userSelect: 'none',
         opacity: 0.82,

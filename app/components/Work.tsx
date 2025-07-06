@@ -422,17 +422,27 @@ export function Work() {
             <section
               key={intro.id}
               id={intro.id}
-              className="min-h-screen flex items-center justify-center px-6 py-12 bg-gray-50 dark:bg-gray-900"
+              className="min-h-screen flex items-center justify-center px-6 py-12"
+              style={{ backgroundColor: 'var(--tone)' }}
             >
               <div className="max-w-6xl mx-auto text-center">
                 <div className="space-y-16">
                   <div className="space-y-12">
-                    <h2 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter text-gray-900 dark:text-gray-100">
+                    <h2
+                      className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter"
+                      style={{ color: 'var(--text-color)' }}
+                    >
                       {intro.title}
                     </h2>
-                    <div className="w-32 h-px bg-gray-900 dark:bg-gray-100 mx-auto"></div>
+                    <div
+                      className="w-32 h-px mx-auto"
+                      style={{ backgroundColor: 'var(--slate)' }}
+                    ></div>
                   </div>
-                  <p className="text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-400 font-normal leading-relaxed max-w-5xl mx-auto">
+                  <p
+                    className="text-xl md:text-2xl lg:text-3xl font-normal leading-relaxed max-w-5xl mx-auto"
+                    style={{ color: 'var(--dark-gray)' }}
+                  >
                     {intro.description}
                   </p>
                 </div>
@@ -450,23 +460,38 @@ export function Work() {
             >
               <div className="max-w-6xl mx-auto text-center">
                 <div className="space-y-12">
-                  <div className="text-xs font-light text-gray-400 dark:text-gray-600 tracking-widest uppercase">
+                  <div
+                    className="text-xs font-light tracking-widest uppercase"
+                    style={{ color: 'var(--gray)' }}
+                  >
                     {sectionNumber} Project
                   </div>
-                  <h3 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter text-gray-900 dark:text-gray-100">
+                  <h3
+                    className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter"
+                    style={{ color: 'var(--text-color)' }}
+                  >
                     {project.company}
                   </h3>
                   {project.role && (
-                    <div className="text-base md:text-lg text-gray-500 dark:text-gray-400 font-medium mt-2">
+                    <div
+                      className="text-base md:text-lg font-medium mt-2"
+                      style={{ color: 'var(--gray)' }}
+                    >
                       {project.role}
                     </div>
                   )}
                   {project.description && (
-                    <div className="text-lg text-gray-600 dark:text-gray-400 font-normal mt-4 max-w-3xl mx-auto">
+                    <div
+                      className="text-lg font-normal mt-4 max-w-3xl mx-auto"
+                      style={{ color: 'var(--dark-gray)' }}
+                    >
                       {project.description}
                     </div>
                   )}
-                  <div className="w-24 h-px bg-gray-900 dark:bg-gray-100 mx-auto"></div>
+                  <div
+                    className="w-24 h-px mx-auto"
+                    style={{ backgroundColor: 'var(--slate)' }}
+                  ></div>
                 </div>
               </div>
             </section>
@@ -482,23 +507,38 @@ export function Work() {
             >
               <div className="max-w-6xl mx-auto text-center">
                 <div className="space-y-12">
-                  <div className="text-xs font-light text-gray-400 dark:text-gray-600 tracking-widest uppercase">
+                  <div
+                    className="text-xs font-light tracking-widest uppercase"
+                    style={{ color: 'var(--gray)' }}
+                  >
                     {sectionNumber} Organization
                   </div>
-                  <h3 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter text-gray-900 dark:text-gray-100">
+                  <h3
+                    className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter"
+                    style={{ color: 'var(--text-color)' }}
+                  >
                     {org.company}
                   </h3>
                   {org.role && (
-                    <div className="text-base md:text-lg text-gray-500 dark:text-gray-400 font-medium mt-2">
+                    <div
+                      className="text-base md:text-lg font-medium mt-2"
+                      style={{ color: 'var(--gray)' }}
+                    >
                       {org.role}
                     </div>
                   )}
                   {org.description && (
-                    <div className="text-lg text-gray-600 dark:text-gray-400 font-normal mt-4 max-w-3xl mx-auto">
+                    <div
+                      className="text-lg font-normal mt-4 max-w-3xl mx-auto"
+                      style={{ color: 'var(--dark-gray)' }}
+                    >
                       {org.description}
                     </div>
                   )}
-                  <div className="w-24 h-px bg-gray-900 dark:bg-gray-100 mx-auto"></div>
+                  <div
+                    className="w-24 h-px mx-auto"
+                    style={{ backgroundColor: 'var(--slate)' }}
+                  ></div>
                 </div>
               </div>
             </section>
@@ -514,14 +554,18 @@ export function Work() {
             >
               <div className="max-w-2xl mx-auto text-center">
                 <div className="space-y-8">
-                  <div className="text-xs font-light text-gray-400 dark:text-gray-600 tracking-widest uppercase">
+                  <div
+                    className="text-xs font-light tracking-widest uppercase"
+                    style={{ color: 'var(--gray)' }}
+                  >
                     {sectionNumber} Article
                   </div>
                   <a
                     href={article.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block text-2xl md:text-4xl font-light tracking-tight text-blue-700 dark:text-blue-300 hover:underline mb-2"
+                    className="block text-2xl md:text-4xl font-light tracking-tight hover:underline mb-2"
+                    style={{ color: 'var(--riso)' }}
                   >
                     {article.title}
                   </a>

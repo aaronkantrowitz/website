@@ -35,17 +35,31 @@ export function Footer() {
         show ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      {/* Smoother, longer gradient fade overlay, no blur */}
+      {/* Gradient fade overlay using brand colors */}
       <div
         className="absolute inset-0 w-full h-full pointer-events-none select-none"
+        style={{
+          background: `linear-gradient(to top,
+            var(--background-color) 0%,
+            rgba(250, 249, 245, 0.7) 40%,
+            rgba(250, 249, 245, 0.4) 60%,
+            transparent 100%)`,
+        }}
         aria-hidden="true"
-      >
-        <div className="w-full h-full bg-gradient-to-t from-white/70 via-white/40 via-60% to-white/0 dark:from-gray-950/70 dark:via-gray-950/40 dark:via-60% dark:to-gray-950/0" />
-      </div>
+      />
       <a
         href="#section-00"
         onClick={handleClick}
-        className="relative text-lg tracking-widest font-light text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 pointer-events-auto"
+        className="relative text-lg tracking-widest font-light transition-colors duration-200 pointer-events-auto"
+        style={{
+          color: 'var(--gray)',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.color = 'var(--slate)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.color = 'var(--gray)';
+        }}
         aria-label="Scroll to top"
       >
         Aaron Kantrowitz
