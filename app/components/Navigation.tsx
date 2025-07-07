@@ -17,6 +17,7 @@ export function Navigation() {
   const [windowHeight, setWindowHeight] = useState(1080);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
+  const lastNavigationTime = useRef(0);
 
   // Refs
   const slides = getSortedSlides();
@@ -195,13 +196,20 @@ export function Navigation() {
       }
 
       autoSnapTimeoutRef.current = setTimeout(() => {
+        const currentTime = Date.now();
         const { isWellCentered } = getCurrentPosition();
-        if (!isWellCentered && !isNavigating) {
+
+        // Only snap if we're not navigating and haven't navigated recently
+        if (
+          !isWellCentered &&
+          !isNavigating &&
+          currentTime - lastNavigationTime.current > 500
+        ) {
           setIsNavigating(true);
           scrollToSection(activeSection);
           setTimeout(() => setIsNavigating(false), 300);
         }
-      }, 150);
+      }, 200);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -213,7 +221,7 @@ export function Navigation() {
         clearTimeout(autoSnapTimeoutRef.current);
       }
     };
-  }, [windowHeight, slides, activeSection, isNavigating]);
+  }, [windowHeight, slides, activeSection, isNavigating, lastNavigationTime]);
 
   // Navigation event handlers
   useEffect(() => {
@@ -221,7 +229,12 @@ export function Navigation() {
       if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
         e.preventDefault();
 
-        if (isNavigating) return;
+        const currentTime = Date.now();
+
+        // Strong debouncing for keyboard as well
+        if (isNavigating || currentTime - lastNavigationTime.current < 150) {
+          return;
+        }
 
         const scrollTop =
           window.pageYOffset || document.documentElement.scrollTop;
@@ -235,7 +248,8 @@ export function Navigation() {
           const workIntroBottom = workIntroTop + workIntroSection.offsetHeight;
 
           // If we're in Hero section and pressing down
-          if (e.key === 'ArrowDown' && scrollTop < heroBottom - 100) {
+          if (e.key === 'ArrowDown' && scrollTop < heroBottom - 50) {
+            lastNavigationTime.current = currentTime;
             setIsNavigating(true);
 
             if (autoSnapTimeoutRef.current) {
@@ -254,16 +268,17 @@ export function Navigation() {
             setTimeout(() => {
               document.documentElement.classList.remove('smooth-scroll');
               setIsNavigating(false);
-            }, 500);
+            }, 600);
             return;
           }
 
           // If we're in My Work intro and pressing up
           if (
             e.key === 'ArrowUp' &&
-            scrollTop >= workIntroTop - 100 &&
-            scrollTop < workIntroBottom + 100
+            scrollTop >= workIntroTop - 50 &&
+            scrollTop < workIntroBottom + 50
           ) {
+            lastNavigationTime.current = currentTime;
             setIsNavigating(true);
 
             if (autoSnapTimeoutRef.current) {
@@ -273,7 +288,7 @@ export function Navigation() {
 
             // Go back to Hero
             scrollToSection(0);
-            setTimeout(() => setIsNavigating(false), 500);
+            setTimeout(() => setIsNavigating(false), 600);
             return;
           }
         }
@@ -287,6 +302,7 @@ export function Navigation() {
         }
 
         if (targetSection !== activeSection) {
+          lastNavigationTime.current = currentTime;
           setIsNavigating(true);
 
           if (autoSnapTimeoutRef.current) {
@@ -295,13 +311,18 @@ export function Navigation() {
           }
 
           scrollToSection(targetSection);
-          setTimeout(() => setIsNavigating(false), 500);
+          setTimeout(() => setIsNavigating(false), 600);
         }
       }
     };
 
     const handleWheel = (e: WheelEvent) => {
-      if (isNavigating) return;
+      const currentTime = Date.now();
+
+      // Strong debouncing to prevent rapid navigation
+      if (isNavigating || currentTime - lastNavigationTime.current < 150) {
+        return;
+      }
 
       const scrollStrength = Math.abs(e.deltaY);
       if (scrollStrength < 15) return;
@@ -318,8 +339,9 @@ export function Navigation() {
         const workIntroBottom = workIntroTop + workIntroSection.offsetHeight;
 
         // If we're in the Hero section and scrolling down
-        if (e.deltaY > 0 && scrollTop < heroBottom - 100) {
+        if (e.deltaY > 0 && scrollTop < heroBottom - 50) {
           e.preventDefault();
+          lastNavigationTime.current = currentTime;
           setIsNavigating(true);
 
           if (autoSnapTimeoutRef.current) {
@@ -338,17 +360,18 @@ export function Navigation() {
           setTimeout(() => {
             document.documentElement.classList.remove('smooth-scroll');
             setIsNavigating(false);
-          }, 500);
+          }, 600);
           return;
         }
 
         // If we're in the My Work intro section and scrolling up
         if (
           e.deltaY < 0 &&
-          scrollTop >= workIntroTop - 100 &&
-          scrollTop < workIntroBottom + 100
+          scrollTop >= workIntroTop - 50 &&
+          scrollTop < workIntroBottom + 50
         ) {
           e.preventDefault();
+          lastNavigationTime.current = currentTime;
           setIsNavigating(true);
 
           if (autoSnapTimeoutRef.current) {
@@ -358,14 +381,14 @@ export function Navigation() {
 
           // Scroll back to Hero
           scrollToSection(0);
-          setTimeout(() => setIsNavigating(false), 500);
+          setTimeout(() => setIsNavigating(false), 600);
           return;
         }
       }
 
       // For all other sections, use normal navigation logic
       const { positionInSection } = getCurrentPosition();
-      const isNearEdge = positionInSection < 0.1 || positionInSection > 0.9;
+      const isNearEdge = positionInSection < 0.15 || positionInSection > 0.85;
       const isBetweenSlides =
         positionInSection < -0.05 || positionInSection > 1.05;
 
@@ -380,6 +403,7 @@ export function Navigation() {
 
         if (targetSection !== activeSection) {
           e.preventDefault();
+          lastNavigationTime.current = currentTime;
           setIsNavigating(true);
 
           if (autoSnapTimeoutRef.current) {
@@ -388,7 +412,7 @@ export function Navigation() {
           }
 
           scrollToSection(targetSection);
-          setTimeout(() => setIsNavigating(false), 500);
+          setTimeout(() => setIsNavigating(false), 600);
         }
       }
     };
