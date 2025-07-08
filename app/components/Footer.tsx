@@ -41,8 +41,8 @@ export function Footer() {
         style={{
           background: `linear-gradient(to top,
             var(--background-color) 0%,
-            rgba(250, 249, 245, 0.7) 40%,
-            rgba(250, 249, 245, 0.4) 60%,
+            var(--footer-gradient-1) 40%,
+            var(--footer-gradient-2) 60%,
             transparent 100%)`,
         }}
         aria-hidden="true"

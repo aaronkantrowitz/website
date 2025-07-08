@@ -564,7 +564,7 @@ export function Navigation() {
       <nav
         className="fixed left-0 z-50 h-screen w-12 hidden xl:flex flex-col items-stretch backdrop-blur-md pointer-events-auto"
         style={{
-          backgroundColor: 'rgba(240, 238, 230, 0.6)', // --ivory-med with transparency
+          backgroundColor: 'var(--nav-bg)',
         }}
       >
         <div className="flex flex-col justify-evenly h-full py-4 w-full items-center bg-transparent flex-1">
@@ -610,7 +610,7 @@ export function Navigation() {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = 'var(--slate)';
-              e.currentTarget.style.backgroundColor = 'var(--ivory-dark)';
+              e.currentTarget.style.backgroundColor = 'var(--nav-hover-bg)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.color = 'var(--gray)';

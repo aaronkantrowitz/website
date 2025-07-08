@@ -15,6 +15,10 @@
   --clay: #d97757;
   --beige: #e8e6dc;
   --tone: #f5f2ec;
+  --nav-bg: rgba(240, 238, 230, 0.6);
+  --nav-hover-bg: var(--ivory-dark);
+  --footer-gradient-1: rgba(250, 249, 245, 0.7);
+  --footer-gradient-2: rgba(250, 249, 245, 0.4);
 
   /* Typography */
   --font-family-base: 'QTOldGoudy', 'Times New Roman', Times, serif;
@@ -233,4 +237,31 @@ html.smooth-scroll section[id^='section-'] * {
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background-color: var(--gray);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #181a1b;
+    --text-color: rgba(255, 255, 255, 0.92);
+    --gray: #b3b1a7;
+    --slate: #f5f2ec;
+    --dark-gray: #d6d3c9;
+    --ivory-med: #232423;
+    --ivory-dark: #232423;
+    --ivory: #232423;
+    --riso: #8faaff;
+    --cyan: #6fd6ff;
+    --clay: #ffb49a;
+    --beige: #232423;
+    --tone: #232423;
+    --nav-bg: rgba(24, 26, 27, 0.85);
+    --nav-hover-bg: #232423;
+    --footer-gradient-1: rgba(24, 26, 27, 0.7);
+    --footer-gradient-2: rgba(24, 26, 27, 0.4);
+  }
+  html,
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
 }
