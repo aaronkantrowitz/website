@@ -34,14 +34,8 @@ export function Hero() {
               style={{ color: 'var(--dark-gray)' }}
             >
               I turn ideas into digital experiences—part engineer, part
-              storyteller.
-            </p>
-            <p
-              className="font-normal leading-relaxed text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)] max-w-full sm:max-w-4xl mx-auto"
-              style={{ color: 'var(--dark-gray)' }}
-            >
-              I build bridges between imagination and reality, leading teams to
-              create work that matters.
+              storyteller. I build bridges between imagination and reality,
+              leading teams to create work that matters.
             </p>
           </div>
 
@@ -51,7 +45,7 @@ export function Hero() {
           >
             <span>CTO @ Spacebox Digital, Co-Founder @ Stealth Startup</span>
             <span className="hidden sm:block">•</span>
-            <span>Based in the United States</span>
+            <span>Based in San Diego, California</span>
           </div>
         </div>
       </div>
