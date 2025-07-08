@@ -10,6 +10,11 @@ function shuffleArray<T>(array: T[]): T[] {
   return arr;
 }
 
+// Utility to detect mobile device (screen width < 768)
+function isMobile() {
+  return typeof window !== 'undefined' && window.innerWidth < 768;
+}
+
 export function Navigation() {
   // Core state
   const [hasMounted, setHasMounted] = useState(false);
@@ -37,7 +42,7 @@ export function Navigation() {
   }, []);
 
   // Centralized scroll logic
-  const scrollToSection = (sectionIndex: number) => {
+  const scrollToSection = (sectionIndex: number, closeMobileMenu = false) => {
     // Special handling for slide 0 navigation
     if (sectionIndex === 0) {
       // Always scroll to Hero section for slide 0
@@ -49,7 +54,7 @@ export function Navigation() {
           block: 'start',
           inline: 'nearest',
         });
-        setMobileNavOpen(false);
+        if (closeMobileMenu) setMobileNavOpen(false);
         setTimeout(() => {
           document.documentElement.classList.remove('smooth-scroll');
         }, 800);
@@ -69,7 +74,7 @@ export function Navigation() {
           block: 'start',
           inline: 'nearest',
         });
-        setMobileNavOpen(false);
+        if (closeMobileMenu) setMobileNavOpen(false);
 
         // Remove class after scroll animation completes
         setTimeout(() => {
@@ -190,7 +195,8 @@ export function Navigation() {
         }
       }
 
-      // Auto-snap logic
+      // Auto-snap logic (DISABLED on mobile)
+      if (isMobile()) return;
       if (autoSnapTimeoutRef.current) {
         clearTimeout(autoSnapTimeoutRef.current);
       }
@@ -206,7 +212,7 @@ export function Navigation() {
           currentTime - lastNavigationTime.current > 500
         ) {
           setIsNavigating(true);
-          scrollToSection(activeSection);
+          scrollToSection(activeSection, false);
           setTimeout(() => setIsNavigating(false), 300);
         }
       }, 200);
@@ -569,7 +575,7 @@ export function Navigation() {
             return (
               <button
                 key={slide?.id || visibleIdx}
-                onClick={() => scrollToSection(visibleIdx)}
+                onClick={() => scrollToSection(visibleIdx, false)}
                 className="text-xs tracking-widest transition-all duration-300 text-left py-1"
                 style={{
                   color: isActive ? 'var(--slate)' : 'var(--gray)',
@@ -662,7 +668,7 @@ export function Navigation() {
                       <button
                         key={index}
                         ref={isActive ? activeBtnRef : undefined}
-                        onClick={() => scrollToSection(index)}
+                        onClick={() => scrollToSection(index, true)}
                         className="text-xs tracking-widest transition-all duration-300 text-center py-2 rounded"
                         style={{
                           color: isActive ? 'var(--slate)' : 'var(--gray)',
