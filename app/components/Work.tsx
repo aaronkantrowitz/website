@@ -422,7 +422,7 @@ export function Work() {
             <section
               key={intro.id}
               id={intro.id}
-              className="h-[100dvh] max-h-[90dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-2 sm:px-4 md:px-8 lg:px-24 py-4 sm:py-8 md:py-12 overflow-auto"
+              className="h-[100dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-6 sm:px-4 md:px-8 lg:px-24 pt-16 pb-20 sm:py-8 md:py-12 overflow-auto"
               style={{ backgroundColor: 'var(--tone)' }}
             >
               <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
@@ -454,7 +454,7 @@ export function Work() {
             <section
               key={project.id}
               id={project.id}
-              className="h-[100dvh] max-h-[90dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-2 sm:px-4 md:px-8 lg:px-24 py-4 sm:py-8 md:py-12 overflow-auto bg-transparent"
+              className="h-[100dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-6 sm:px-4 md:px-8 lg:px-24 pt-16 pb-20 sm:py-8 md:py-12 overflow-auto bg-transparent"
             >
               <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
                 <div className="space-y-4 sm:space-y-8">
@@ -501,7 +501,7 @@ export function Work() {
             <section
               key={org.id}
               id={org.id}
-              className="h-[100dvh] max-h-[90dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-2 sm:px-4 md:px-8 lg:px-24 py-4 sm:py-8 md:py-12 overflow-auto bg-transparent"
+              className="h-[100dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-6 sm:px-4 md:px-8 lg:px-24 pt-16 pb-20 sm:py-8 md:py-12 overflow-auto bg-transparent"
             >
               <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
                 <div className="space-y-4 sm:space-y-8">
@@ -548,7 +548,7 @@ export function Work() {
             <section
               key={article.id}
               id={article.id}
-              className="h-[100dvh] max-h-[90dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-2 sm:px-4 md:px-8 lg:px-24 py-4 sm:py-8 md:py-12 overflow-auto bg-transparent"
+              className="h-[100dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-6 sm:px-4 md:px-8 lg:px-24 pt-16 pb-20 sm:py-8 md:py-12 overflow-auto bg-transparent"
             >
               <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
                 <div className="space-y-4 sm:space-y-8">

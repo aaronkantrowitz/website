@@ -4,7 +4,7 @@ export function Hero() {
   return (
     <section
       id="section-00"
-      className="h-[100dvh] max-h-[90dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-2 sm:px-4 md:px-8 lg:px-24 py-4 sm:py-8 md:py-12 overflow-auto"
+      className="h-[100dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-6 sm:px-4 md:px-8 lg:px-24 pt-16 pb-20 sm:py-8 md:py-12 overflow-auto"
     >
       <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
         <div className="space-y-4 sm:space-y-8">
