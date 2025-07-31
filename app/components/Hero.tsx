@@ -4,49 +4,48 @@ export function Hero() {
   return (
     <section
       id="section-00"
-      className="min-h-screen flex items-center justify-center px-2 sm:px-4 md:px-8 lg:px-24 py-4 sm:py-8 md:py-12 relative max-h-[90dvh] sm:max-h-screen overflow-auto"
+      className="h-[100dvh] max-h-[90dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-2 sm:px-4 md:px-8 lg:px-24 py-4 sm:py-8 md:py-12 overflow-auto"
     >
-      <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center">
-        <div className="space-y-4 sm:space-y-8 md:space-y-12 pb-8 sm:pb-12 md:pb-16 lg:pb-16">
-          <div className="space-y-4 sm:space-y-8">
-            <div
-              className="text-xs font-light tracking-widest uppercase"
-              style={{ color: 'var(--gray)' }}
-            >
-              00
-            </div>
-
-            <h1
-              className="font-light tracking-tighter text-[clamp(2rem,5vw,3.5rem)] sm:text-[clamp(2.5rem,5vw,6rem)] md:text-[clamp(3rem,4vw,5rem)] lg:text-[clamp(3.5rem,3vw,4.5rem)]"
-              style={{ color: 'var(--text-color)' }}
-            >
-              Aaron Kantrowitz
-            </h1>
-            <div
-              className="w-32 h-px mx-auto"
-              style={{ backgroundColor: 'var(--slate)' }}
-            ></div>
-          </div>
-
-          <div className="space-y-3 max-w-full sm:max-w-5xl mx-auto">
-            <p
-              className="font-normal leading-relaxed text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)] max-w-full sm:max-w-4xl mx-auto"
-              style={{ color: 'var(--dark-gray)' }}
-            >
-              I turn ideas into digital experiences—part engineer, part
-              storyteller. I build bridges between imagination and reality,
-              leading teams to create work that matters.
-            </p>
-          </div>
-
+      <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
+        <div className="space-y-4 sm:space-y-8">
           <div
-            className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center text-[clamp(0.85rem,1.8vw,1.1rem)] font-light"
+            className="text-xs font-light tracking-widest uppercase"
             style={{ color: 'var(--gray)' }}
           >
-            <span>CTO @ Spacebox Digital, Co-Founder @ Stealth Startup</span>
-            <span className="hidden sm:block">•</span>
-            <span>Based in San Diego, California</span>
+            00
           </div>
+          
+          <h1
+            className="font-light tracking-tighter text-[clamp(2rem,5vw,3.5rem)] sm:text-[clamp(2.5rem,5vw,6rem)] md:text-[clamp(3rem,4vw,5rem)] lg:text-[clamp(3.5rem,3vw,4.5rem)]"
+            style={{ color: 'var(--text-color)' }}
+          >
+            Aaron Kantrowitz
+          </h1>
+          
+          <div
+            className="w-32 h-px mx-auto"
+            style={{ backgroundColor: 'var(--slate)' }}
+          ></div>
+        </div>
+
+        <div className="space-y-3 max-w-full sm:max-w-5xl mx-auto">
+          <p
+            className="font-normal leading-relaxed text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)] max-w-full sm:max-w-4xl mx-auto"
+            style={{ color: 'var(--dark-gray)' }}
+          >
+            I turn ideas into digital experiences—part engineer, part
+            storyteller. I build bridges between imagination and reality,
+            leading teams to create work that matters.
+          </p>
+        </div>
+
+        <div
+          className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center text-[clamp(0.85rem,1.8vw,1.1rem)] font-light"
+          style={{ color: 'var(--gray)' }}
+        >
+          <span>CTO & Founder</span>
+          <span className="hidden sm:block">•</span>
+          <span>Based in San Diego, California</span>
         </div>
       </div>
 

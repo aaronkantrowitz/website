@@ -457,38 +457,40 @@ export function Work() {
               className="h-[100dvh] max-h-[90dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-2 sm:px-4 md:px-8 lg:px-24 py-4 sm:py-8 md:py-12 overflow-auto bg-transparent"
             >
               <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
-                <div
-                  className="text-xs font-light tracking-widest uppercase"
-                  style={{ color: 'var(--gray)' }}
-                >
-                  {sectionNumber} Project
-                </div>
-                <h3
-                  className="font-light tracking-tighter text-[clamp(1.5rem,4vw,2.5rem)] sm:text-[clamp(2rem,5vw,5rem)] md:text-[clamp(2.2rem,4vw,4rem)] lg:text-[clamp(2.5rem,3vw,3.5rem)]"
-                  style={{ color: 'var(--text-color)' }}
-                >
-                  {project.company}
-                </h3>
-                {project.role && (
+                <div className="space-y-4 sm:space-y-8">
                   <div
-                    className="font-medium mt-2 text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
+                    className="text-xs font-light tracking-widest uppercase"
                     style={{ color: 'var(--gray)' }}
                   >
-                    {project.role}
+                    {sectionNumber} Project
                   </div>
-                )}
+                  <h3
+                    className="font-light tracking-tighter text-[clamp(1.5rem,4vw,2.5rem)] sm:text-[clamp(2rem,5vw,5rem)] md:text-[clamp(2.2rem,4vw,4rem)] lg:text-[clamp(2.5rem,3vw,3.5rem)]"
+                    style={{ color: 'var(--text-color)' }}
+                  >
+                    {project.company}
+                  </h3>
+                  {project.role && (
+                    <div
+                      className="font-medium text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
+                      style={{ color: 'var(--gray)' }}
+                    >
+                      {project.role}
+                    </div>
+                  )}
+                  <div
+                    className="w-24 h-px mx-auto"
+                    style={{ backgroundColor: 'var(--slate)' }}
+                  ></div>
+                </div>
                 {project.description && (
                   <div
-                    className="font-normal mt-4 max-w-full sm:max-w-3xl mx-auto text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
+                    className="font-normal max-w-full sm:max-w-3xl mx-auto text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
                     style={{ color: 'var(--dark-gray)' }}
                   >
                     {project.description}
                   </div>
                 )}
-                <div
-                  className="w-24 h-px mx-auto"
-                  style={{ backgroundColor: 'var(--slate)' }}
-                ></div>
               </div>
             </section>
           );
@@ -502,38 +504,40 @@ export function Work() {
               className="h-[100dvh] max-h-[90dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-2 sm:px-4 md:px-8 lg:px-24 py-4 sm:py-8 md:py-12 overflow-auto bg-transparent"
             >
               <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
-                <div
-                  className="text-xs font-light tracking-widest uppercase"
-                  style={{ color: 'var(--gray)' }}
-                >
-                  {sectionNumber} Organization
-                </div>
-                <h3
-                  className="font-light tracking-tighter text-[clamp(1.5rem,4vw,2.5rem)] sm:text-[clamp(2rem,5vw,5rem)] md:text-[clamp(2.2rem,4vw,4rem)] lg:text-[clamp(2.5rem,3vw,3.5rem)]"
-                  style={{ color: 'var(--text-color)' }}
-                >
-                  {org.company}
-                </h3>
-                {org.role && (
+                <div className="space-y-4 sm:space-y-8">
                   <div
-                    className="font-medium mt-2 text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
+                    className="text-xs font-light tracking-widest uppercase"
                     style={{ color: 'var(--gray)' }}
                   >
-                    {org.role}
+                    {sectionNumber} Organization
                   </div>
-                )}
+                  <h3
+                    className="font-light tracking-tighter text-[clamp(1.5rem,4vw,2.5rem)] sm:text-[clamp(2rem,5vw,5rem)] md:text-[clamp(2.2rem,4vw,4rem)] lg:text-[clamp(2.5rem,3vw,3.5rem)]"
+                    style={{ color: 'var(--text-color)' }}
+                  >
+                    {org.company}
+                  </h3>
+                  {org.role && (
+                    <div
+                      className="font-medium text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
+                      style={{ color: 'var(--gray)' }}
+                    >
+                      {org.role}
+                    </div>
+                  )}
+                  <div
+                    className="w-24 h-px mx-auto"
+                    style={{ backgroundColor: 'var(--slate)' }}
+                  ></div>
+                </div>
                 {org.description && (
                   <div
-                    className="font-normal mt-4 max-w-full sm:max-w-3xl mx-auto text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
+                    className="font-normal max-w-full sm:max-w-3xl mx-auto text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
                     style={{ color: 'var(--dark-gray)' }}
                   >
                     {org.description}
                   </div>
                 )}
-                <div
-                  className="w-24 h-px mx-auto"
-                  style={{ backgroundColor: 'var(--slate)' }}
-                ></div>
               </div>
             </section>
           );
@@ -547,21 +551,27 @@ export function Work() {
               className="h-[100dvh] max-h-[90dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-2 sm:px-4 md:px-8 lg:px-24 py-4 sm:py-8 md:py-12 overflow-auto bg-transparent"
             >
               <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
-                <div
-                  className="text-xs font-light tracking-widest uppercase"
-                  style={{ color: 'var(--gray)' }}
-                >
-                  {sectionNumber} Article
+                <div className="space-y-4 sm:space-y-8">
+                  <div
+                    className="text-xs font-light tracking-widest uppercase"
+                    style={{ color: 'var(--gray)' }}
+                  >
+                    {sectionNumber} Article
+                  </div>
+                  <a
+                    href={article.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block font-light tracking-tight hover:underline text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1.1rem,3vw,2rem)]"
+                    style={{ color: 'var(--riso)' }}
+                  >
+                    {article.title}
+                  </a>
+                  <div
+                    className="w-24 h-px mx-auto"
+                    style={{ backgroundColor: 'var(--slate)' }}
+                  ></div>
                 </div>
-                <a
-                  href={article.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block font-light tracking-tight hover:underline mb-2 text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1.1rem,3vw,2rem)]"
-                  style={{ color: 'var(--riso)' }}
-                >
-                  {article.title}
-                </a>
               </div>
             </section>
           );
