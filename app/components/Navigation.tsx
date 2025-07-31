@@ -33,23 +33,26 @@ export function Navigation() {
   useEffect(() => {
     setHasMounted(true);
     
-    // Initialize slide positions - first slide visible, others hidden
+    // Initialize slide positions - Hero (section-00) visible first, others hidden
     const sections = document.querySelectorAll('[id^="section-"]');
-    sections.forEach((section, index) => {
+    sections.forEach((section) => {
       const element = section as HTMLElement;
       
-      if (index === 0) {
-        // First slide visible
+      if (element.id === 'section-00') {
+        // Hero slide visible by default
         element.style.opacity = '1';
         element.style.zIndex = '10';
+        element.style.transition = 'opacity 0.4s ease-in';
       } else {
-        // Other slides hidden
+        // All other slides hidden
         element.style.opacity = '0';  
         element.style.zIndex = '1';
+        element.style.transition = 'opacity 0.3s ease-out';
       }
-      
-      element.style.transition = 'opacity 0.6s ease-in-out';
     });
+    
+    // Set initial active section to -1 to represent Hero
+    setActiveSection(-1);
   }, []);
 
   useEffect(() => {
@@ -59,28 +62,52 @@ export function Navigation() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Centralized slide transition logic
+  // Centralized slide transition logic with staggered fade
   const scrollToSection = (sectionIndex: number, closeMobileMenu = false) => {
     setActiveSection(sectionIndex);
     
     // Get all sections
     const sections = document.querySelectorAll('[id^="section-"]');
+    const currentActive = document.querySelector('section[style*="opacity: 1"]') as HTMLElement;
     
-    // Apply fade transition
-    sections.forEach((section, index) => {
-      const element = section as HTMLElement;
+    // Determine target section
+    let targetSection: HTMLElement;
+    if (sectionIndex === -1) {
+      // Hero slide
+      targetSection = document.getElementById('section-00') as HTMLElement;
+    } else {
+      // Work slides: index 0 = "My Work" intro, index 1 = first project, etc.
+      targetSection = sections[sectionIndex + 1] as HTMLElement; // +1 because Hero is not in slides array
+    }
+    
+    if (!targetSection) return;
+    
+    // First phase: Fade out current slide
+    if (currentActive && currentActive !== targetSection) {
+      currentActive.style.transition = 'opacity 0.3s ease-out';
+      currentActive.style.opacity = '0';
+      currentActive.style.zIndex = '1';
       
-      if (index === sectionIndex) {
-        // Active slide - fade in
-        element.style.opacity = '1';
-        element.style.zIndex = '10';
-      } else {
-        // Hidden slides - fade out
+      // Second phase: Fade in target slide after current is fully faded
+      setTimeout(() => {
+        targetSection.style.transition = 'opacity 0.4s ease-in';
+        targetSection.style.opacity = '1';
+        targetSection.style.zIndex = '10';
+      }, 300); // Wait for fade out to complete
+    } else {
+      // If no current active slide, just fade in the target
+      targetSection.style.transition = 'opacity 0.4s ease-in';
+      targetSection.style.opacity = '1';
+      targetSection.style.zIndex = '10';
+    }
+    
+    // Ensure all other slides are hidden
+    sections.forEach((section) => {
+      const element = section as HTMLElement;
+      if (element !== targetSection && element !== currentActive) {
         element.style.opacity = '0';
         element.style.zIndex = '1';
       }
-      
-      element.style.transition = 'opacity 0.6s ease-in-out';
     });
     
     if (closeMobileMenu) setMobileNavOpen(false);
@@ -145,10 +172,21 @@ export function Navigation() {
         }
 
         let targetSection = activeSection;
-        if (e.key === 'ArrowDown' && activeSection < slides.length - 1) {
-          targetSection = activeSection + 1;
-        } else if (e.key === 'ArrowUp' && activeSection > 0) {
-          targetSection = activeSection - 1;
+        
+        if (e.key === 'ArrowDown') {
+          // Going forward: Hero (-1) -> My Work (0) -> Project 1 (1) -> etc.
+          if (activeSection === -1) {
+            targetSection = 0; // Hero to My Work
+          } else if (activeSection < slides.length - 1) {
+            targetSection = activeSection + 1;
+          }
+        } else if (e.key === 'ArrowUp') {
+          // Going backward: Project 1 (1) -> My Work (0) -> Hero (-1)
+          if (activeSection === 0) {
+            targetSection = -1; // My Work to Hero
+          } else if (activeSection > 0) {
+            targetSection = activeSection - 1;
+          }
         }
 
         if (targetSection !== activeSection) {
@@ -175,10 +213,20 @@ export function Navigation() {
 
       let targetSection = activeSection;
 
-      if (e.deltaY > 0 && activeSection < slides.length - 1) {
-        targetSection = activeSection + 1;
-      } else if (e.deltaY < 0 && activeSection > 0) {
-        targetSection = activeSection - 1;
+      if (e.deltaY > 0) {
+        // Scrolling down: Hero (-1) -> My Work (0) -> Project 1 (1) -> etc.
+        if (activeSection === -1) {
+          targetSection = 0; // Hero to My Work
+        } else if (activeSection < slides.length - 1) {
+          targetSection = activeSection + 1;
+        }
+      } else if (e.deltaY < 0) {
+        // Scrolling up: Project 1 (1) -> My Work (0) -> Hero (-1)
+        if (activeSection === 0) {
+          targetSection = -1; // My Work to Hero
+        } else if (activeSection > 0) {
+          targetSection = activeSection - 1;
+        }
       }
 
       if (targetSection !== activeSection) {
@@ -211,7 +259,7 @@ export function Navigation() {
   // Only render after mount
   if (!hasMounted) return null;
 
-  // Navigation numbers
+  // Navigation numbers - Hero gets 00, skip "My Work" intro, first project gets 01
   const totalSections = slides.length;
   const getVisibleNumbers = () => {
     const availableHeight = windowHeight - 128;
@@ -224,7 +272,12 @@ export function Navigation() {
       start = Math.max(0, totalSections - maxVisible);
     }
     const visibleNumbers = [];
-    for (let i = start; i <= end; i++) {
+    // Add Hero slide as special case (index -1 represents Hero = 00)
+    if (start === 0) {
+      visibleNumbers.push(-1); // Hero slide
+    }
+    // Add work project slides (skip index 0 which is "My Work" intro)
+    for (let i = Math.max(1, start); i <= end; i++) {
       visibleNumbers.push(i);
     }
     return visibleNumbers;
@@ -335,13 +388,24 @@ export function Navigation() {
       >
         <div className="flex flex-col justify-evenly h-full py-4 w-full items-center bg-transparent flex-1">
           {visibleNumbers.map((visibleIdx) => {
-            const slide = slides[visibleIdx];
-            const sectionNumber = String(visibleIdx).padStart(2, '0');
-            const isActive = activeSection === visibleIdx;
+            const isHeroSlide = visibleIdx === -1;
+            const slide = isHeroSlide ? null : slides[visibleIdx];
+            
+            // Hero = 00, first project = 01, etc. (skip "My Work" intro)
+            const sectionNumber = isHeroSlide ? '00' : String(visibleIdx).padStart(2, '0');
+            
+            // Check if this navigation item is active
+            const isActive = isHeroSlide 
+              ? (activeSection === -1) // Hero slide is activeSection -1
+              : (activeSection === visibleIdx);
+            
+            // Target section to navigate to  
+            const targetSection = isHeroSlide ? -1 : visibleIdx;
+            
             return (
               <button
-                key={slide?.id || visibleIdx}
-                onClick={() => scrollToSection(visibleIdx, false)}
+                key={isHeroSlide ? 'hero' : (slide?.id || visibleIdx)}
+                onClick={() => scrollToSection(targetSection, false)}
                 className="text-xs tracking-widest transition-all duration-300 text-left py-1"
                 style={{
                   color: isActive ? 'var(--slate)' : 'var(--gray)',
