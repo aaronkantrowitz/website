@@ -86,10 +86,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
-  /* Optimize scroll performance */
-  -webkit-overflow-scrolling: touch;
-  scroll-padding-top: 0;
+  /* Disable default scrolling for slide-based navigation */
+  overflow: hidden;
+  height: 100vh;
 }
 
 /* Add scroll timing optimization */
@@ -130,6 +129,9 @@ body {
   text-rendering: optimizeLegibility;
   font-variant-ligatures: common-ligatures;
   font-kerning: auto;
+  /* Full height for slide layout */
+  height: 100%;
+  overflow: hidden;
 }
 
 /* Ultra-thin typography for modern aesthetic */
@@ -161,12 +163,21 @@ section {
   text-rendering: optimizeLegibility;
 }
 
-/* Optimize specific slide sections */
+/* Slide-based layout - all slides in the same viewport */
 section[id^='section-'] {
+  /* Position slides absolutely within the container */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Hide all slides by default to prevent FOUC */
+  opacity: 0;
+  z-index: 1;
   /* Force hardware acceleration */
   transform: translate3d(0, 0, 0);
   will-change: transform;
-  /* Prevent text from becoming blurry during scroll */
+  /* Prevent text from becoming blurry during transitions */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Ensure content stays crisp */
@@ -176,6 +187,19 @@ section[id^='section-'] {
   contain: layout style paint;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  /* Smooth transitions */
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* Show the first slide by default (Hero) */
+section[id='section-00'] {
+  opacity: 1;
+  z-index: 10;
+}
+
+/* Ensure navigation stays on top */
+nav {
+  z-index: 50 !important;
 }
 
 /* Prevent text glitching during scroll animations */

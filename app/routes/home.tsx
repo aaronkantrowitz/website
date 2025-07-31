@@ -62,13 +62,15 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen">
+    <>
       <Navigation />
-      <div className="flex-1 flex flex-col">
-        <Hero />
-        <Work />
-        <Footer />
+      <div className="fixed inset-0 overflow-hidden">
+        <div className="relative w-full h-full">
+          <Hero />
+          <Work />
+          <Footer />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

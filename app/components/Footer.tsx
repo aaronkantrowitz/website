@@ -1,69 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 export function Footer() {
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = document.getElementById('section-00');
-      if (!section) {
-        setShow(false);
-        return;
-      }
-      const rect = section.getBoundingClientRect();
-      // If the bottom of the first section is above the top of the viewport, show the footer
-      setShow(rect.bottom < 0);
-    };
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const topSection = document.getElementById('section-00');
-    if (topSection) {
-      topSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
   return (
-    <footer
-      className={`fixed bottom-0 left-0 w-full z-40 py-3 flex justify-center items-center pointer-events-none transition-opacity duration-300 ${
-        show ? 'opacity-100' : 'opacity-0'
-      }`}
+    <section
+      id="section-footer"
+      className="h-[100dvh] max-h-[90dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-2 sm:px-4 md:px-8 lg:px-24 py-4 sm:py-8 md:py-12 overflow-auto"
+      style={{ backgroundColor: 'var(--tone)' }}
     >
-      {/* Gradient fade overlay using brand colors */}
-      <div
-        className="absolute inset-0 w-full h-full pointer-events-none select-none"
-        style={{
-          background: `linear-gradient(to top,
-            var(--background-color) 0%,
-            var(--footer-gradient-1) 40%,
-            var(--footer-gradient-2) 60%,
-            transparent 100%)`,
-        }}
-        aria-hidden="true"
-      />
-      <a
-        href="#section-00"
-        onClick={handleClick}
-        className="relative text-lg tracking-widest font-light transition-colors duration-200 pointer-events-auto"
-        style={{
-          color: 'var(--gray)',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.color = 'var(--slate)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.color = 'var(--gray)';
-        }}
-        aria-label="Scroll to top"
-      >
-        Aaron Kantrowitz
-      </a>
-    </footer>
+      <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
+        <div className="space-y-12">
+          <h2
+            className="font-light tracking-tighter text-[clamp(2rem,5vw,3.5rem)] sm:text-[clamp(2.5rem,5vw,6rem)] md:text-[clamp(3rem,4vw,5rem)] lg:text-[clamp(3.5rem,3vw,4.5rem)]"
+            style={{ color: 'var(--text-color)' }}
+          >
+            Aaron Kantrowitz
+          </h2>
+          <div
+            className="w-32 h-px mx-auto"
+            style={{ backgroundColor: 'var(--slate)' }}
+          ></div>
+        </div>
+        <p
+          className="font-normal leading-relaxed max-w-full sm:max-w-4xl mx-auto text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)]"
+          style={{ color: 'var(--dark-gray)' }}
+        >
+          Thanks for stopping by. Let's build something meaningful together.
+        </p>
+      </div>
+    </section>
   );
 }

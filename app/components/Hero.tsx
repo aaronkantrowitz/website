@@ -97,10 +97,21 @@ function AsciiMorphIndicator() {
 
   const [morph, setMorph] = useState(0); // 0 = wave, 1 = AK
   const [display, setDisplay] = useState<string[][]>([[], []]);
+  const [isReady, setIsReady] = useState(false);
   const tRef = useRef(0);
   const morphDir = useRef(1);
 
+  // Wait for fonts and styles to load before starting animation
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 100); // Small delay to ensure everything is rendered
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!isReady) return;
+    
     let frame: number;
     function animate() {
       tRef.current += 0.012;
@@ -160,7 +171,33 @@ function AsciiMorphIndicator() {
     }
     frame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(frame);
-  }, [morph]);
+  }, [morph, isReady]);
+
+  if (!isReady) {
+    // Show placeholder to prevent layout shift
+    return (
+      <div
+        style={{
+          fontFamily:
+            'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+          fontSize: '0.7rem',
+          letterSpacing: '0.05em',
+          color: 'var(--gray)',
+          textAlign: 'center',
+          userSelect: 'none',
+          opacity: 0.75,
+          lineHeight: 1.02,
+          minHeight: '2em',
+          whiteSpace: 'pre',
+          fontVariantLigatures: 'none',
+        }}
+        aria-hidden="true"
+      >
+        <div style={{ height: '0.9em' }}>&nbsp;</div>
+        <div style={{ height: '0.9em' }}>&nbsp;</div>
+      </div>
+    );
+  }
 
   return (
     <div
