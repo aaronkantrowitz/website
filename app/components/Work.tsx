@@ -485,7 +485,7 @@ export function Work() {
                 </div>
                 {project.description && (
                   <div
-                    className="font-normal max-w-full sm:max-w-3xl mx-auto text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
+                    className="font-normal max-w-full sm:max-w-3xl mx-auto text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)]"
                     style={{ color: 'var(--dark-gray)' }}
                   >
                     {project.description}
@@ -532,7 +532,7 @@ export function Work() {
                 </div>
                 {org.description && (
                   <div
-                    className="font-normal max-w-full sm:max-w-3xl mx-auto text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
+                    className="font-normal max-w-full sm:max-w-3xl mx-auto text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)]"
                     style={{ color: 'var(--dark-gray)' }}
                   >
                     {org.description}
@@ -562,7 +562,7 @@ export function Work() {
                     href={article.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block font-light tracking-tight hover:underline text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1.1rem,3vw,2rem)]"
+                    className="block font-light tracking-tight hover:underline text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)]"
                     style={{ color: 'var(--riso)' }}
                   >
                     {article.title}

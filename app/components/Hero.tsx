@@ -40,7 +40,7 @@ export function Hero() {
         </div>
 
         <div
-          className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center text-[clamp(0.85rem,1.8vw,1.1rem)] font-light"
+          className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)] font-light"
           style={{ color: 'var(--gray)' }}
         >
           <span>CTO & Founder</span>
