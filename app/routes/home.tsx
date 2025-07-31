@@ -1,4 +1,5 @@
 import type { Route } from './+types/home';
+import React from 'react';
 import { Hero } from '../components/Hero';
 import { Work } from '../components/Work';
 import { Navigation } from '../components/Navigation';
@@ -61,6 +62,34 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
+  // ASCII AK Console Art
+  React.useEffect(() => {
+    console.log(
+      '%c' +
+        '     ╔═╗ ╦╔═\n' +
+        '     ╠═╣ ╠╩╗\n' +
+        '     ╩ ╩ ╩ ╩\n' +
+        '\n' +
+        '  Aaron Kantrowitz\n' +
+        '  Digital Architect\n',
+      'color: #6b7280; font-family: monospace; font-size: 14px; line-height: 1.2;'
+    );
+
+    console.log(
+      '%cBuilding bridges between imagination and reality',
+      'color: #9ca3af; font-style: italic; font-size: 12px;'
+    );
+
+    console.log(
+      '%c' +
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+        '  A      K      A      K     \n' +
+        '  A A    K K    A A    K  K  \n' +
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+      'color: #4b5563; font-family: monospace; font-size: 10px;'
+    );
+  }, []);
+
   return (
     <>
       <Navigation />
