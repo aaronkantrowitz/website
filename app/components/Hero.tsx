@@ -52,7 +52,7 @@ export function Hero() {
 
       {/* AI-inspired, minimal ASCII morph indicator - responsive positioning */}
       <div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 select-none
+        className="absolute bottom-16 left-1/2 transform -translate-x-1/2 select-none
                    sm:bottom-8 md:bottom-12 lg:bottom-16
                    scale-75 sm:scale-85 md:scale-90 lg:scale-100"
         aria-hidden="true"
