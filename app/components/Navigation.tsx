@@ -560,9 +560,34 @@ export function Navigation() {
               borderRight: '1px solid var(--ivory-dark)',
             }}
           >
-            <div className="flex flex-col h-full py-20 px-2">
-              <div className="flex-1 overflow-y-auto" ref={mobileNavListRef}>
-                <div className="flex flex-col space-y-2">
+            <div className="flex flex-col h-full pt-20 pb-4 px-2">
+              <div className="flex-1 overflow-y-auto flex items-center" ref={mobileNavListRef}>
+                <div className="flex flex-col justify-evenly h-full w-full">
+                  {/* Hero slide (00) */}
+                  <button
+                    key="hero"
+                    ref={activeSection === -1 ? activeBtnRef : undefined}
+                    onClick={() => scrollToSection(-1, true)}
+                    className="text-sm tracking-widest transition-all duration-300 text-center py-2 rounded"
+                    style={{
+                      color: activeSection === -1 ? 'var(--slate)' : 'var(--gray)',
+                      fontWeight: activeSection === -1 ? 'bold' : '300',
+                      backgroundColor: activeSection === -1
+                        ? 'var(--ivory-med)'
+                        : 'transparent',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--slate)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = activeSection === -1
+                        ? 'var(--slate)'
+                        : 'var(--gray)';
+                    }}
+                  >
+                    00
+                  </button>
+                  {/* Work slides */}
                   {Array.from({ length: totalSections }, (_, index) => {
                     const isActive = activeSection === index;
                     return (
@@ -604,7 +629,7 @@ export function Navigation() {
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = 'var(--slate)';
-                    e.currentTarget.style.backgroundColor = 'var(--ivory-dark)';
+                    e.currentTarget.style.backgroundColor = 'var(--nav-hover-bg)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.color = 'var(--gray)';
