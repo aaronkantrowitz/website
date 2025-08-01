@@ -23,6 +23,10 @@ export function Navigation() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
   const lastNavigationTime = useRef(0);
+  
+  // Touch state for swipe detection
+  const touchStartY = useRef<number | null>(null);
+  const touchEndY = useRef<number | null>(null);
 
   // Refs
   const slides = getSortedSlides();
@@ -157,6 +161,79 @@ export function Navigation() {
 
   // No need for scroll tracking in slide-based navigation
   // Active section is managed directly through state
+
+  // Touch event handlers for swipe detection
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      touchEndY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = () => {
+      if (!touchStartY.current || !touchEndY.current) return;
+
+      const currentTime = Date.now();
+      
+      // Debouncing
+      if (isNavigating || currentTime - lastNavigationTime.current < 150) {
+        touchStartY.current = null;
+        touchEndY.current = null;
+        return;
+      }
+
+      const deltaY = touchStartY.current - touchEndY.current;
+      const minSwipeDistance = 50; // Minimum distance for a swipe
+
+      if (Math.abs(deltaY) < minSwipeDistance) {
+        touchStartY.current = null;
+        touchEndY.current = null;
+        return;
+      }
+
+      let targetSection = activeSection;
+
+      if (deltaY > 0) {
+        // Swiped up - go to next slide
+        if (activeSection === -1) {
+          targetSection = 0; // Hero to My Work
+        } else if (activeSection < slides.length - 1) {
+          targetSection = activeSection + 1;
+        }
+      } else {
+        // Swiped down - go to previous slide
+        if (activeSection === 0) {
+          targetSection = -1; // My Work to Hero
+        } else if (activeSection > 0) {
+          targetSection = activeSection - 1;
+        }
+      }
+
+      if (targetSection !== activeSection) {
+        lastNavigationTime.current = currentTime;
+        setIsNavigating(true);
+        scrollToSection(targetSection);
+        setTimeout(() => setIsNavigating(false), 600);
+      }
+
+      // Reset touch positions
+      touchStartY.current = null;
+      touchEndY.current = null;
+    };
+
+    // Add touch event listeners
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [activeSection, slides.length, isNavigating, scrollToSection]);
 
   // Simplified navigation event handlers for slide-based navigation
   useEffect(() => {
