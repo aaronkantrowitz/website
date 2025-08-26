@@ -328,7 +328,7 @@ const companyRoles: Record<string, { role: string; description: string }> = {
   'Spacebox Digital': {
     role: 'Chief Technology Officer',
     description:
-      'CTO leading AI, technical strategy, and application development for a digital innovation agency.',
+      'Chief Technology Officer (CTO) leading AI, technical strategy, and application development for a digital innovation agency.',
   },
   Stealth: {
     role: 'Founder',

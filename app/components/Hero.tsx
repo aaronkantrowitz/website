@@ -14,14 +14,14 @@ export function Hero() {
           >
             00
           </div>
-          
+
           <h1
             className="font-light tracking-tighter text-[clamp(2rem,5vw,3.5rem)] sm:text-[clamp(2.5rem,5vw,6rem)] md:text-[clamp(3rem,4vw,5rem)] lg:text-[clamp(3.5rem,3vw,4.5rem)]"
             style={{ color: 'var(--text-color)' }}
           >
             Aaron Kantrowitz
           </h1>
-          
+
           <div
             className="w-32 h-px mx-auto"
             style={{ backgroundColor: 'var(--slate)' }}
@@ -43,7 +43,7 @@ export function Hero() {
           className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)] font-light"
           style={{ color: 'var(--gray)' }}
         >
-          <span>CTO & Founder</span>
+          <span>Engineering leader & builder</span>
           <span className="hidden sm:block">•</span>
           <span>Based in San Diego, California</span>
         </div>
@@ -110,7 +110,7 @@ function AsciiMorphIndicator() {
 
   useEffect(() => {
     if (!isReady) return;
-    
+
     let frame: number;
     function animate() {
       tRef.current += 0.012;

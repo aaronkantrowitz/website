@@ -8,12 +8,12 @@ import { Footer } from '../components/Footer';
 export function meta({}: Route.MetaArgs) {
   return [
     {
-      title: 'Aaron Kantrowitz | CTO, Digital Product Leader & Storyteller',
+      title: 'Aaron Kantrowitz | Engineering leader & builder',
     },
     {
       name: 'description',
       content:
-        'Aaron Kantrowitz is a CTO, digital product leader, and storyteller who turns ideas into digital experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
+        'Aaron Kantrowitz is an engineering leader & builder who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
     },
     {
       name: 'keywords',
@@ -26,12 +26,12 @@ export function meta({}: Route.MetaArgs) {
     },
     {
       property: 'og:title',
-      content: 'Aaron Kantrowitz | CTO, Digital Product Leader & Storyteller',
+      content: 'Aaron Kantrowitz | Engineering leader & builder',
     },
     {
       property: 'og:description',
       content:
-        'CTO and digital product leader blending engineering and storytelling to build bridges between imagination and reality. Leading teams to create work that matters.',
+        'Engineering leader & buildery. Leading teams to create work that matters.',
     },
     {
       property: 'og:type',
@@ -51,12 +51,12 @@ export function meta({}: Route.MetaArgs) {
     },
     {
       name: 'twitter:title',
-      content: 'Aaron Kantrowitz | CTO, Digital Product Leader & Storyteller',
+      content: 'Aaron Kantrowitz | Engineering leader & builder',
     },
     {
       name: 'twitter:description',
       content:
-        'Aaron Kantrowitz is a CTO, digital product leader, and storyteller who turns ideas into digital experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
+        'Aaron Kantrowitz is an engineering leader & builder who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
     },
   ];
 }
@@ -71,7 +71,7 @@ export default function Home() {
         '     ╩ ╩ ╩ ╩\n' +
         '\n' +
         '  Aaron Kantrowitz\n' +
-        '  Digital Architect\n',
+        '  Engineering leader & builder\n',
       'color: #6b7280; font-family: monospace; font-size: 14px; line-height: 1.2;'
     );
 
