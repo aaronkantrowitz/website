@@ -33,9 +33,8 @@ export function Hero() {
             className="font-normal leading-relaxed text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)] max-w-full sm:max-w-4xl mx-auto"
             style={{ color: 'var(--dark-gray)' }}
           >
-            I turn ideas into digital experiences—part engineer, part
-            storyteller. I build bridges between imagination and reality,
-            leading teams to create work that matters.
+            I turn ideas into experiences. Building bridges between thought and
+            reality, leading teams to create work that matters.
           </p>
         </div>
 
