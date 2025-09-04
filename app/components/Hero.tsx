@@ -42,7 +42,7 @@ export function Hero() {
           className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)] font-light"
           style={{ color: 'var(--gray)' }}
         >
-          <span>Technical Program Leader, Engineering and AI Systems</span>
+          <span>Orchestrator of Human and AI Systems</span>
           <span className="hidden sm:block">•</span>
           <span>Based in San Diego, California</span>
         </div>

@@ -8,13 +8,12 @@ import { Footer } from '../components/Footer';
 export function meta({}: Route.MetaArgs) {
   return [
     {
-      title:
-        'Aaron Kantrowitz | Technical Program Leader, Engineering and AI Systems',
+      title: 'Aaron Kantrowitz | Orchestrator of Human and AI Systems',
     },
     {
       name: 'description',
       content:
-        'Aaron Kantrowitz is an Technical Program Leader, Engineering and AI Systems who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
+        'Aaron Kantrowitz is an Orchestrator of Human and AI Systems who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
     },
     {
       name: 'keywords',
@@ -27,13 +26,12 @@ export function meta({}: Route.MetaArgs) {
     },
     {
       property: 'og:title',
-      content:
-        'Aaron Kantrowitz | Technical Program Leader, Engineering and AI Systems',
+      content: 'Aaron Kantrowitz | Orchestrator of Human and AI Systems',
     },
     {
       property: 'og:description',
       content:
-        'Technical Program Leader, Engineering and AI Systemsy. Leading teams to create work that matters.',
+        'Orchestrator of Human and AI Systemsy. Leading teams to create work that matters.',
     },
     {
       property: 'og:type',
@@ -53,13 +51,12 @@ export function meta({}: Route.MetaArgs) {
     },
     {
       name: 'twitter:title',
-      content:
-        'Aaron Kantrowitz | Technical Program Leader, Engineering and AI Systems',
+      content: 'Aaron Kantrowitz | Orchestrator of Human and AI Systems',
     },
     {
       name: 'twitter:description',
       content:
-        'Aaron Kantrowitz is an Technical Program Leader, Engineering and AI Systems who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
+        'Aaron Kantrowitz is an Orchestrator of Human and AI Systems who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
     },
   ];
 }
@@ -74,7 +71,7 @@ export default function Home() {
         '     ╩ ╩ ╩ ╩\n' +
         '\n' +
         '  Aaron Kantrowitz\n' +
-        '  Technical Program Leader, Engineering and AI Systems\n',
+        '  Orchestrator of Human and AI Systems\n',
       'color: #6b7280; font-family: monospace; font-size: 14px; line-height: 1.2;'
     );
 
