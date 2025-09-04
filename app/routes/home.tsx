@@ -8,12 +8,13 @@ import { Footer } from '../components/Footer';
 export function meta({}: Route.MetaArgs) {
   return [
     {
-      title: 'Aaron Kantrowitz | Engineering leader & builder',
+      title:
+        'Aaron Kantrowitz | Technical Program Leader, Engineering and AI Systems',
     },
     {
       name: 'description',
       content:
-        'Aaron Kantrowitz is an engineering leader & builder who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
+        'Aaron Kantrowitz is an Technical Program Leader, Engineering and AI Systems who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
     },
     {
       name: 'keywords',
@@ -26,12 +27,13 @@ export function meta({}: Route.MetaArgs) {
     },
     {
       property: 'og:title',
-      content: 'Aaron Kantrowitz | Engineering leader & builder',
+      content:
+        'Aaron Kantrowitz | Technical Program Leader, Engineering and AI Systems',
     },
     {
       property: 'og:description',
       content:
-        'Engineering leader & buildery. Leading teams to create work that matters.',
+        'Technical Program Leader, Engineering and AI Systemsy. Leading teams to create work that matters.',
     },
     {
       property: 'og:type',
@@ -51,12 +53,13 @@ export function meta({}: Route.MetaArgs) {
     },
     {
       name: 'twitter:title',
-      content: 'Aaron Kantrowitz | Engineering leader & builder',
+      content:
+        'Aaron Kantrowitz | Technical Program Leader, Engineering and AI Systems',
     },
     {
       name: 'twitter:description',
       content:
-        'Aaron Kantrowitz is an engineering leader & builder who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
+        'Aaron Kantrowitz is an Technical Program Leader, Engineering and AI Systems who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups.',
     },
   ];
 }
@@ -71,7 +74,7 @@ export default function Home() {
         '     ╩ ╩ ╩ ╩\n' +
         '\n' +
         '  Aaron Kantrowitz\n' +
-        '  Engineering leader & builder\n',
+        '  Technical Program Leader, Engineering and AI Systems\n',
       'color: #6b7280; font-family: monospace; font-size: 14px; line-height: 1.2;'
     );
 
