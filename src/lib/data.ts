@@ -1,3 +1,33 @@
+// Define discriminated union type for slides
+export type IntroSlide = {
+  type: 'intro';
+  id: string;
+  title: string;
+  description: string;
+};
+export type ProjectSlide = {
+  type: 'project';
+  id: string;
+  company: string;
+  role?: string;
+  description?: string;
+};
+export type OrganizationSlide = {
+  type: 'organization';
+  id: string;
+  company: string;
+  role?: string;
+  description?: string;
+};
+export type ArticleSlide = {
+  type: 'article';
+  id: string;
+  title: string;
+  link: string;
+  coverImage?: string;
+};
+export type Slide = IntroSlide | ProjectSlide | OrganizationSlide | ArticleSlide;
+
 const companies = [
   'Southtree',
   'Barnett Outdoors',
@@ -48,36 +78,6 @@ const companies = [
   'REQ',
   'BVA',
 ];
-
-// Define discriminated union type for slides
-type IntroSlide = {
-  type: 'intro';
-  id: string;
-  title: string;
-  description: string;
-};
-type ProjectSlide = {
-  type: 'project';
-  id: string;
-  company: string;
-  role?: string;
-  description?: string;
-};
-type OrganizationSlide = {
-  type: 'organization';
-  id: string;
-  company: string;
-  role?: string;
-  description?: string;
-};
-type ArticleSlide = {
-  type: 'article';
-  id: string;
-  title: string;
-  link: string;
-  coverImage?: string;
-};
-type Slide = IntroSlide | ProjectSlide | OrganizationSlide | ArticleSlide;
 
 // Blog post slides (simple, hardcoded)
 const articleSlides: ArticleSlide[] = [
@@ -369,7 +369,9 @@ export const slides: Slide[] = [
     type: 'intro',
     id: 'section-01',
     title: 'My Work',
-    description: `My work is about blending talent and technology to solve puzzles and bring ideas to life.\n\nEvery project is a new journey—making something greater than the sum of its parts.`,
+    description: `My work is about blending talent and technology to solve puzzles and bring ideas to life.
+
+Every project is a new journey—making something greater than the sum of its parts.`,
   },
   ...companies.map((company, index) => {
     const roleData = companyRoles[company] || { role: '', description: '' };
@@ -392,195 +394,6 @@ export const slides: Slide[] = [
   }),
   ...articleSlides,
 ];
-
-export function Work() {
-  // Use the exported slides array, sort all except the intro
-  const intro = slides.find((s) => s.type === 'intro') as IntroSlide;
-  const rest = slides.filter((s) => s.type !== 'intro');
-  // Mix and sort all slides except intro alphabetically by company/title
-  const sortedSlides: Slide[] = [
-    intro,
-    ...rest.sort((a, b) => {
-      let aKey = '';
-      let bKey = '';
-      if (a.type === 'project' || a.type === 'organization')
-        aKey = (a as ProjectSlide | OrganizationSlide).company;
-      else if (a.type === 'article') aKey = (a as ArticleSlide).title;
-      if (b.type === 'project' || b.type === 'organization')
-        bKey = (b as ProjectSlide | OrganizationSlide).company;
-      else if (b.type === 'article') bKey = (b as ArticleSlide).title;
-      return aKey.localeCompare(bKey);
-    }),
-  ];
-
-  return (
-    <>
-      {sortedSlides.map((slide, index) => {
-        if (slide.type === 'intro') {
-          const intro = slide as IntroSlide;
-          return (
-            <section
-              key={intro.id}
-              id={intro.id}
-              className="h-[100dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-6 sm:px-4 md:px-8 lg:px-24 pt-16 pb-20 sm:py-8 md:py-12 overflow-auto"
-              style={{ backgroundColor: 'var(--tone)' }}
-            >
-              <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
-                <div className="space-y-12">
-                  <h2
-                    className="font-light tracking-tighter text-[clamp(2rem,5vw,3.5rem)] sm:text-[clamp(2.5rem,5vw,6rem)] md:text-[clamp(3rem,4vw,5rem)] lg:text-[clamp(3.5rem,3vw,4.5rem)]"
-                    style={{ color: 'var(--text-color)' }}
-                  >
-                    {intro.title}
-                  </h2>
-                  <div
-                    className="w-32 h-px mx-auto"
-                    style={{ backgroundColor: 'var(--slate)' }}
-                  ></div>
-                </div>
-                <p
-                  className="font-normal leading-relaxed max-w-full sm:max-w-4xl mx-auto text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)]"
-                  style={{ color: 'var(--dark-gray)' }}
-                >
-                  {intro.description}
-                </p>
-              </div>
-            </section>
-          );
-        } else if (slide.type === 'project') {
-          const project = slide as ProjectSlide;
-          const sectionNumber = String(index).padStart(2, '0');
-          return (
-            <section
-              key={project.id}
-              id={project.id}
-              className="h-[100dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-6 sm:px-4 md:px-8 lg:px-24 pt-16 pb-20 sm:py-8 md:py-12 overflow-auto bg-transparent"
-            >
-              <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
-                <div className="space-y-4 sm:space-y-8">
-                  <div
-                    className="text-xs font-light tracking-widest uppercase"
-                    style={{ color: 'var(--gray)' }}
-                  >
-                    {sectionNumber} Project
-                  </div>
-                  <h3
-                    className="font-light tracking-tighter text-[clamp(1.5rem,4vw,2.5rem)] sm:text-[clamp(2rem,5vw,5rem)] md:text-[clamp(2.2rem,4vw,4rem)] lg:text-[clamp(2.5rem,3vw,3.5rem)]"
-                    style={{ color: 'var(--text-color)' }}
-                  >
-                    {project.company}
-                  </h3>
-                  {project.role && (
-                    <div
-                      className="font-medium text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
-                      style={{ color: 'var(--gray)' }}
-                    >
-                      {project.role}
-                    </div>
-                  )}
-                  <div
-                    className="w-24 h-px mx-auto"
-                    style={{ backgroundColor: 'var(--slate)' }}
-                  ></div>
-                </div>
-                {project.description && (
-                  <div
-                    className="font-normal max-w-full sm:max-w-3xl mx-auto text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)]"
-                    style={{ color: 'var(--dark-gray)' }}
-                  >
-                    {project.description}
-                  </div>
-                )}
-              </div>
-            </section>
-          );
-        } else if (slide.type === 'organization') {
-          const org = slide as OrganizationSlide;
-          const sectionNumber = String(index).padStart(2, '0');
-          return (
-            <section
-              key={org.id}
-              id={org.id}
-              className="h-[100dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-6 sm:px-4 md:px-8 lg:px-24 pt-16 pb-20 sm:py-8 md:py-12 overflow-auto bg-transparent"
-            >
-              <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
-                <div className="space-y-4 sm:space-y-8">
-                  <div
-                    className="text-xs font-light tracking-widest uppercase"
-                    style={{ color: 'var(--gray)' }}
-                  >
-                    {sectionNumber} Organization
-                  </div>
-                  <h3
-                    className="font-light tracking-tighter text-[clamp(1.5rem,4vw,2.5rem)] sm:text-[clamp(2rem,5vw,5rem)] md:text-[clamp(2.2rem,4vw,4rem)] lg:text-[clamp(2.5rem,3vw,3.5rem)]"
-                    style={{ color: 'var(--text-color)' }}
-                  >
-                    {org.company}
-                  </h3>
-                  {org.role && (
-                    <div
-                      className="font-medium text-[clamp(0.95rem,1.8vw,1.1rem)] sm:text-[clamp(1rem,2vw,1.3rem)]"
-                      style={{ color: 'var(--gray)' }}
-                    >
-                      {org.role}
-                    </div>
-                  )}
-                  <div
-                    className="w-24 h-px mx-auto"
-                    style={{ backgroundColor: 'var(--slate)' }}
-                  ></div>
-                </div>
-                {org.description && (
-                  <div
-                    className="font-normal max-w-full sm:max-w-3xl mx-auto text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)]"
-                    style={{ color: 'var(--dark-gray)' }}
-                  >
-                    {org.description}
-                  </div>
-                )}
-              </div>
-            </section>
-          );
-        } else if (slide.type === 'article') {
-          const article = slide as ArticleSlide;
-          const sectionNumber = String(index).padStart(2, '0');
-          return (
-            <section
-              key={article.id}
-              id={article.id}
-              className="h-[100dvh] sm:max-h-screen w-full flex flex-col justify-center items-center px-6 sm:px-4 md:px-8 lg:px-24 pt-16 pb-20 sm:py-8 md:py-12 overflow-auto bg-transparent"
-            >
-              <div className="max-w-full sm:max-w-screen-md w-full mx-auto text-center flex flex-col justify-center flex-1 space-y-4 sm:space-y-8 md:space-y-12">
-                <div className="space-y-4 sm:space-y-8">
-                  <div
-                    className="text-xs font-light tracking-widest uppercase"
-                    style={{ color: 'var(--gray)' }}
-                  >
-                    {sectionNumber} Article
-                  </div>
-                  <a
-                    href={article.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block font-light tracking-tight hover:underline text-[clamp(1rem,2.8vw,1.3rem)] sm:text-[clamp(1.1rem,2.5vw,2rem)]"
-                    style={{ color: 'var(--riso)' }}
-                  >
-                    {article.title}
-                  </a>
-                  <div
-                    className="w-24 h-px mx-auto"
-                    style={{ backgroundColor: 'var(--slate)' }}
-                  ></div>
-                </div>
-              </div>
-            </section>
-          );
-        }
-        return null;
-      })}
-    </>
-  );
-}
 
 // Export a function to get the sorted slides (intro + sorted rest)
 export function getSortedSlides(): Slide[] {
