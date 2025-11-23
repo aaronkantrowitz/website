@@ -26,7 +26,11 @@ export type ArticleSlide = {
   link: string;
   coverImage?: string;
 };
-export type Slide = IntroSlide | ProjectSlide | OrganizationSlide | ArticleSlide;
+export type Slide =
+  | IntroSlide
+  | ProjectSlide
+  | OrganizationSlide
+  | ArticleSlide;
 
 const companies = [
   'Southtree',
@@ -49,7 +53,6 @@ const companies = [
   'Jessica Simpson',
   'Ghurka',
   'Bitchin Hearts',
-  'Nat Nast Luxury Originals',
   'Lost Symphony',
   'Kopari Beauty',
   'MVMT Watches',
@@ -73,7 +76,7 @@ const companies = [
   'Home Depot',
   'Accumen',
   'Spacebox Digital',
-  'Stealth',
+  'CapCheck',
   'Akantro',
   'REQ',
   'BVA',
@@ -89,27 +92,9 @@ const articleSlides: ArticleSlide[] = [
   },
   {
     type: 'article',
-    id: 'section-blog-02',
-    title: 'RIP: SEO Is Dead',
-    link: 'https://aaronkantrowitz.hashnode.dev/rip-seo-is-dead',
-  },
-  {
-    type: 'article',
-    id: 'section-blog-03',
-    title: '31 Goals for the Remainder of 2016 ~ 2025',
-    link: 'https://aaronkantrowitz.hashnode.dev/31-goals-for-the-remainder-of-2016',
-  },
-  {
-    type: 'article',
     id: 'section-blog-04',
     title: 'Being the Best You That You Can Be',
     link: 'https://aaronkantrowitz.hashnode.dev/being-the-best-you-that-you-can-be',
-  },
-  {
-    type: 'article',
-    id: 'section-blog-05',
-    title: "I'm Disappointed in Apple Today",
-    link: 'https://aaronkantrowitz.hashnode.dev/im-disappointed-in-apple-today',
   },
 ];
 
@@ -118,243 +103,243 @@ const companyRoles: Record<string, { role: string; description: string }> = {
   Southtree: {
     role: 'Lead Developer',
     description:
-      'Led end-to-end development, CRO, design, and digital transformation for a leading media digitization brand.',
+      'Transformed a traditional media company into a digital powerhouse, architected systems that processed millions of family memories.',
   },
   'Barnett Outdoors': {
     role: 'Lead Developer',
     description:
-      'Oversaw web development, CRO, and design for a top outdoor sporting goods company.',
+      'Built rugged e-commerce infrastructure matching the durability of their crossbows and outdoor gear.',
   },
   Legacybox: {
     role: 'Lead Developer',
     description:
-      'Directed technical strategy, CRO, and design for a major consumer digitization service.',
+      "Engineered scalable solutions handling 100K+ monthly orders for America's largest home movie digitization service.",
   },
   'Salted Baked Goods': {
     role: 'Lead Developer',
     description:
-      'Built and optimized e-commerce and digital presence for a premium baked goods brand.',
+      'Crafted artisanal digital experiences as carefully as their cookies, focusing on mobile-first commerce.',
   },
   'Kodak Digitizing': {
     role: 'Lead Developer',
     description:
-      "Managed development and design for Kodak's digitization platform, focusing on user experience and conversion.",
+      "Modernized a 130-year-old brand's digital presence while preserving its iconic heritage and trust.",
   },
   'Shinery Wholesale': {
     role: 'Lead Developer',
     description:
-      'Developed wholesale e-commerce solutions and digital strategy for a luxury jewelry care brand.',
+      'Polished B2B wholesale platforms to sparkle as brilliantly as the jewelry they maintain.',
   },
   'Crewcab Society': {
     role: 'Lead Developer',
     description:
-      'Created and optimized digital experiences for a lifestyle and apparel community.',
+      'United truck enthusiasts through custom community platforms and member-exclusive commerce features.',
   },
   'NOMAD Outdoor': {
     role: 'Lead Developer',
     description:
-      'Led web development and design for a high-performance outdoor apparel brand.',
+      'Tracked down performance bottlenecks like a hunter, optimizing load times for field-tested gear.',
   },
   'Huk Gear': {
     role: 'Lead Developer',
     description:
-      'Oversaw digital strategy, CRO, and design for a leading fishing apparel company.',
+      'Cast a wider net with omni-channel integration, hooking customers across web, mobile, and retail.',
   },
   Spiritú: {
     role: 'Lead Developer',
     description:
-      'Built and optimized e-commerce and content for a multicultural lifestyle brand.',
+      'Bridged cultural connections through multilingual commerce supporting Latin American payment methods.',
   },
   HYGEAR: {
     role: 'Lead Developer',
     description:
-      'Directed web and app development for a connected fitness technology startup.',
+      'Synchronized IoT fitness equipment with mobile apps, pushing real-time workout data to the cloud.',
   },
   'AVID Sportswear': {
     role: 'Lead Developer',
     description:
-      'Managed e-commerce and digital marketing for a sportswear brand.',
+      "Accelerated page speeds by 300%, because athletes shouldn't wait for their gear.",
   },
   Eberjey: {
     role: 'Lead Developer',
     description:
-      'Oversaw digital design and development for a luxury lingerie and loungewear brand.',
+      'Wove delicate user experiences matching the softness of their signature PJs and intimates.',
   },
   'Static-X': {
     role: 'Lead Developer',
-    description: 'Built and managed digital presence for a renowned rock band.',
+    description:
+      'Amplified fan engagement through interactive tour maps and exclusive content portals.',
   },
-  'Roxrite Represents': {
+  'Roxrite Represents (Red Bull)': {
     role: 'Lead Developer',
     description:
-      'Developed digital branding and content for a world-class breakdancer.',
+      "Choreographed dynamic content delivery for a 3x world champion Red Bull break dancer's global workshops.",
   },
   'The Clear Cut': {
     role: 'Lead Developer',
     description:
-      'Led e-commerce and digital strategy for a direct-to-consumer diamond brand.',
+      'Cut through traditional jewelry retail with transparent pricing algorithms and virtual try-on tech.',
   },
   Claralips: {
     role: 'Lead Developer',
-    description: 'Built and optimized e-commerce for a beauty startup.',
+    description:
+      'Formulated subscription logic as precisely as their clean beauty ingredients.',
   },
   'Jessica Simpson': {
     role: 'Lead Developer',
     description:
-      'Managed digital projects for a celebrity fashion and lifestyle brand.',
+      'Styled responsive layouts handling celebrity-level traffic spikes during product launches.',
   },
   Ghurka: {
     role: 'Lead Developer',
     description:
-      'Oversaw web development and design for a luxury leather goods company.',
+      'Hand-crafted digital experiences worthy of their $3,000 leather bags, with pixel-perfect attention.',
   },
   'Bitchin Hearts': {
     role: 'Lead Developer',
-    description: 'Created digital experiences for a boutique fashion brand.',
-  },
-  'Nat Nast Luxury Originals': {
-    role: 'Lead Developer',
     description:
-      'Directed e-commerce and digital marketing for a heritage menswear brand.',
+      'Rebelliously broke e-commerce conventions with experimental checkout flows that actually converted.',
   },
   'Lost Symphony': {
     role: 'Lead Developer',
-    description: 'Managed digital presence for a symphonic metal project.',
+    description:
+      'Orchestrated streaming platforms blending classical compositions with metal intensity.',
   },
   'Kopari Beauty': {
     role: 'Technical Project Lead',
     description:
-      'Led technical projects, CRO, and design for a clean beauty brand.',
+      'Coconut-powered everything, including the tropical-smooth checkout flow that increased conversions.',
   },
   'MVMT Watches': {
     role: 'Technical Project Lead',
     description:
-      'Oversaw technical development and digital marketing for a direct-to-consumer watch brand.',
+      'Engineered influencer-driven commerce platforms that moved 1.5 million watches without a single retail store.',
   },
   'P&G': {
     role: 'Technical Project Lead',
     description:
-      'Directed technical projects and digital strategy for a global CPG leader.',
+      'Scaled solutions for sub-startup, supporting 65 billion-dollar brands simultaneously.',
   },
   'Rebecca Minkoff': {
     role: 'Technical Project Lead',
     description:
-      'Managed technical projects and e-commerce for a leading fashion designer.',
+      'Migrated luxury fashion brand from Magento to Shopify Plus, with a best-in-class experience that still holds up to this day.',
   },
   'Kylie Cosmetics': {
     role: 'Technical Project Lead',
     description:
-      'Oversaw technical development and digital marketing for a celebrity beauty brand.',
+      'Handled viral product drops with infrastructure surviving 100K concurrent users in first minutes.',
   },
   'Daya by Zendaya': {
     role: 'Technical Project Lead',
     description:
-      'Led technical projects and e-commerce for a celebrity fashion line.',
+      'Sized up inclusive fashion tech, building adaptive interfaces for all body types and abilities.',
   },
   'Sio Beauty': {
     role: 'Technical Project Lead',
     description:
-      'Directed technical projects and digital strategy for a skincare startup.',
+      'Patched together medical-grade e-commerce requiring FDA compliance and HIPAA considerations.',
   },
   'Lash Star Beauty': {
     role: 'Technical Project Lead',
     description:
-      'Managed technical projects and e-commerce for a beauty brand.',
+      'Extended platform capabilities with AR try-on features for lash and brow products.',
   },
   'UTZ Snacks': {
     role: 'Technical Project Lead',
-    description: 'Led design and development for a major snack food company.',
+    description:
+      'Crunched big data to optimize supply chain from Pennsylvania factories to nationwide shelves.',
   },
   'Navitas Organics': {
     role: 'Technical Project Lead',
     description:
-      'Oversaw design and development for a superfood and wellness brand.',
+      'Cultivated organic growth through SEO-optimized content systems and recipe databases.',
   },
   SkinTe: {
     role: 'Technical Project Lead',
     description:
-      'Directed design and development for a wellness beverage startup.',
+      'Infused wellness tech with subscription intelligence predicting customer reorder patterns.',
   },
   'The D Hotel Las Vegas': {
     role: 'Technical Project Lead',
     description:
-      'Managed design and development for a Las Vegas hotel and casino.',
+      'Rolled out reservation systems handling high-stakes bookings and VIP player tracking.',
   },
   'Aria Resort & Casino': {
     role: 'Technical Project Lead',
     description:
-      'Oversaw design and development for a luxury resort and casino.',
+      'Bet on microservices architecture supporting everything from room bookings to poker tournaments.',
   },
   'National Pen': {
     role: 'Technical Project Lead',
     description:
-      'Led design and development for a promotional products company.',
+      'Personalized mass customization engines processing 50,000 daily promotional product orders.',
   },
   SoClean: {
     role: 'Technical Project Lead',
     description:
-      'Directed design and development for a health technology company.',
+      'Breathed life into IoT-connected CPAP cleaners with remote diagnostics and usage analytics.',
   },
   'Barona Resort & Casino': {
     role: 'Technical Project Lead',
     description:
-      'Managed design and development for a California casino and resort.',
+      'Dealt winning hands with real-time gaming analytics and responsible gambling features.',
   },
   'Health Net': {
     role: 'Technical Project Lead',
     description:
-      'Oversaw design and development for a health insurance provider.',
+      'Prescribed HIPAA-compliant member portals serving 3 million California healthcare subscribers.',
   },
   'Thermo Fisher Scientific': {
     role: 'Business & Systems Analyst',
     description:
-      'Led enterprise eBusiness solutions, managed IAM initiatives, and aligned business needs with technical solutions.',
+      "Catalyzed $40B scientific instrument giant's digital transformation with enterprise IAM and systems integration.",
   },
   AutoZone: {
     role: 'Technical Project Lead / Business Systems Analyst',
     description:
-      'Directed e-commerce and systems integration for a leading auto parts retailer.',
+      'Turbocharged inventory systems connecting 6,000 stores with same-day parts availability.',
   },
   'Home Depot': {
     role: 'Senior IT Business Systems Analyst',
     description:
-      'Led SAP and e-commerce initiatives, optimized SDLC, and mentored junior analysts for a major retailer.',
+      'Hammered out SAP implementations while building bridges between 400,000 associates and HQ systems.',
   },
   Accumen: {
     role: 'UI/UX Engineer & Systems Analyst',
     description:
-      'Led healthcare startup product development, designed MVPs, and implemented agile methodologies.',
+      'Diagnosed healthcare workflow inefficiencies, prescribing agile MVPs that reduced claim processing 60%.',
   },
   'Spacebox Digital': {
     role: 'Chief Technology Officer',
     description:
-      'Chief Technology Officer (CTO) leading AI, technical strategy, and application development for a digital innovation agency.',
+      'Pioneered AI-augmented development workflows and processes, shipping products 3x faster with smaller teams.',
   },
-  Stealth: {
-    role: 'Founder',
+  CapCheck: {
+    role: 'Founder and CEO',
     description:
-      'Founder building AI and e-commerce applications for a new venture.',
+      'Currently building the future of fact-checking with CapCheck, a platform that verifies content like Shazam identifies songs.',
   },
   Akantro: {
     role: 'Co-Founder',
     description:
-      'Co-founded and led an e-commerce technology consultancy, scaling a team and pioneering Shopify Hydrogen projects.',
+      'Bootstrapped to profitable exit, scaling from solo consultant to 8-person team generating mid-six figures.',
   },
   REQ: {
     role: 'Head of Development',
     description:
-      'Led development team delivering enterprise e-commerce solutions for national brands and DTC companies.',
+      'Quarterbacked 6 engineers delivering enterprise solutions for brands doing $100M+ in annual revenue.',
   },
   BVA: {
     role: 'Head of Technical Project Management',
     description:
-      'Directed cross-functional teams for Shopify Plus implementations and led flagship projects for major brands.',
+      'Orchestrated 50+ engineers across 8 teams, shipping $10M+ in contracted projects on time and under budget.',
   },
 };
 
 const organizationCompanies = [
   'Spacebox Digital',
-  'Stealth',
+  'CapCheck',
   'Akantro',
   'REQ',
   'BVA',
