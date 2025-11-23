@@ -62,8 +62,8 @@ public/               # Static assets
 
 ## Features
 
-- ⚡️ Server-side rendering with React Router v7
-- 🎨 Modern styling with Tailwind CSS v4
+- ⚡️ Server-side rendering with SvelteKit
+- 🎨 Modern styling with CSS
 - 📱 Responsive design
 - 🔄 Hot module replacement in development
 - 🚀 Optimized production builds
@@ -72,4 +72,4 @@ public/               # Static assets
 
 ---
 
-Built with ❤️ using React Router v7.
+Built with ❤️ using Svelte
