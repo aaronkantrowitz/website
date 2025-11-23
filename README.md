@@ -4,8 +4,8 @@ My personal website built with React Router v7 and deployed at [aaronkantrowitz.
 
 ## Tech Stack
 
-- **Framework**: React Router v7 with TypeScript
-- **Styling**: Tailwind CSS v4
+- **Framework**: Svelte with TypeScript
+- **Styling**: CSS
 - **Build Tool**: Vite with HMR
 - **Deployment**: Fly.io with automated GitHub Actions
 - **Containerization**: Docker multi-stage build
