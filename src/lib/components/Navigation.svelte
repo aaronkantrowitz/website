@@ -333,7 +333,7 @@
     padding: 0; /* Remove padding, rely on flex centering */
     border-radius: 0.25rem;
     transition: all 300ms;
-    color: var(--text-color);
+    color: var(--slate);
   }
 
   .mobile-toggle.open, .mobile-toggle:hover {
@@ -439,7 +439,7 @@
     justify-content: center;
     border-radius: 0.25rem;
     transition: color 200ms, background-color 200ms;
-    color: var(--gray);
+    color: var(--slate);
   }
 
   .shuffle-btn:hover {
