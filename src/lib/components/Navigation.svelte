@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import { getSortedSlides } from '$lib/data';
   import { activeSection, mobileNavOpen, isNavigating, windowHeight } from '$lib/stores';
 
@@ -210,13 +210,12 @@
 
   // Visible numbers calculation
   $: totalSections = slides.length;
-  $: availableHeight = $windowHeight - 160; // Increased reserved space from 128 to 160
+  $: availableHeight = $windowHeight - 160;
   $: numberHeight = 32;
   $: maxVisible = Math.floor(availableHeight / numberHeight);
   $: halfRange = Math.floor(maxVisible / 2);
   $: start = Math.max(0, $activeSection - halfRange);
   $: end = Math.min(totalSections - 1, start + maxVisible - 1);
-  // Correction if end is capped
   $: adjustedStart = (end === totalSections - 1) ? Math.max(0, totalSections - maxVisible) : start;
   
   $: visibleNumbers = (() => {
@@ -229,8 +228,20 @@
   })();
 
   // Scroll mobile nav into view
-  $: if ($mobileNavOpen && activeBtnRef && mobileNavListRef) {
-      activeBtnRef.scrollIntoView({ block: 'center', behavior: 'auto' });
+  $: if ($mobileNavOpen) {
+      tick().then(() => {
+          if (activeBtnRef && mobileNavListRef) {
+              activeBtnRef.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          }
+      });
+  }
+  
+  $: if ($activeSection !== undefined && $mobileNavOpen) {
+       tick().then(() => {
+          if (activeBtnRef && mobileNavListRef) {
+              activeBtnRef.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          }
+       });
   }
 </script>
 
@@ -255,22 +266,33 @@
     {/if}
   </button>
 
-  <!-- Desktop Navigation -->
-  <nav class="desktop-nav">
-    <div class="nav-links">
+  <!-- Navigation (Desktop style, but toggleable on mobile) -->
+  <nav class="main-nav {$mobileNavOpen ? 'open' : ''}">
+    <div class="nav-links" bind:this={mobileNavListRef}>
       {#each visibleNumbers as visibleIdx}
         {@const isHeroSlide = visibleIdx === -1}
         {@const sectionNumber = isHeroSlide ? '00' : String(visibleIdx).padStart(2, '0')}
         {@const isActive = isHeroSlide ? ($activeSection === -1) : ($activeSection === visibleIdx)}
         {@const targetSection = isHeroSlide ? -1 : visibleIdx}
         
-        <button
-          on:click={() => scrollToSection(targetSection, false)}
-          class="nav-link {isActive ? 'active' : ''}"
-          aria-label="Go to section {sectionNumber}"
-        >
-          {sectionNumber}
-        </button>
+        {#if isActive}
+            <button
+            bind:this={activeBtnRef}
+            on:click={() => scrollToSection(targetSection, true)}
+            class="nav-link active"
+            aria-label="Go to section {sectionNumber}"
+            >
+            {sectionNumber}
+            </button>
+        {:else}
+            <button
+            on:click={() => scrollToSection(targetSection, true)}
+            class="nav-link"
+            aria-label="Go to section {sectionNumber}"
+            >
+            {sectionNumber}
+            </button>
+        {/if}
       {/each}
     </div>
     
@@ -288,61 +310,7 @@
     </div>
   </nav>
 
-  <!-- Mobile Navigation Overlay -->
-  {#if $mobileNavOpen}
-    <div class="mobile-nav-overlay">
-      <!-- Backdrop -->
-      <div
-        class="backdrop"
-        on:click={() => mobileNavOpen.set(false)}
-        role="button"
-        tabindex="0"
-        on:keydown={() => {}}
-      ></div>
-
-      <!-- Navigation Panel -->
-      <div class="mobile-nav-panel">
-        <div class="mobile-nav-content">
-          <div class="mobile-links-container" bind:this={mobileNavListRef}>
-            <div class="mobile-links-list">
-              <!-- Hero slide (00) -->
-              <button
-                bind:this={activeBtnRef}
-                on:click={() => scrollToSection(-1, true)}
-                class="mobile-link {$activeSection === -1 ? 'active' : ''}"
-              >
-                00
-              </button>
-              
-              <!-- Work slides -->
-              {#each {length: slides.length} as _, index}
-                {@const isActive = $activeSection === index}
-                <button
-                  on:click={() => scrollToSection(index, true)}
-                  class="mobile-link {isActive ? 'active' : ''}"
-                >
-                  {String(index).padStart(2, '0')}
-                </button>
-              {/each}
-            </div>
-          </div>
-          
-          <!-- Shuffle button for mobile -->
-          <div class="mobile-shuffle-container">
-            <button
-              on:click={handleShuffle}
-              class="shuffle-btn"
-              aria-label="Shuffle to random slide"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="0" aria-hidden="true">
-                <path d="M8.94 6.871l1.081-1.34-0.004-0.003c0.855-0.971 2.087-1.528 3.378-1.528h1.898l-1.646-1.646 0.707-0.707 2.853 2.853-2.854 2.854-0.707-0.707 1.647-1.647h-1.898c-0.989 0-1.931 0.425-2.595 1.159l-1.080 1.339-0.78-0.627zM5.851 10.696l-0.011-0.008c-0.667 0.833-1.663 1.312-2.733 1.312h-3.107v1h3.107c1.369 0 2.645-0.611 3.503-1.676l0.011 0.009 0.941-1.166-0.777-0.629-0.934 1.158zM13.646 10.354l1.647 1.646h-1.898c-1.052 0-2.031-0.469-2.7-1.281l-4.269-5.265-0.010 0.008c-0.85-0.926-2.048-1.462-3.309-1.462h-3.107v1h3.107c0.998 0 1.948 0.428 2.611 1.17l4.161 5.132-0.005 0.004c0.86 1.076 2.143 1.694 3.52 1.694h1.898l-1.646 1.646 0.707 0.707 2.854-2.854-2.854-2.854-0.707 0.709z" fill="currentColor" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  {/if}
+  <!-- Backdrop for mobile removed as requested -->
 {/if}
 
 <style>
@@ -350,9 +318,14 @@
   .mobile-toggle {
     position: fixed;
     top: 1.5rem; /* top-6 */
-    left: 1.5rem; /* left-6 */
-    z-index: 50;
-    padding: 0.5rem;
+    left: 0.5rem; /* Adjusted left to center within 3rem width (0.5rem + 2rem width + 0.5rem padding = 3rem approx) */
+    width: 2rem; /* Explicit width */
+    height: 2rem; /* Explicit height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 60; /* Higher than nav */
+    padding: 0; /* Remove padding, rely on flex centering */
     border-radius: 0.25rem;
     transition: all 300ms;
     color: var(--text-color);
@@ -367,19 +340,27 @@
     margin: auto;
   }
 
-  /* Desktop Navigation */
-  .desktop-nav {
-    display: none;
+  /* Main Navigation (Sidebar) */
+  .main-nav {
+    display: flex;
     position: fixed;
     left: 0;
-    height: 100vh;
-    width: 3rem; /* w-12 */
+    top: 0;
+    height: 100dvh;
+    width: 3rem; /* Consistent width */
     z-index: 50;
     flex-direction: column;
     align-items: stretch;
-    backdrop-filter: blur(12px);
     pointer-events: auto;
     background-color: var(--nav-bg);
+    transition: transform 300ms ease-in-out;
+    transform: translateX(-100%); 
+  }
+
+  /* When open on mobile */
+  .main-nav.open {
+    transform: translateX(0);
+    /* width remains 3rem */
   }
 
   .nav-links {
@@ -390,19 +371,40 @@
     align-items: center;
     flex: 1;
     padding: 1rem 0;
+    padding-top: 4rem; /* Reduced space for toggle button inside nav */
     min-height: 0;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    
+    /* Gradient masking for smooth fade in/out */
+    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+  
+  .nav-links::-webkit-scrollbar {
+    display: none;
   }
 
   .nav-link {
     font-size: 0.75rem; /* text-xs */
     letter-spacing: 0.1em; /* tracking-widest */
     transition: all 300ms;
-    text-align: left;
+    text-align: center;
     padding: 0.25rem 0;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: var(--gray);
     font-weight: 300;
+    margin-left: 2px; /* Optical alignment correction */
   }
+
+  /* Remove mobile specific overrides */
+  /* .main-nav.open .nav-link { } removed */
 
   .nav-link:hover {
     color: var(--slate);
@@ -412,6 +414,12 @@
     color: var(--slate);
     font-weight: bold;
     transform: scale(1.1);
+  }
+  
+  /* Remove mobile background highlight */
+  .main-nav.open .nav-link.active {
+      background-color: transparent;
+      width: 2rem;
   }
 
   .shuffle-container {
@@ -444,103 +452,36 @@
     box-shadow: 0 0 0 2px var(--slate);
   }
 
-  /* Mobile Navigation Overlay */
-  .mobile-nav-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 40;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .backdrop {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.05);
-    backdrop-filter: blur(1px);
-  }
-
-  .mobile-nav-panel {
-    position: relative;
-    height: 100%;
-    width: 6rem; /* w-24 */
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    display: flex;
-    flex-direction: column;
-    background-color: var(--background-color);
-    border-right: 1px solid var(--ivory-dark);
-  }
-
-  .mobile-nav-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding-top: 5rem; /* pt-20 */
-    padding-bottom: 1rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-
-  .mobile-links-container {
-    flex: 1;
-    overflow-y: auto;
-    display: flex;
-    align-items: center;
-  }
-
-  .mobile-links-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    height: 100%;
-    width: 100%;
-  }
-
-  .mobile-link {
-    font-size: 0.875rem; /* text-sm */
-    letter-spacing: 0.1em;
-    transition: all 300ms;
-    text-align: center;
-    padding: 0.5rem 0;
-    border-radius: 0.25rem;
-    color: var(--gray);
-    font-weight: 300;
-  }
-
-  .mobile-link:hover {
-    color: var(--slate);
-  }
-
-  .mobile-link.active {
-    color: var(--slate);
-    font-weight: bold;
-    background-color: var(--ivory-med);
-  }
-
-  .mobile-shuffle-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding-bottom: 0.5rem;
-  }
-
-  .mobile-shuffle-container .shuffle-btn {
-    margin-top: 1rem;
-    margin-right: 0.5rem;
-  }
-
-  /* Responsive Visibility */
+  /* Desktop Styles (min-width: 1280px) */
   @media (min-width: 1280px) {
     .mobile-toggle {
       display: none;
     }
     
-    .desktop-nav {
-      display: flex;
+    .main-nav {
+      transform: translateX(0); /* Always visible */
+      width: 3rem; /* Back to thin width */
+      border-right: none;
+      box-shadow: none;
     }
-
-    .mobile-nav-overlay {
-      display: none;
+    
+    .main-nav .nav-links {
+        padding-top: 1rem; /* Reset top padding */
+        
+        /* Adjust mask for desktop layout if needed, though same mask works well */
+        mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    }
+    
+    .main-nav .nav-link {
+        font-size: 0.75rem;
+        padding: 0.25rem 0;
+        width: 2rem; /* Ensure consistent width on desktop */
+        justify-content: center; /* Ensure centering */
+    }
+    
+    .main-nav .nav-link.active {
+        background-color: transparent; /* Remove mobile highlight bg */
     }
   }
 </style>

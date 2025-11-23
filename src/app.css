@@ -71,11 +71,19 @@
   font-display: swap;
 }
 
-html {
-  /* Disable default scrolling for slide-based navigation */
-  overflow: hidden;
-  height: 100vh;
-}
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  html {
+    /* Disable default scrolling for slide-based navigation */
+    overflow: hidden;
+    height: 100vh;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 
 /* Add scroll timing optimization */
 @media (prefers-reduced-motion: no-preference) {
