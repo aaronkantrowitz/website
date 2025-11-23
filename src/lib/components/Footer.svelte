@@ -1,32 +1,14 @@
 <script lang="ts">
   import { activeSection } from '$lib/stores';
   
-  // Show footer when NOT on Hero slide (which is -1)
-  // We can use a derived value or just reactive statement
   $: show = $activeSection !== -1;
 
   function handleClick(e: MouseEvent) {
     e.preventDefault();
-    // We can just set the store!
-    // But Navigation component listens to store changes? 
-    // Navigation component sets store AND triggers animation.
-    // If we set store here, Navigation component won't know to trigger animation unless it subscribes to store 
-    // and triggers animation on change.
-    // Currently Navigation component has `scrollToSection` which sets store AND animates.
-    // We should probably export `scrollToSection` or just trigger a click on the nav button.
-    // Or better, move `scrollToSection` logic to a store-based approach or a shared controller.
-    // For now, let's emulate the React behavior: click the nav button.
-    
     const navigationElement = document.querySelector('nav button[aria-label*="section 00"]') as HTMLButtonElement;
     if (navigationElement) {
       navigationElement.click();
     } else {
-        // Fallback if nav is hidden (e.g. mobile)
-        // We can try to find the mobile nav button?
-        // Or just use the store and trust we fix the animation logic later.
-        // Actually, let's use the same fallback logic as React but adapted.
-        
-        // Find hero
         const heroSection = document.getElementById('section-00');
         if (heroSection) {
             const currentActive = document.querySelector('section[style*="opacity: 1"]') as HTMLElement;
@@ -41,35 +23,72 @@
                     heroSection.style.zIndex = '10';
                 }, 300);
             }
-            // Update store
             activeSection.set(-1);
         }
     }
   }
 </script>
 
-<footer
-  class="fixed bottom-0 left-0 w-full z-40 py-3 flex justify-center items-center pointer-events-none transition-opacity duration-300 {show ? 'opacity-100' : 'opacity-0'}"
->
-  <!-- Gradient fade overlay using brand colors -->
-  <div
-    class="absolute inset-0 w-full h-full pointer-events-none select-none"
-    style="background: linear-gradient(to top,
-      var(--background-color) 0%,
-      var(--footer-gradient-1) 40%,
-      var(--footer-gradient-2) 60%,
-      transparent 100%)"
-    aria-hidden="true"
-  ></div>
+<footer class="site-footer {show ? 'visible' : 'hidden'}">
+  <div class="footer-gradient" aria-hidden="true"></div>
   <a
     href="#section-00"
     on:click={handleClick}
-    on:mouseenter={(e) => e.currentTarget.style.color = 'var(--slate)'}
-    on:mouseleave={(e) => e.currentTarget.style.color = 'var(--gray)'}
-    class="relative text-lg tracking-widest font-light transition-colors duration-200 pointer-events-auto"
-    style="color: var(--gray)"
+    class="footer-link"
     aria-label="Go back to Hero slide"
   >
     Aaron Kantrowitz
   </a>
 </footer>
+
+<style>
+  .site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 40;
+    padding: 0.75rem 0; /* py-3 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    transition: opacity 300ms;
+  }
+
+  .visible {
+    opacity: 1;
+  }
+
+  .hidden {
+    opacity: 0;
+  }
+
+  .footer-gradient {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    user-select: none;
+    background: linear-gradient(to top,
+      var(--background-color) 0%,
+      var(--footer-gradient-1) 40%,
+      var(--footer-gradient-2) 60%,
+      transparent 100%);
+  }
+
+  .footer-link {
+    position: relative;
+    font-size: 1.125rem; /* text-lg */
+    letter-spacing: 0.1em; /* tracking-widest */
+    font-weight: 300; /* font-light */
+    transition: color 200ms;
+    pointer-events: auto;
+    color: var(--gray);
+  }
+
+  .footer-link:hover {
+    color: var(--slate);
+  }
+</style>

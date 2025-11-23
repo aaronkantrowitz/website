@@ -119,18 +119,12 @@
 </script>
 
 {#if !isReady}
-  <div
-    style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 0.7rem; letter-spacing: 0.05em; color: var(--gray); text-align: center; user-select: none; opacity: 0.75; line-height: 1.02; min-height: 2em; white-space: pre; font-variant-ligatures: none;"
-    aria-hidden="true"
-  >
+  <div class="ascii-container" aria-hidden="true">
     <div style="height: 0.9em">&nbsp;</div>
     <div style="height: 0.9em">&nbsp;</div>
   </div>
 {:else}
-  <div
-    style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 0.7rem; letter-spacing: 0.05em; color: var(--gray); text-align: center; user-select: none; opacity: 0.75; line-height: 1.02; min-height: 2em; white-space: pre; font-variant-ligatures: none;"
-    aria-hidden="true"
-  >
+  <div class="ascii-container" aria-hidden="true">
     {#each display as line, y}
       <div style="height: 0.9em">
         {@html line.join('')}
@@ -138,3 +132,19 @@
     {/each}
   </div>
 {/if}
+
+<style>
+  .ascii-container {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--gray);
+    text-align: center;
+    user-select: none;
+    opacity: 0.75;
+    line-height: 1.02;
+    min-height: 2em;
+    white-space: pre;
+    font-variant-ligatures: none;
+  }
+</style>

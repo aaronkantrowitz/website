@@ -13,7 +13,7 @@
         '     ╩ ╩ ╩ ╩\n' +
         '\n' +
         '  Aaron Kantrowitz\n' +
-        '  Orchestrator of Human and AI Systems\n',
+        '  Founder and CEO\n',
       'color: #6b7280; font-family: monospace; font-size: 14px; line-height: 1.2;'
     );
 
@@ -34,27 +34,41 @@
 </script>
 
 <svelte:head>
-    <title>Aaron Kantrowitz | Orchestrator of Human and AI Systems</title>
-    <meta name="description" content="Aaron Kantrowitz is an Orchestrator of Human and AI Systems who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups." />
+    <title>Aaron Kantrowitz | Founder and CEO</title>
+    <meta name="description" content="Aaron Kantrowitz is an Founder and CEO who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups." />
     <meta name="keywords" content="Aaron Kantrowitz, CTO, digital strategist, product leader, engineering, technology consultant, digital experiences, Spacebox Digital, Stealth Startup, US-based developer" />
     <meta name="author" content="Aaron Kantrowitz" />
-    
-    <meta property="og:title" content="Aaron Kantrowitz | Orchestrator of Human and AI Systems" />
-    <meta property="og:description" content="Orchestrator of Human and AI Systems. Leading teams to create work that matters." />
+
+    <meta property="og:title" content="Aaron Kantrowitz | Founder and CEO" />
+    <meta property="og:description" content="Founder and CEO. Leading teams to create work that matters." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aaronkantrowitz.com/" />
     <meta property="og:site_name" content="Aaron Kantrowitz" />
-    
+
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Aaron Kantrowitz | Orchestrator of Human and AI Systems" />
-    <meta name="twitter:description" content="Aaron Kantrowitz is an Orchestrator of Human and AI Systems who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups." />
+    <meta name="twitter:title" content="Aaron Kantrowitz | Founder and CEO" />
+    <meta name="twitter:description" content="Aaron Kantrowitz is an Founder and CEO who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups." />
 </svelte:head>
 
 <Navigation />
-<div class="fixed inset-0 overflow-hidden">
-  <div class="relative w-full h-full">
+<div class="main-container">
+  <div class="content-wrapper">
     <Hero />
     <Work />
     <Footer />
   </div>
 </div>
+
+<style>
+  .main-container {
+    position: fixed;
+    inset: 0; /* top: 0; right: 0; bottom: 0; left: 0; */
+    overflow: hidden;
+  }
+
+  .content-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+</style>

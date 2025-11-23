@@ -17,7 +17,6 @@
   onMount(() => {
     hasMounted = true;
     // Initialize slide positions
-    // We need to wait for DOM to update
     requestAnimationFrame(() => {
         const sections = document.querySelectorAll('[id^="section-"]');
         sections.forEach((section) => {
@@ -211,7 +210,7 @@
 
   // Visible numbers calculation
   $: totalSections = slides.length;
-  $: availableHeight = $windowHeight - 128;
+  $: availableHeight = $windowHeight - 160; // Increased reserved space from 128 to 160
   $: numberHeight = 32;
   $: maxVisible = Math.floor(availableHeight / numberHeight);
   $: halfRange = Math.floor(maxVisible / 2);
@@ -239,19 +238,16 @@
   <!-- Mobile Toggle Button -->
   <button
     on:click={() => mobileNavOpen.set(!$mobileNavOpen)}
-    on:mouseenter={(e) => e.currentTarget.style.backgroundColor = 'var(--ivory-med)'}
-    on:mouseleave={(e) => e.currentTarget.style.backgroundColor = $mobileNavOpen ? 'var(--ivory-med)' : 'transparent'}
-    class="fixed top-6 left-6 z-50 p-2 transition-all duration-300 rounded xl:hidden"
-    style="background-color: {$mobileNavOpen ? 'var(--ivory-med)' : 'transparent'}; color: var(--text-color);"
+    class="mobile-toggle {$mobileNavOpen ? 'open' : ''}"
     aria-label="Toggle navigation"
   >
     {#if $mobileNavOpen}
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto my-auto">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
         <line x1="7" y1="7" x2="21" y2="21" stroke="var(--dark-gray)" stroke-width="1.2" stroke-linecap="round" />
         <line x1="21" y1="7" x2="7" y2="21" stroke="var(--dark-gray)" stroke-width="1.2" stroke-linecap="round" />
       </svg>
     {:else}
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto my-auto">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
         <line x1="6" y1="9" x2="22" y2="9" stroke="var(--dark-gray)" stroke-width="1.2" stroke-linecap="round" />
         <line x1="6" y1="14" x2="22" y2="14" stroke="var(--dark-gray)" stroke-width="1.2" stroke-linecap="round" />
         <line x1="6" y1="19" x2="22" y2="19" stroke="var(--dark-gray)" stroke-width="1.2" stroke-linecap="round" />
@@ -260,11 +256,8 @@
   </button>
 
   <!-- Desktop Navigation -->
-  <nav
-    class="fixed left-0 z-50 h-screen w-12 hidden xl:flex flex-col items-stretch backdrop-blur-md pointer-events-auto"
-    style="background-color: var(--nav-bg);"
-  >
-    <div class="flex flex-col justify-evenly h-full py-4 w-full items-center bg-transparent flex-1">
+  <nav class="desktop-nav">
+    <div class="nav-links">
       {#each visibleNumbers as visibleIdx}
         {@const isHeroSlide = visibleIdx === -1}
         {@const sectionNumber = isHeroSlide ? '00' : String(visibleIdx).padStart(2, '0')}
@@ -273,10 +266,7 @@
         
         <button
           on:click={() => scrollToSection(targetSection, false)}
-          on:mouseenter={(e) => e.currentTarget.style.color = 'var(--slate)'}
-          on:mouseleave={(e) => e.currentTarget.style.color = isActive ? 'var(--slate)' : 'var(--gray)'}
-          class="text-xs tracking-widest transition-all duration-300 text-left py-1"
-          style="color: {isActive ? 'var(--slate)' : 'var(--gray)'}; font-weight: {isActive ? 'bold' : '300'}; transform: {isActive ? 'scale(1.1)' : 'scale(1)'};"
+          class="nav-link {isActive ? 'active' : ''}"
           aria-label="Go to section {sectionNumber}"
         >
           {sectionNumber}
@@ -285,20 +275,11 @@
     </div>
     
     <!-- Shuffle button -->
-    <div class="flex justify-center w-full pb-2">
+    <div class="shuffle-container">
       <button
         on:click={handleShuffle}
-        on:mouseenter={(e) => {
-          e.currentTarget.style.color = 'var(--slate)';
-          e.currentTarget.style.backgroundColor = 'var(--nav-hover-bg)';
-        }}
-        on:mouseleave={(e) => {
-          e.currentTarget.style.color = 'var(--gray)';
-          e.currentTarget.style.backgroundColor = 'transparent';
-        }}
+        class="shuffle-btn"
         aria-label="Shuffle to random slide"
-        class="w-8 h-8 flex items-center justify-center rounded transition-colors focus:outline-none focus:ring-2"
-        style="color: var(--gray);"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="0" aria-hidden="true">
           <path d="M8.94 6.871l1.081-1.34-0.004-0.003c0.855-0.971 2.087-1.528 3.378-1.528h1.898l-1.646-1.646 0.707-0.707 2.853 2.853-2.854 2.854-0.707-0.707 1.647-1.647h-1.898c-0.989 0-1.931 0.425-2.595 1.159l-1.080 1.339-0.78-0.627zM5.851 10.696l-0.011-0.008c-0.667 0.833-1.663 1.312-2.733 1.312h-3.107v1h3.107c1.369 0 2.645-0.611 3.503-1.676l0.011 0.009 0.941-1.166-0.777-0.629-0.934 1.158zM13.646 10.354l1.647 1.646h-1.898c-1.052 0-2.031-0.469-2.7-1.281l-4.269-5.265-0.010 0.008c-0.85-0.926-2.048-1.462-3.309-1.462h-3.107v1h3.107c0.998 0 1.948 0.428 2.611 1.17l4.161 5.132-0.005 0.004c0.86 1.076 2.143 1.694 3.52 1.694h1.898l-1.646 1.646 0.707 0.707 2.854-2.854-2.854-2.854-0.707 0.709z" fill="currentColor" />
@@ -309,11 +290,10 @@
 
   <!-- Mobile Navigation Overlay -->
   {#if $mobileNavOpen}
-    <div class="fixed inset-0 z-40 xl:hidden flex flex-col">
+    <div class="mobile-nav-overlay">
       <!-- Backdrop -->
       <div
-        class="absolute inset-0 backdrop-blur-[1px]"
-        style="background-color: rgba(0, 0, 0, 0.05);"
+        class="backdrop"
         on:click={() => mobileNavOpen.set(false)}
         role="button"
         tabindex="0"
@@ -321,21 +301,15 @@
       ></div>
 
       <!-- Navigation Panel -->
-      <div
-        class="relative h-full w-24 shadow-2xl flex flex-col"
-        style="background-color: var(--background-color); border-right: 1px solid var(--ivory-dark);"
-      >
-        <div class="flex flex-col h-full pt-20 pb-4 px-2">
-          <div class="flex-1 overflow-y-auto flex items-center" bind:this={mobileNavListRef}>
-            <div class="flex flex-col justify-evenly h-full w-full">
+      <div class="mobile-nav-panel">
+        <div class="mobile-nav-content">
+          <div class="mobile-links-container" bind:this={mobileNavListRef}>
+            <div class="mobile-links-list">
               <!-- Hero slide (00) -->
               <button
                 bind:this={activeBtnRef}
                 on:click={() => scrollToSection(-1, true)}
-                on:mouseenter={(e) => e.currentTarget.style.color = 'var(--slate)'}
-                on:mouseleave={(e) => e.currentTarget.style.color = $activeSection === -1 ? 'var(--slate)' : 'var(--gray)'}
-                class="text-sm tracking-widest transition-all duration-300 text-center py-2 rounded"
-                style="color: {$activeSection === -1 ? 'var(--slate)' : 'var(--gray)'}; font-weight: {$activeSection === -1 ? 'bold' : '300'}; background-color: {$activeSection === -1 ? 'var(--ivory-med)' : 'transparent'};"
+                class="mobile-link {$activeSection === -1 ? 'active' : ''}"
               >
                 00
               </button>
@@ -343,20 +317,9 @@
               <!-- Work slides -->
               {#each {length: slides.length} as _, index}
                 {@const isActive = $activeSection === index}
-                <!-- Only bind ref if it's the active one. Svelte logic is a bit tricky here in a loop. 
-                     We can just conditionally bind if we used a component, but on native element it's harder.
-                     We'll skip binding inside loop for now and trust that if activeSection changed, we find it?
-                     Actually, we can use `use:action` or just rely on logic. 
-                     The React code used a ref to scroll into view. 
-                     We can just querySelector the active one in the effect.
-                -->
                 <button
                   on:click={() => scrollToSection(index, true)}
-                  on:mouseenter={(e) => e.currentTarget.style.color = 'var(--slate)'}
-                  on:mouseleave={(e) => e.currentTarget.style.color = isActive ? 'var(--slate)' : 'var(--gray)'}
-                  class="text-sm tracking-widest transition-all duration-300 text-center py-2 rounded"
-                  style="color: {isActive ? 'var(--slate)' : 'var(--gray)'}; font-weight: {isActive ? 'bold' : '300'}; background-color: {isActive ? 'var(--ivory-med)' : 'transparent'};"
-                  data-active={isActive}
+                  class="mobile-link {isActive ? 'active' : ''}"
                 >
                   {String(index).padStart(2, '0')}
                 </button>
@@ -365,20 +328,11 @@
           </div>
           
           <!-- Shuffle button for mobile -->
-          <div class="flex justify-center w-full pb-2">
+          <div class="mobile-shuffle-container">
             <button
               on:click={handleShuffle}
-              on:mouseenter={(e) => {
-                e.currentTarget.style.color = 'var(--slate)';
-                e.currentTarget.style.backgroundColor = 'var(--nav-hover-bg)';
-              }}
-              on:mouseleave={(e) => {
-                e.currentTarget.style.color = 'var(--gray)';
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
+              class="shuffle-btn"
               aria-label="Shuffle to random slide"
-              class="w-8 h-8 mt-4 mr-2 flex items-center justify-center rounded transition-colors focus:outline-none focus:ring-2"
-              style="color: var(--gray);"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="0" aria-hidden="true">
                 <path d="M8.94 6.871l1.081-1.34-0.004-0.003c0.855-0.971 2.087-1.528 3.378-1.528h1.898l-1.646-1.646 0.707-0.707 2.853 2.853-2.854 2.854-0.707-0.707 1.647-1.647h-1.898c-0.989 0-1.931 0.425-2.595 1.159l-1.080 1.339-0.78-0.627zM5.851 10.696l-0.011-0.008c-0.667 0.833-1.663 1.312-2.733 1.312h-3.107v1h3.107c1.369 0 2.645-0.611 3.503-1.676l0.011 0.009 0.941-1.166-0.777-0.629-0.934 1.158zM13.646 10.354l1.647 1.646h-1.898c-1.052 0-2.031-0.469-2.7-1.281l-4.269-5.265-0.010 0.008c-0.85-0.926-2.048-1.462-3.309-1.462h-3.107v1h3.107c0.998 0 1.948 0.428 2.611 1.17l4.161 5.132-0.005 0.004c0.86 1.076 2.143 1.694 3.52 1.694h1.898l-1.646 1.646 0.707 0.707 2.854-2.854-2.854-2.854-0.707 0.709z" fill="currentColor" />
@@ -390,3 +344,203 @@
     </div>
   {/if}
 {/if}
+
+<style>
+  /* Mobile Toggle */
+  .mobile-toggle {
+    position: fixed;
+    top: 1.5rem; /* top-6 */
+    left: 1.5rem; /* left-6 */
+    z-index: 50;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: all 300ms;
+    color: var(--text-color);
+  }
+
+  .mobile-toggle.open, .mobile-toggle:hover {
+    background-color: var(--ivory-med);
+  }
+  
+  .icon {
+    display: block;
+    margin: auto;
+  }
+
+  /* Desktop Navigation */
+  .desktop-nav {
+    display: none;
+    position: fixed;
+    left: 0;
+    height: 100vh;
+    width: 3rem; /* w-12 */
+    z-index: 50;
+    flex-direction: column;
+    align-items: stretch;
+    backdrop-filter: blur(12px);
+    pointer-events: auto;
+    background-color: var(--nav-bg);
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+    flex: 1;
+    padding: 1rem 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .nav-link {
+    font-size: 0.75rem; /* text-xs */
+    letter-spacing: 0.1em; /* tracking-widest */
+    transition: all 300ms;
+    text-align: left;
+    padding: 0.25rem 0;
+    color: var(--gray);
+    font-weight: 300;
+  }
+
+  .nav-link:hover {
+    color: var(--slate);
+  }
+
+  .nav-link.active {
+    color: var(--slate);
+    font-weight: bold;
+    transform: scale(1.1);
+  }
+
+  .shuffle-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    padding-top: 1rem;
+    flex-shrink: 0;
+  }
+
+  .shuffle-btn {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    transition: color 200ms, background-color 200ms;
+    color: var(--gray);
+  }
+
+  .shuffle-btn:hover {
+    color: var(--slate);
+    background-color: var(--nav-hover-bg);
+  }
+
+  .shuffle-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--slate);
+  }
+
+  /* Mobile Navigation Overlay */
+  .mobile-nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(1px);
+  }
+
+  .mobile-nav-panel {
+    position: relative;
+    height: 100%;
+    width: 6rem; /* w-24 */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+    border-right: 1px solid var(--ivory-dark);
+  }
+
+  .mobile-nav-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 5rem; /* pt-20 */
+    padding-bottom: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .mobile-links-container {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile-links-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 100%;
+  }
+
+  .mobile-link {
+    font-size: 0.875rem; /* text-sm */
+    letter-spacing: 0.1em;
+    transition: all 300ms;
+    text-align: center;
+    padding: 0.5rem 0;
+    border-radius: 0.25rem;
+    color: var(--gray);
+    font-weight: 300;
+  }
+
+  .mobile-link:hover {
+    color: var(--slate);
+  }
+
+  .mobile-link.active {
+    color: var(--slate);
+    font-weight: bold;
+    background-color: var(--ivory-med);
+  }
+
+  .mobile-shuffle-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 0.5rem;
+  }
+
+  .mobile-shuffle-container .shuffle-btn {
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  /* Responsive Visibility */
+  @media (min-width: 1280px) {
+    .mobile-toggle {
+      display: none;
+    }
+    
+    .desktop-nav {
+      display: flex;
+    }
+
+    .mobile-nav-overlay {
+      display: none;
+    }
+  }
+</style>
