@@ -1,6 +1,6 @@
 # Aaron Kantrowitz
 
-My personal website built with React Router v7 and deployed at [aaronkantrowitz.com](https://aaronkantrowitz.com).
+My personal website built with Svelte and deployed at [aaronkantrowitz.com](https://aaronkantrowitz.com).
 
 ## Tech Stack
 
