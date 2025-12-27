@@ -52,7 +52,9 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
-        <img src="/IMG_1306.JPG" alt="Aaron Kantrowitz" class="hero-photo" />
+        <div class="hero-photo-wrapper">
+          <img src="/IMG_1306.JPG" alt="Aaron Kantrowitz" class="hero-photo" />
+        </div>
         <p class="hero-label">AI Engineering & Automation</p>
         <h1 class="hero-headline">For Companies Ready to Ship</h1>
         <p class="hero-subheadline">
@@ -266,13 +268,38 @@
     text-align: center;
   }
 
+  .hero-photo-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-photo-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid var(--riso);
+    opacity: 0.4;
+  }
+
+  .hero-photo-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 1px dashed var(--ivory-dark);
+    opacity: 0.6;
+  }
+
   .hero-photo {
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 1.5rem;
     border: 2px solid var(--ivory-dark);
+    position: relative;
+    z-index: 1;
   }
 
   @media (min-width: 640px) {
@@ -317,12 +344,14 @@
     font-size: 0.875rem;
     letter-spacing: 0.05em;
     border-radius: 0.25rem;
-    transition: background-color 200ms, transform 200ms;
+    transition: all 200ms;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
   .cta-button:hover {
-    background-color: var(--dark-gray);
-    transform: translateY(-1px);
+    background-color: var(--riso);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(94, 126, 223, 0.25);
   }
 
   /* Sections */
@@ -333,6 +362,22 @@
     color: var(--gray);
     margin-bottom: 2rem;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .section-title::before,
+  .section-title::after {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--ivory-dark));
+  }
+
+  .section-title::after {
+    background: linear-gradient(to left, transparent, var(--ivory-dark));
   }
 
   /* Services */
@@ -355,6 +400,13 @@
 
   .service-card {
     text-align: center;
+    padding: 1.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 200ms;
+  }
+
+  .service-card:hover {
+    background-color: var(--ivory-med);
   }
 
   .service-title {
@@ -423,9 +475,10 @@
     justify-content: center;
     font-size: 0.875rem;
     font-weight: 400;
-    color: var(--gray);
-    border: 1px solid var(--ivory-dark);
+    color: var(--riso);
+    border: 1px solid var(--riso);
     border-radius: 50%;
+    opacity: 0.8;
   }
 
   .step-content {
@@ -508,12 +561,15 @@
     font-size: 0.875rem;
     letter-spacing: 0.05em;
     border-radius: 0.25rem;
-    transition: background-color 200ms, opacity 200ms;
+    transition: all 200ms;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
   .submit-button:hover:not(:disabled) {
-    background-color: var(--dark-gray);
+    background-color: var(--riso);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(94, 126, 223, 0.25);
   }
 
   .submit-button:disabled {
