@@ -376,14 +376,11 @@
     font-size: 0.875rem;
     letter-spacing: 0.05em;
     border-radius: 0.25rem;
-    transition: all 200ms;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.25s ease;
   }
 
   .cta-button:hover {
-    background-color: var(--riso);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(94, 126, 223, 0.25);
+    background-color: var(--dark-gray);
   }
 
   /* Sections */
@@ -433,12 +430,7 @@
   .service-card {
     text-align: center;
     padding: 1.5rem 1rem;
-    border-radius: 0.5rem;
-    transition: background-color 200ms;
-  }
-
-  .service-card:hover {
-    background-color: var(--ivory-med);
+    border-radius: 0.375rem;
   }
 
   .service-title {
@@ -593,15 +585,12 @@
     font-size: 0.875rem;
     letter-spacing: 0.05em;
     border-radius: 0.25rem;
-    transition: all 200ms;
+    transition: background-color 0.25s ease;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
   .submit-button:hover:not(:disabled) {
-    background-color: var(--riso);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(94, 126, 223, 0.25);
+    background-color: var(--dark-gray);
   }
 
   .submit-button:disabled {
@@ -688,7 +677,7 @@
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(12px);
     }
     to {
       opacity: 1;
@@ -701,77 +690,20 @@
     to { opacity: 1; }
   }
 
-  @keyframes scaleIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes slideInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.02); }
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(3px); }
-  }
-
-  @keyframes shimmer {
-    0% { background-position: -200% center; }
-    100% { background-position: 200% center; }
-  }
-
-  /* Hero entrance animations */
+  /* Hero entrance animations - subtle fade up */
   .hero-animate {
     opacity: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: calc(var(--delay, 0) * 0.12s + 0.1s);
+    animation: fadeInUp 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    animation-delay: calc(var(--delay, 0) * 0.1s + 0.15s);
   }
 
-  /* Photo has a special scale animation */
-  .hero-photo-wrapper.hero-animate {
-    animation-name: scaleIn;
-    animation-duration: 0.6s;
-  }
-
-  /* Subtle pulse on the photo ring */
-  .hero-photo-wrapper::before {
-    animation: pulse 4s ease-in-out infinite;
-  }
-
-  /* CTA arrow float */
-  .cta-arrow {
-    transition: transform 0.3s ease;
-  }
-
-  .cta-button:hover .cta-arrow {
-    animation: float 0.8s ease-in-out infinite;
-  }
-
-  /* Scroll-triggered animations - using :global to work with JS class addition */
+  /* Scroll-triggered animations */
   :global(.animate-on-scroll) {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: calc(var(--stagger, 0) * 0.1s);
+    transform: translateY(16px);
+    transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-delay: calc(var(--stagger, 0) * 0.08s);
   }
 
   :global(.animate-on-scroll.in-view) {
@@ -779,14 +711,10 @@
     transform: translateY(0);
   }
 
-  /* Section title animation variation */
-  :global(.section-title.animate-on-scroll) {
-    transform: translateY(16px);
-  }
-
+  /* Section title lines animate in */
   .section-title::before,
   .section-title::after {
-    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+    transition: width 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s;
   }
 
   :global(.section-title.animate-on-scroll)::before,
@@ -799,118 +727,56 @@
     width: 2rem;
   }
 
-  /* Service card hover enhancements */
+  /* Service card - subtle hover */
   .service-card {
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.25s ease;
   }
 
-  .service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  }
-
-  .service-title {
-    transition: color 0.3s ease;
-  }
-
-  .service-card:hover .service-title {
-    color: var(--riso);
-  }
-
-  /* Step number pulse on hover */
-  .step {
-    transition: transform 0.3s ease;
-  }
-
-  .step:hover {
-    transform: translateX(4px);
-  }
-
+  /* Step - subtle highlight on hover */
   .step-number {
-    transition: all 0.3s ease;
+    transition: opacity 0.25s ease;
   }
 
   .step:hover .step-number {
-    background-color: var(--riso);
-    color: var(--background-color);
-    border-color: var(--riso);
     opacity: 1;
-    transform: scale(1.1);
   }
 
-  /* Form field focus animations */
+  /* Form fields - clean focus state */
   .form-group input,
   .form-group textarea {
-    transition: border-color 0.3s ease,
-                background-color 0.3s ease,
-                box-shadow 0.3s ease,
-                transform 0.2s ease;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
   }
 
-  .form-group input:focus,
-  .form-group textarea:focus {
-    box-shadow: 0 0 0 3px rgba(94, 126, 223, 0.1);
-    transform: translateY(-1px);
+  /* CTA arrow - subtle shift on hover */
+  .cta-arrow {
+    transition: transform 0.25s ease;
   }
 
-  /* Form label animations */
-  .form-group label {
-    transition: color 0.3s ease;
+  .cta-button:hover .cta-arrow {
+    transform: translateX(2px);
   }
 
-  .form-group:focus-within label {
-    color: var(--riso);
-  }
-
-  /* Back link hover animation */
-  .back-link {
-    transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-  }
-
-  .back-link:hover {
-    transform: translateX(-2px);
-  }
-
-  /* Contact link hover */
-  .contact-link {
-    transition: color 0.3s ease, gap 0.3s ease;
-  }
-
-  .contact-link:hover {
-    gap: 0.5rem;
-  }
-
+  /* Contact link - subtle arrow movement */
   .contact-link svg {
-    transition: transform 0.3s ease;
+    transition: transform 0.25s ease;
   }
 
   .contact-link:hover svg {
-    transform: translate(2px, -2px);
+    transform: translate(1px, -1px);
   }
 
-  /* Success message animation */
+  /* Success/error messages - simple fade */
   .success-message {
-    animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fadeIn 0.4s ease;
   }
 
-  /* Error message animation */
   .error-message {
-    animation: fadeInUp 0.3s ease;
-  }
-
-  /* Footer hover */
-  .footer p:first-child {
-    transition: color 0.3s ease;
-  }
-
-  .footer:hover p:first-child {
-    color: var(--text-color);
+    animation: fadeIn 0.3s ease;
   }
 
   /* Reduced motion preference */
   @media (prefers-reduced-motion: reduce) {
     .hero-animate,
-    .animate-on-scroll,
     .success-message,
     .error-message {
       animation: none;
@@ -918,12 +784,10 @@
       transform: none;
     }
 
-    .hero-photo-wrapper::before {
-      animation: none;
-    }
-
-    .cta-button:hover .cta-arrow {
-      animation: none;
+    :global(.animate-on-scroll) {
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
 
     *,
