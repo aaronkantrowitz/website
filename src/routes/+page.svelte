@@ -51,6 +51,15 @@
 </svelte:head>
 
 <Navigation />
+
+<!-- Consulting link - top right corner -->
+<a href="/consulting" class="consulting-link">
+  Consulting
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M7 17L17 7M17 7H7M17 7v10" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
+
 <div class="main-container">
   <div class="content-wrapper">
     <Hero />
@@ -70,5 +79,33 @@
     position: relative;
     width: 100%;
     height: 100%;
+  }
+
+  .consulting-link {
+    position: fixed;
+    top: 1.5rem;
+    right: 1rem;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    background-color: transparent;
+    border-radius: 0.25rem;
+    transition: color 200ms, background-color 200ms;
+  }
+
+  .consulting-link:hover {
+    color: var(--slate);
+    background-color: var(--ivory-med);
+  }
+
+  @media (min-width: 640px) {
+    .consulting-link {
+      right: 1.5rem;
+    }
   }
 </style>
