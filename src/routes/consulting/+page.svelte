@@ -1,11 +1,36 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
+  import { onMount } from 'svelte';
 
   const currentYear = new Date().getFullYear();
 
   let isSubmitting = $state(false);
   let submitStatus: 'idle' | 'success' | 'error' = $state('idle');
   let errorMessage = $state('');
+
+  // Intersection Observer for scroll animations
+  onMount(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all animate-on-scroll elements
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  });
 </script>
 
 <svelte:head>
@@ -37,17 +62,17 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
-        <div class="hero-photo-wrapper">
+        <div class="hero-photo-wrapper hero-animate" style="--delay: 0">
           <img src="/IMG_1306.JPG" alt="Aaron Kantrowitz" class="hero-photo" />
         </div>
-        <p class="hero-label">AI Engineering & Automation</p>
-        <h1 class="hero-headline">For Companies Ready to Ship</h1>
-        <p class="hero-subheadline">
+        <p class="hero-label hero-animate" style="--delay: 1">AI Engineering & Automation</p>
+        <h1 class="hero-headline hero-animate" style="--delay: 2">For Companies Ready to Ship</h1>
+        <p class="hero-subheadline hero-animate" style="--delay: 3">
           I help businesses implement AI agents, automate workflows, and integrate LLMs into production systems—without the six-month consulting engagement.
         </p>
-        <a href="#contact" class="cta-button">
+        <a href="#contact" class="cta-button hero-animate" style="--delay: 4">
           Book a Call
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
@@ -56,21 +81,21 @@
 
     <!-- What I Do Section -->
     <section class="services">
-      <h2 class="section-title">What I Do</h2>
+      <h2 class="section-title animate-on-scroll">What I Do</h2>
       <div class="services-grid">
-        <div class="service-card">
+        <div class="service-card animate-on-scroll" style="--stagger: 0">
           <h3 class="service-title">AI Agent Development</h3>
           <p class="service-description">
             Custom agents that actually work in production. From customer service automation to internal workflow orchestration.
           </p>
         </div>
-        <div class="service-card">
+        <div class="service-card animate-on-scroll" style="--stagger: 1">
           <h3 class="service-title">LLM Integration</h3>
           <p class="service-description">
             Connect GPT, Claude, or open-source models to your existing systems. APIs, embeddings, RAG pipelines—built to scale.
           </p>
         </div>
-        <div class="service-card">
+        <div class="service-card animate-on-scroll" style="--stagger: 2">
           <h3 class="service-title">Workflow Automation</h3>
           <p class="service-description">
             Identify the repetitive work killing your team's time. Automate it. Ship it. Move on.
@@ -81,8 +106,8 @@
 
     <!-- Why Me Section -->
     <section class="about">
-      <h2 class="section-title">Why Me</h2>
-      <div class="about-content">
+      <h2 class="section-title animate-on-scroll">Why Me</h2>
+      <div class="about-content animate-on-scroll">
         <p>
           15+ years building and leading engineering teams. Former CTO. Founded and exited a profitable tech consultancy. Managed $50M+ technical programs for Fortune 500 clients including Home Depot and Thermo Fisher Scientific.
         </p>
@@ -94,9 +119,9 @@
 
     <!-- How It Works Section -->
     <section class="process">
-      <h2 class="section-title">How It Works</h2>
+      <h2 class="section-title animate-on-scroll">How It Works</h2>
       <div class="process-steps">
-        <div class="step">
+        <div class="step animate-on-scroll" style="--stagger: 0">
           <span class="step-number">1</span>
           <div class="step-content">
             <h3 class="step-title">Discovery Call</h3>
@@ -105,7 +130,7 @@
             </p>
           </div>
         </div>
-        <div class="step">
+        <div class="step animate-on-scroll" style="--stagger: 1">
           <span class="step-number">2</span>
           <div class="step-content">
             <h3 class="step-title">Scoped Engagement</h3>
@@ -114,7 +139,7 @@
             </p>
           </div>
         </div>
-        <div class="step">
+        <div class="step animate-on-scroll" style="--stagger: 2">
           <span class="step-number">3</span>
           <div class="step-content">
             <h3 class="step-title">Delivered & Documented</h3>
@@ -128,8 +153,8 @@
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
-      <h2 class="section-title">Let's Talk</h2>
-      <p class="contact-intro">One project at a time. Limited availability.</p>
+      <h2 class="section-title animate-on-scroll">Let's Talk</h2>
+      <p class="contact-intro animate-on-scroll">One project at a time. Limited availability.</p>
 
       {#if submitStatus === 'success'}
         <div class="success-message">
@@ -655,5 +680,256 @@
   .footer-copyright {
     font-size: 0.75rem;
     margin-top: 1rem;
+  }
+
+  /* ========== ANIMATIONS ========== */
+
+  /* Keyframes */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.02); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(3px); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  /* Hero entrance animations */
+  .hero-animate {
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--delay, 0) * 0.12s + 0.1s);
+  }
+
+  /* Photo has a special scale animation */
+  .hero-photo-wrapper.hero-animate {
+    animation-name: scaleIn;
+    animation-duration: 0.6s;
+  }
+
+  /* Subtle pulse on the photo ring */
+  .hero-photo-wrapper::before {
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  /* CTA arrow float */
+  .cta-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .cta-button:hover .cta-arrow {
+    animation: float 0.8s ease-in-out infinite;
+  }
+
+  /* Scroll-triggered animations */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--stagger, 0) * 0.1s);
+  }
+
+  .animate-on-scroll.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Section title animation variation */
+  .section-title.animate-on-scroll {
+    transform: translateY(16px);
+  }
+
+  .section-title::before,
+  .section-title::after {
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+  }
+
+  .section-title.animate-on-scroll::before,
+  .section-title.animate-on-scroll::after {
+    width: 0;
+  }
+
+  .section-title.animate-on-scroll.in-view::before,
+  .section-title.animate-on-scroll.in-view::after {
+    width: 2rem;
+  }
+
+  /* Service card hover enhancements */
+  .service-card {
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .service-title {
+    transition: color 0.3s ease;
+  }
+
+  .service-card:hover .service-title {
+    color: var(--riso);
+  }
+
+  /* Step number pulse on hover */
+  .step {
+    transition: transform 0.3s ease;
+  }
+
+  .step:hover {
+    transform: translateX(4px);
+  }
+
+  .step-number {
+    transition: all 0.3s ease;
+  }
+
+  .step:hover .step-number {
+    background-color: var(--riso);
+    color: var(--background-color);
+    border-color: var(--riso);
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  /* Form field focus animations */
+  .form-group input,
+  .form-group textarea {
+    transition: border-color 0.3s ease,
+                background-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.2s ease;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    box-shadow: 0 0 0 3px rgba(94, 126, 223, 0.1);
+    transform: translateY(-1px);
+  }
+
+  /* Form label animations */
+  .form-group label {
+    transition: color 0.3s ease;
+  }
+
+  .form-group:focus-within label {
+    color: var(--riso);
+  }
+
+  /* Back link hover animation */
+  .back-link {
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .back-link:hover {
+    transform: translateX(-2px);
+  }
+
+  /* Contact link hover */
+  .contact-link {
+    transition: color 0.3s ease, gap 0.3s ease;
+  }
+
+  .contact-link:hover {
+    gap: 0.5rem;
+  }
+
+  .contact-link svg {
+    transition: transform 0.3s ease;
+  }
+
+  .contact-link:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  /* Success message animation */
+  .success-message {
+    animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Error message animation */
+  .error-message {
+    animation: fadeInUp 0.3s ease;
+  }
+
+  /* Footer hover */
+  .footer p:first-child {
+    transition: color 0.3s ease;
+  }
+
+  .footer:hover p:first-child {
+    color: var(--text-color);
+  }
+
+  /* Reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-animate,
+    .animate-on-scroll,
+    .success-message,
+    .error-message {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .hero-photo-wrapper::before {
+      animation: none;
+    }
+
+    .cta-button:hover .cta-arrow {
+      animation: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+    }
   }
 </style>
