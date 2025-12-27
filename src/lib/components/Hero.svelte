@@ -20,7 +20,7 @@
     </div>
 
     <div class="footer-group">
-      <span>Founder and CEO</span>
+      <span>Founder and CEO, AI Consultant</span>
       <span class="separator">•</span>
       <span>Based in San Diego, California</span>
     </div>
@@ -179,15 +179,15 @@
     align-items: center;
     font-weight: 300; /* font-light */
     color: var(--gray);
-    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-    gap: 0.5rem; /* gap-2 */
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    gap: 0.375rem;
   }
 
   @media (min-width: 640px) {
     .footer-group {
       flex-direction: row;
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      gap: 1rem; /* sm:gap-4 */
+      font-size: clamp(0.85rem, 1.6vw, 1rem);
+      gap: 0.75rem;
     }
   }
 
