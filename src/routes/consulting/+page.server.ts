@@ -1,9 +1,7 @@
-import { RESEND_API_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { fail } from '@sveltejs/kit';
 import { Resend } from 'resend';
 import type { Actions } from './$types';
-
-const resend = new Resend(RESEND_API_KEY);
 
 export const actions: Actions = {
   default: async ({ request }) => {
@@ -38,6 +36,7 @@ export const actions: Actions = {
     }
 
     try {
+      const resend = new Resend(env.RESEND_API_KEY);
       await resend.emails.send({
         from: 'Consulting Form <onboarding@resend.dev>',
         to: 'me@aaronkantrowitz.com',
