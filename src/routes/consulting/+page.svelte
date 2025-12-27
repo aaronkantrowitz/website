@@ -1,26 +1,11 @@
 <script lang="ts">
-  const currentYear = new Date().getFullYear();
+  import { enhance } from '$app/forms';
 
-  let formData = $state({
-    name: '',
-    email: '',
-    company: '',
-    message: ''
-  });
+  const currentYear = new Date().getFullYear();
 
   let isSubmitting = $state(false);
   let submitStatus: 'idle' | 'success' | 'error' = $state('idle');
-
-  async function handleSubmit(e: Event) {
-    e.preventDefault();
-    isSubmitting = true;
-
-    // For now, just show success - you can add your form handler later
-    // (e.g., Formspree, Netlify Forms, or custom API)
-    await new Promise(resolve => setTimeout(resolve, 500));
-    submitStatus = 'success';
-    isSubmitting = false;
-  }
+  let errorMessage = $state('');
 </script>
 
 <svelte:head>
@@ -151,13 +136,39 @@
           <p>Thanks for reaching out. I'll get back to you soon.</p>
         </div>
       {:else}
-        <form class="contact-form" onsubmit={handleSubmit}>
+        <form
+          method="POST"
+          class="contact-form"
+          use:enhance={() => {
+            isSubmitting = true;
+            errorMessage = '';
+
+            return async ({ result }) => {
+              isSubmitting = false;
+
+              if (result.type === 'success') {
+                submitStatus = 'success';
+              } else if (result.type === 'failure') {
+                errorMessage = result.data?.error || 'Something went wrong. Please try again.';
+                submitStatus = 'error';
+              } else {
+                errorMessage = 'Something went wrong. Please try again.';
+                submitStatus = 'error';
+              }
+            };
+          }}
+        >
+          {#if errorMessage}
+            <div class="error-message">
+              <p>{errorMessage}</p>
+            </div>
+          {/if}
           <div class="form-group">
             <label for="name">Name</label>
             <input
               type="text"
               id="name"
-              bind:value={formData.name}
+              name="name"
               required
               autocomplete="name"
             />
@@ -167,7 +178,7 @@
             <input
               type="email"
               id="email"
-              bind:value={formData.email}
+              name="email"
               required
               autocomplete="email"
             />
@@ -177,7 +188,7 @@
             <input
               type="text"
               id="company"
-              bind:value={formData.company}
+              name="company"
               autocomplete="organization"
             />
           </div>
@@ -185,7 +196,7 @@
             <label for="message">What are you trying to solve?</label>
             <textarea
               id="message"
-              bind:value={formData.message}
+              name="message"
               rows="4"
               required
             ></textarea>
@@ -272,29 +283,25 @@
     position: relative;
     display: inline-block;
     margin-bottom: 1.5rem;
+    width: 5rem;
+    height: 5rem;
   }
 
   .hero-photo-wrapper::before {
     content: '';
     position: absolute;
-    inset: -6px;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
     border-radius: 50%;
     border: 1px solid var(--riso);
     opacity: 0.4;
   }
 
-  .hero-photo-wrapper::after {
-    content: '';
-    position: absolute;
-    inset: -12px;
-    border-radius: 50%;
-    border: 1px dashed var(--ivory-dark);
-    opacity: 0.6;
-  }
-
   .hero-photo {
-    width: 5rem;
-    height: 5rem;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--ivory-dark);
@@ -303,7 +310,7 @@
   }
 
   @media (min-width: 640px) {
-    .hero-photo {
+    .hero-photo-wrapper {
       width: 6rem;
       height: 6rem;
     }
@@ -588,6 +595,20 @@
 
   .success-message p {
     color: var(--text-color);
+  }
+
+  .error-message {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    background-color: rgba(217, 119, 87, 0.1);
+    border: 1px solid var(--clay);
+    border-radius: 0.25rem;
+  }
+
+  .error-message p {
+    color: var(--clay);
+    font-size: 0.875rem;
   }
 
   .contact-alt {
