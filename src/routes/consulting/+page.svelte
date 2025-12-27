@@ -174,7 +174,7 @@
               if (result.type === 'success') {
                 submitStatus = 'success';
               } else if (result.type === 'failure') {
-                errorMessage = result.data?.error || 'Something went wrong. Please try again.';
+                errorMessage = (result.data as { error?: string })?.error || 'Something went wrong. Please try again.';
                 submitStatus = 'error';
               } else {
                 errorMessage = 'Something went wrong. Please try again.';
@@ -765,8 +765,8 @@
     animation: float 0.8s ease-in-out infinite;
   }
 
-  /* Scroll-triggered animations */
-  .animate-on-scroll {
+  /* Scroll-triggered animations - using :global to work with JS class addition */
+  :global(.animate-on-scroll) {
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
@@ -774,13 +774,13 @@
     transition-delay: calc(var(--stagger, 0) * 0.1s);
   }
 
-  .animate-on-scroll.in-view {
+  :global(.animate-on-scroll.in-view) {
     opacity: 1;
     transform: translateY(0);
   }
 
   /* Section title animation variation */
-  .section-title.animate-on-scroll {
+  :global(.section-title.animate-on-scroll) {
     transform: translateY(16px);
   }
 
@@ -789,13 +789,13 @@
     transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
   }
 
-  .section-title.animate-on-scroll::before,
-  .section-title.animate-on-scroll::after {
+  :global(.section-title.animate-on-scroll)::before,
+  :global(.section-title.animate-on-scroll)::after {
     width: 0;
   }
 
-  .section-title.animate-on-scroll.in-view::before,
-  .section-title.animate-on-scroll.in-view::after {
+  :global(.section-title.animate-on-scroll.in-view)::before,
+  :global(.section-title.animate-on-scroll.in-view)::after {
     width: 2rem;
   }
 
