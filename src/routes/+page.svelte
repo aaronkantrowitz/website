@@ -13,7 +13,7 @@
         '     ╩ ╩ ╩ ╩\n' +
         '\n' +
         '  Aaron Kantrowitz\n' +
-        '  Founder and CEO, AI Consultant\n',
+        '  Founder, AI & Engineering Consultant\n',
       'color: #6b7280; font-family: monospace; font-size: 14px; line-height: 1.2;'
     );
 
@@ -34,20 +34,20 @@
 </script>
 
 <svelte:head>
-    <title>Aaron Kantrowitz | Founder and CEO, AI Consultant</title>
-    <meta name="description" content="Aaron Kantrowitz is an Founder and CEO, AI Consultant who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups." />
+    <title>Aaron Kantrowitz | Founder, AI & Engineering Consultant</title>
+    <meta name="description" content="Aaron Kantrowitz is a Founder, AI & Engineering Consultant who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups." />
     <meta name="keywords" content="Aaron Kantrowitz, CTO, digital strategist, product leader, engineering, technology consultant, digital experiences, Spacebox Digital, Stealth Startup, US-based developer" />
     <meta name="author" content="Aaron Kantrowitz" />
 
-    <meta property="og:title" content="Aaron Kantrowitz | Founder and CEO, AI Consultant" />
-    <meta property="og:description" content="Founder and CEO, AI Consultant. Leading teams to create work that matters." />
+    <meta property="og:title" content="Aaron Kantrowitz | Founder, AI & Engineering Consultant" />
+    <meta property="og:description" content="Founder, AI & Engineering Consultant. Leading teams to create work that matters." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aaronkantrowitz.com/" />
     <meta property="og:site_name" content="Aaron Kantrowitz" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Aaron Kantrowitz | Founder and CEO, AI Consultant" />
-    <meta name="twitter:description" content="Aaron Kantrowitz is an Founder and CEO, AI Consultant who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups." />
+    <meta name="twitter:title" content="Aaron Kantrowitz | Founder, AI & Engineering Consultant" />
+    <meta name="twitter:description" content="Aaron Kantrowitz is a Founder, AI & Engineering Consultant who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups." />
 </svelte:head>
 
 <Navigation />
