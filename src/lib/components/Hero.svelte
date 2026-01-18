@@ -20,7 +20,7 @@
     </div>
 
     <div class="footer-group">
-      <span>Founder and CEO, AI Consultant</span>
+      <span>Founder, AI & Engineering Consultant</span>
       <span class="separator">•</span>
       <span>Based in San Diego, California</span>
     </div>

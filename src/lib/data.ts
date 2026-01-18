@@ -316,7 +316,7 @@ const companyRoles: Record<string, { role: string; description: string }> = {
       'Pioneered AI-augmented development workflows and processes, shipping products 3x faster with smaller teams.',
   },
   CapCheck: {
-    role: 'Founder and CEO, AI Consultant',
+    role: 'Founder, AI & Engineering Consultant',
     description:
       'Currently building the future of fact-checking with CapCheck, a platform that verifies content like Shazam identifies songs.',
   },
