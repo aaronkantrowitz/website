@@ -35,7 +35,7 @@
 
 <svelte:head>
     <title>Aaron Kantrowitz | Full-Stack Engineer & AI Systems</title>
-    <meta name="description" content="Aaron Kantrowitz - Full-stack engineer specializing in AI/LLM integration, multi-agent systems, and production software. React, Svelte, Python, TypeScript." />
+    <meta name="description" content="Aaron Kantrowitz - Full-Stack engineer specializing in AI/LLM integration, multi-agent systems, and production software. React, Svelte, Python, TypeScript." />
     <meta name="keywords" content="Aaron Kantrowitz, full-stack engineer, AI engineer, LLM integration, multi-agent systems, React, Svelte, Python, TypeScript, LangGraph, San Diego developer" />
     <meta name="author" content="Aaron Kantrowitz" />
 
