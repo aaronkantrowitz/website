@@ -13,12 +13,12 @@
         '     ╩ ╩ ╩ ╩\n' +
         '\n' +
         '  Aaron Kantrowitz\n' +
-        '  Founder, AI & Engineering Consultant\n',
+        '  Full-Stack Engineer & AI Systems\n',
       'color: #6b7280; font-family: monospace; font-size: 14px; line-height: 1.2;'
     );
 
     console.log(
-      '%cBuilding bridges between imagination and reality',
+      '%cBuilding AI systems that work in production',
       'color: #9ca3af; font-style: italic; font-size: 12px;'
     );
 
@@ -34,20 +34,20 @@
 </script>
 
 <svelte:head>
-    <title>Aaron Kantrowitz | Founder, AI & Engineering Consultant</title>
-    <meta name="description" content="Aaron Kantrowitz is a Founder, AI & Engineering Consultant who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups." />
-    <meta name="keywords" content="Aaron Kantrowitz, CTO, digital strategist, product leader, engineering, technology consultant, digital experiences, Spacebox Digital, Stealth Startup, US-based developer" />
+    <title>Aaron Kantrowitz | Full-Stack Engineer & AI Systems</title>
+    <meta name="description" content="Aaron Kantrowitz - Full-stack engineer specializing in AI/LLM integration, multi-agent systems, and production software. React, Svelte, Python, TypeScript." />
+    <meta name="keywords" content="Aaron Kantrowitz, full-stack engineer, AI engineer, LLM integration, multi-agent systems, React, Svelte, Python, TypeScript, LangGraph, San Diego developer" />
     <meta name="author" content="Aaron Kantrowitz" />
 
-    <meta property="og:title" content="Aaron Kantrowitz | Founder, AI & Engineering Consultant" />
-    <meta property="og:description" content="Founder, AI & Engineering Consultant. Leading teams to create work that matters." />
+    <meta property="og:title" content="Aaron Kantrowitz | Full-Stack Engineer & AI Systems" />
+    <meta property="og:description" content="Full-stack engineer building AI systems that work in production. LLM orchestration, multi-agent pipelines, fact-checking infrastructure." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aaronkantrowitz.com/" />
     <meta property="og:site_name" content="Aaron Kantrowitz" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Aaron Kantrowitz | Founder, AI & Engineering Consultant" />
-    <meta name="twitter:description" content="Aaron Kantrowitz is a Founder, AI & Engineering Consultant who turns ideas into experiences. Expert in engineering, strategy, and leading teams to create meaningful work for top brands and startups." />
+    <meta name="twitter:title" content="Aaron Kantrowitz | Full-Stack Engineer & AI Systems" />
+    <meta name="twitter:description" content="Aaron Kantrowitz - Full-stack engineer specializing in AI/LLM integration, multi-agent systems, and production software. React, Svelte, Python, TypeScript." />
 </svelte:head>
 
 <Navigation />

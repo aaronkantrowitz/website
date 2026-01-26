@@ -34,20 +34,20 @@
 </script>
 
 <svelte:head>
-  <title>Aaron Kantrowitz | AI Engineering & Automation Consultant</title>
-  <meta name="description" content="AI engineering and automation consulting for companies ready to ship. LLM integration, AI agents, workflow automation. Former CTO with Fortune 500 experience." />
-  <meta name="keywords" content="AI consultant, AI automation consultant, AI engineer consultant, LLM integration, AI agent development, workflow automation, San Diego AI consultant" />
+  <title>Aaron Kantrowitz | Full-Stack & AI Engineering Consulting</title>
+  <meta name="description" content="Aaron Kantrowitz - Full-stack engineer specializing in AI/LLM integration, multi-agent systems, and production software. React, Svelte, Python, TypeScript." />
+  <meta name="keywords" content="AI consultant, full-stack engineer, LLM integration, multi-agent systems, LangGraph, React, Svelte, Python, TypeScript, San Diego developer" />
   <meta name="author" content="Aaron Kantrowitz" />
 
-  <meta property="og:title" content="Aaron Kantrowitz | AI Engineering & Automation Consultant" />
-  <meta property="og:description" content="AI engineering and automation consulting for companies ready to ship. LLM integration, AI agents, workflow automation." />
+  <meta property="og:title" content="Aaron Kantrowitz | Full-Stack & AI Engineering Consulting" />
+  <meta property="og:description" content="Full-stack engineer specializing in AI/LLM integration, multi-agent systems, and production software. React, Svelte, Python, TypeScript." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aaronkantrowitz.com/consulting" />
   <meta property="og:site_name" content="Aaron Kantrowitz" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Aaron Kantrowitz | AI Engineering & Automation Consultant" />
-  <meta name="twitter:description" content="AI engineering and automation consulting for companies ready to ship. LLM integration, AI agents, workflow automation." />
+  <meta name="twitter:title" content="Aaron Kantrowitz | Full-Stack & AI Engineering Consulting" />
+  <meta name="twitter:description" content="Full-stack engineer specializing in AI/LLM integration, multi-agent systems, and production software. React, Svelte, Python, TypeScript." />
 </svelte:head>
 
 <div class="page-wrapper">
@@ -82,24 +82,53 @@
     <!-- What I Do Section -->
     <section class="services">
       <h2 class="section-title animate-on-scroll">What I Do</h2>
-      <div class="services-grid">
+      <div class="services-grid services-grid-4">
         <div class="service-card animate-on-scroll" style="--stagger: 0">
-          <h3 class="service-title">AI Agent Development</h3>
+          <h3 class="service-title">AI & LLM Integration</h3>
           <p class="service-description">
-            Custom agents that actually work in production. From customer service automation to internal workflow orchestration.
+            Multi-agent orchestration with LangGraph. Claude, GPT, Perplexity—matched to the task. Evidence pipelines, confidence calibration, graceful degradation. Production systems, not prototypes.
           </p>
         </div>
         <div class="service-card animate-on-scroll" style="--stagger: 1">
-          <h3 class="service-title">LLM Integration</h3>
+          <h3 class="service-title">Full-Stack Development</h3>
           <p class="service-description">
-            Connect GPT, Claude, or open-source models to your existing systems. APIs, embeddings, RAG pipelines—built to scale.
+            React, Svelte, Swift/SwiftUI on the frontend. Python, TypeScript, Node.js, Fastify on the backend. PostgreSQL, GraphQL, Hasura. I build the whole thing.
           </p>
         </div>
         <div class="service-card animate-on-scroll" style="--stagger: 2">
+          <h3 class="service-title">Cloud & Infrastructure</h3>
+          <p class="service-description">
+            AWS, Cloudflare Workers, Fly.io, Vercel. CI/CD pipelines. Docker. Cost optimization. The boring stuff that keeps systems running at 3am.
+          </p>
+        </div>
+        <div class="service-card animate-on-scroll" style="--stagger: 3">
           <h3 class="service-title">Workflow Automation</h3>
           <p class="service-description">
             Identify the repetitive work killing your team's time. Automate it. Ship it. Move on.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-stack">
+      <h2 class="section-title animate-on-scroll">Tech Stack</h2>
+      <div class="stack-grid animate-on-scroll">
+        <div class="stack-row">
+          <span class="stack-label">Frontend</span>
+          <span class="stack-items">React, Svelte, SvelteKit, Swift/SwiftUI, TypeScript</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-label">Backend</span>
+          <span class="stack-items">Python, Node.js, Fastify, GraphQL, PostgreSQL, Hasura</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-label">AI/ML</span>
+          <span class="stack-items">LangGraph, Claude API, Perplexity, OpenAI Whisper, Vision Transformers</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-label">Infrastructure</span>
+          <span class="stack-items">AWS, Cloudflare, Fly.io, Vercel, Docker</span>
         </div>
       </div>
     </section>
@@ -109,10 +138,10 @@
       <h2 class="section-title animate-on-scroll">Why Me</h2>
       <div class="about-content animate-on-scroll">
         <p>
-          15+ years building and leading engineering teams. Former CTO. Founded and exited a profitable tech consultancy. Managed $50M+ technical programs for Fortune 500 clients including Home Depot and Thermo Fisher Scientific.
+          15+ years shipping production software. Former CTO. Founded and exited a profitable consultancy. Led technical programs for Home Depot, Thermo Fisher, P&G.
         </p>
         <p class="about-emphasis">
-          I've built AI into production systems. I know what breaks and how to fix it.
+          Currently building CapCheck—multi-agent LLM pipelines processing real-time fact verification. I know what breaks because I'm breaking it right now.
         </p>
       </div>
     </section>
@@ -422,8 +451,14 @@
 
   @media (min-width: 640px) {
     .services-grid {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 2.5rem;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .services-grid.services-grid-4 {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
@@ -444,6 +479,51 @@
     font-size: 0.9375rem;
     line-height: 1.6;
     color: var(--dark-gray);
+  }
+
+  /* Tech Stack */
+  .tech-stack {
+    padding: 4rem 0;
+    border-top: 1px solid var(--ivory-dark);
+  }
+
+  .stack-grid {
+    max-width: 36rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+    font-size: 0.875rem;
+  }
+
+  .stack-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--ivory-med);
+    border-radius: 0.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .stack-row {
+      flex-direction: row;
+      gap: 1.5rem;
+      align-items: baseline;
+    }
+  }
+
+  .stack-label {
+    color: var(--gray);
+    min-width: 6rem;
+    flex-shrink: 0;
+    font-weight: 500;
+  }
+
+  .stack-items {
+    color: var(--text-color);
+    line-height: 1.5;
   }
 
   /* About */

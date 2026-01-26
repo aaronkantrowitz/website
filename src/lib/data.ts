@@ -354,9 +354,11 @@ export const slides: Slide[] = [
     type: 'intro',
     id: 'section-01',
     title: 'My Work',
-    description: `My work is about blending talent and technology to solve puzzles and bring ideas to life.
+    description: `I build AI-powered applications from architecture through deployment.
 
-Every project is a new journey—making something greater than the sum of its parts.`,
+Current project: CapCheck - a fact-checking platform using LangGraph for multi-agent orchestration, Claude for reasoning, and Perplexity for real-time verification.
+
+15 years of production experience. 100+ implementations for Fortune 500 brands.`,
   },
   ...companies.map((company, index) => {
     const roleData = companyRoles[company] || { role: '', description: '' };
