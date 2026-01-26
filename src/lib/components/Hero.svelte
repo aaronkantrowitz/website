@@ -14,15 +14,15 @@
 
     <div class="bio-group">
       <p class="hero-bio">
-        I turn ideas into experiences. Building bridges between thought and
-        reality, leading teams to create work that matters.
+        Full-stack engineer building AI systems that work in production.
+      </p>
+      <p class="hero-bio-sub">
+        Currently: LLM orchestration, multi-agent pipelines, fact-checking infrastructure.
       </p>
     </div>
 
     <div class="footer-group">
-      <span>Founder, AI & Engineering Consultant</span>
-      <span class="separator">•</span>
-      <span>Based in San Diego, California</span>
+      <span>San Diego, California</span>
     </div>
   </div>
 
@@ -165,10 +165,25 @@
     font-size: clamp(1rem, 2.8vw, 1.3rem);
   }
 
+  .hero-bio-sub {
+    font-weight: 300;
+    line-height: 1.5;
+    width: 100%;
+    max-width: 100%;
+    margin: 0.75rem auto 0;
+    color: var(--gray);
+    font-size: clamp(0.875rem, 2.2vw, 1rem);
+  }
+
   @media (min-width: 640px) {
     .hero-bio {
       max-width: 56rem; /* sm:max-w-4xl */
       font-size: clamp(1.1rem, 2.5vw, 2rem);
+    }
+    .hero-bio-sub {
+      max-width: 56rem;
+      font-size: clamp(0.95rem, 2vw, 1.2rem);
+      margin-top: 1rem;
     }
   }
 
