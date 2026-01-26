@@ -65,10 +65,10 @@
         <div class="hero-photo-wrapper hero-animate" style="--delay: 0">
           <img src="/IMG_1306.JPG" alt="Aaron Kantrowitz" class="hero-photo" />
         </div>
-        <p class="hero-label hero-animate" style="--delay: 1">AI Engineering & Automation</p>
+        <p class="hero-label hero-animate" style="--delay: 1">Full-Stack & AI Engineering</p>
         <h1 class="hero-headline hero-animate" style="--delay: 2">For Companies Ready to Ship</h1>
         <p class="hero-subheadline hero-animate" style="--delay: 3">
-          I help businesses implement AI agents, automate workflows, and integrate LLMs into production systems—without the six-month consulting engagement.
+          AI agents, LLM integration, full-stack development—built for production, not PowerPoint.
         </p>
         <a href="#contact" class="cta-button hero-animate" style="--delay: 4">
           Book a Call
@@ -86,25 +86,25 @@
         <div class="service-card animate-on-scroll" style="--stagger: 0">
           <h3 class="service-title">AI & LLM Integration</h3>
           <p class="service-description">
-            Multi-agent orchestration with LangGraph. Claude, GPT, Perplexity—matched to the task. Evidence pipelines, confidence calibration, graceful degradation. Production systems, not prototypes.
+            Multi-agent orchestration with LangGraph. Claude, GPT, Perplexity—matched to the task. Production systems, not prototypes.
           </p>
         </div>
         <div class="service-card animate-on-scroll" style="--stagger: 1">
           <h3 class="service-title">Full-Stack Development</h3>
           <p class="service-description">
-            React, Svelte, Swift/SwiftUI on the frontend. Python, TypeScript, Node.js, Fastify on the backend. PostgreSQL, GraphQL, Hasura. I build the whole thing.
+            React, Svelte, Swift on the frontend. Python, TypeScript, Node on the backend. I build the whole thing.
           </p>
         </div>
         <div class="service-card animate-on-scroll" style="--stagger: 2">
           <h3 class="service-title">Cloud & Infrastructure</h3>
           <p class="service-description">
-            AWS, Cloudflare Workers, Fly.io, Vercel. CI/CD pipelines. Docker. Cost optimization. The boring stuff that keeps systems running at 3am.
+            AWS, Cloudflare, Fly.io, Vercel. CI/CD, Docker, cost optimization. The boring stuff that keeps systems running.
           </p>
         </div>
         <div class="service-card animate-on-scroll" style="--stagger: 3">
           <h3 class="service-title">Workflow Automation</h3>
           <p class="service-description">
-            Identify the repetitive work killing your team's time. Automate it. Ship it. Move on.
+            Find the repetitive work killing your team's time. Automate it. Ship it. Move on.
           </p>
         </div>
       </div>
@@ -469,16 +469,29 @@
   }
 
   .service-title {
-    font-size: 1.125rem;
-    font-weight: 400;
+    font-size: 1rem;
+    font-weight: 500;
     color: var(--text-color);
     margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
   }
 
   .service-description {
-    font-size: 0.9375rem;
-    line-height: 1.6;
+    font-size: 0.875rem;
+    line-height: 1.65;
     color: var(--dark-gray);
+  }
+
+  @media (min-width: 900px) {
+    .services-grid-4 .service-card {
+      padding: 1rem 0.75rem;
+    }
+    .services-grid-4 .service-title {
+      font-size: 0.9375rem;
+    }
+    .services-grid-4 .service-description {
+      font-size: 0.8125rem;
+    }
   }
 
   /* Tech Stack */

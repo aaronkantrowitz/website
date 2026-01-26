@@ -354,11 +354,11 @@ export const slides: Slide[] = [
     type: 'intro',
     id: 'section-01',
     title: 'My Work',
-    description: `I build AI-powered applications from architecture through deployment.
+    description: `AI-powered applications from architecture to deployment.
 
-Current project: CapCheck - a fact-checking platform using LangGraph for multi-agent orchestration, Claude for reasoning, and Perplexity for real-time verification.
+Currently building CapCheck—multi-agent fact verification using LangGraph, Claude, and Perplexity.
 
-15 years of production experience. 100+ implementations for Fortune 500 brands.`,
+15 years shipping production software. 100+ Fortune 500 implementations.`,
   },
   ...companies.map((company, index) => {
     const roleData = companyRoles[company] || { role: '', description: '' };
