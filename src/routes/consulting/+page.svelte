@@ -68,7 +68,7 @@
         <p class="hero-label hero-animate" style="--delay: 1">Full-Stack & AI Engineering</p>
         <h1 class="hero-headline hero-animate" style="--delay: 2">For Companies Ready to Ship</h1>
         <p class="hero-subheadline hero-animate" style="--delay: 3">
-          AI agents, LLM integration, full-stack development—built for production, not PowerPoint.
+          AI agents, LLM integration, full-stack development. Built for production, not PowerPoint.
         </p>
         <a href="#contact" class="cta-button hero-animate" style="--delay: 4">
           Book a Call
@@ -86,7 +86,7 @@
         <div class="service-card animate-on-scroll" style="--stagger: 0">
           <h3 class="service-title">AI & LLM Integration</h3>
           <p class="service-description">
-            Multi-agent orchestration with LangGraph. Claude, GPT, Perplexity—matched to the task. Production systems, not prototypes.
+            Multi-agent orchestration with LangGraph. Claude, GPT, Perplexity: matched to the task. Production systems, not prototypes.
           </p>
         </div>
         <div class="service-card animate-on-scroll" style="--stagger: 1">
@@ -141,7 +141,7 @@
           15+ years shipping production software. Former CTO. Founded and exited a profitable consultancy. Led technical programs for Home Depot, Thermo Fisher, P&G.
         </p>
         <p class="about-emphasis">
-          Currently building CapCheck—multi-agent LLM pipelines processing real-time fact verification. I know what breaks because I'm breaking it right now.
+          Currently building CapCheck: multi-agent LLM pipelines processing real-time fact verification. I know what breaks because I'm breaking it right now.
         </p>
       </div>
     </section>
