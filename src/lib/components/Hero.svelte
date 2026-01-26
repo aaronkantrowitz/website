@@ -14,7 +14,7 @@
 
     <div class="bio-group">
       <p class="hero-bio">
-        Full-stack engineer building AI systems that work in production.
+        Full-Stack engineer building AI systems that work in production.
       </p>
       <p class="hero-bio-sub">
         Currently: LLM orchestration, multi-agent pipelines, fact-checking infrastructure.
