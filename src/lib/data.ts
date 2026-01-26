@@ -356,7 +356,7 @@ export const slides: Slide[] = [
     title: 'My Work',
     description: `AI-powered applications from architecture to deployment.
 
-Currently building CapCheck—multi-agent fact verification using LangGraph, Claude, and Perplexity.
+Currently building CapCheck AI, a multi-agent fact verification system using LangGraph, Claude, and Perplexity.
 
 15 years shipping production software. 100+ Fortune 500 implementations.`,
   },
