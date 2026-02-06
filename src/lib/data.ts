@@ -318,7 +318,7 @@ const companyRoles: Record<string, { role: string; description: string }> = {
   CapCheck: {
     role: 'Founder',
     description:
-      'Currently building the future of fact-checking with CapCheck, a platform that verifies content like Shazam identifies songs.',
+      'Building a fact verification platform that uses multi-agent pipelines, Claude API, and multi-source evidence synthesis to check claims in real time. Currently in beta and heading to the App Store.',
   },
   Akantro: {
     role: 'Co-Founder',
@@ -354,11 +354,11 @@ export const slides: Slide[] = [
     type: 'intro',
     id: 'section-01',
     title: 'My Work',
-    description: `AI-powered applications from architecture to deployment.
+    description: `I build things at the intersection of commerce and AI.
 
-Currently building CapCheck AI, a multi-agent fact verification system using LangGraph, Claude, and Perplexity.
+Currently building CapCheck, a fact verification platform using multi-agent pipelines, Claude API, and multi-source evidence synthesis. In beta and heading to the App Store.
 
-15 years shipping production software. 100+ Fortune 500 implementations.`,
+On the consulting side, I help companies integrate AI into their existing systems and architect ecommerce platforms. 15 years shipping production software. 100+ implementations. Fortune 500 to high-growth DTC.`,
   },
   ...companies.map((company, index) => {
     const roleData = companyRoles[company] || { role: '', description: '' };

@@ -14,10 +14,10 @@
 
     <div class="bio-group">
       <p class="hero-bio">
-        Full-Stack engineer building AI systems that work in production.
+        Digital commerce leader and AI engineer with 15 years shipping production software.
       </p>
       <p class="hero-bio-sub">
-        Currently: LLM orchestration, multi-agent pipelines, fact-checking infrastructure.
+        Currently: Building CapCheck, a multi-agent fact verification system. Taking on select consulting engagements in AI integration and ecommerce architecture.
       </p>
     </div>
 

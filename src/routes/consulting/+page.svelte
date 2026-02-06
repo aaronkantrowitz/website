@@ -34,20 +34,20 @@
 </script>
 
 <svelte:head>
-  <title>Aaron Kantrowitz | Full-Stack & AI Engineering Consulting</title>
-  <meta name="description" content="Aaron Kantrowitz - Full-stack engineer specializing in AI/LLM integration, multi-agent systems, and production software. React, Svelte, Python, TypeScript." />
-  <meta name="keywords" content="AI consultant, full-stack engineer, LLM integration, multi-agent systems, LangGraph, React, Svelte, Python, TypeScript, San Diego developer" />
+  <title>Aaron Kantrowitz | AI Integration & Ecommerce Architecture Consulting</title>
+  <meta name="description" content="Aaron Kantrowitz - Digital commerce leader and AI engineer. AI integration, ecommerce architecture, and technical strategy consulting. 15+ years, 100+ implementations." />
+  <meta name="keywords" content="AI consultant, ecommerce architect, LLM integration, Shopify Plus, multi-agent systems, Claude API, headless commerce, technical strategy, San Diego" />
   <meta name="author" content="Aaron Kantrowitz" />
 
-  <meta property="og:title" content="Aaron Kantrowitz | Full-Stack & AI Engineering Consulting" />
-  <meta property="og:description" content="Full-stack engineer specializing in AI/LLM integration, multi-agent systems, and production software. React, Svelte, Python, TypeScript." />
+  <meta property="og:title" content="Aaron Kantrowitz | AI Integration & Ecommerce Architecture Consulting" />
+  <meta property="og:description" content="Digital commerce leader and AI engineer. AI integration, ecommerce architecture, and technical strategy consulting. 15+ years, 100+ implementations." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://aaronkantrowitz.com/consulting" />
   <meta property="og:site_name" content="Aaron Kantrowitz" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Aaron Kantrowitz | Full-Stack & AI Engineering Consulting" />
-  <meta name="twitter:description" content="Full-stack engineer specializing in AI/LLM integration, multi-agent systems, and production software. React, Svelte, Python, TypeScript." />
+  <meta name="twitter:title" content="Aaron Kantrowitz | AI Integration & Ecommerce Architecture Consulting" />
+  <meta name="twitter:description" content="Digital commerce leader and AI engineer. AI integration, ecommerce architecture, and technical strategy consulting. 15+ years, 100+ implementations." />
 </svelte:head>
 
 <div class="page-wrapper">
@@ -65,10 +65,10 @@
         <div class="hero-photo-wrapper hero-animate" style="--delay: 0">
           <img src="/IMG_1306.JPG" alt="Aaron Kantrowitz" class="hero-photo" />
         </div>
-        <p class="hero-label hero-animate" style="--delay: 1">Full-Stack & AI Engineering</p>
+        <p class="hero-label hero-animate" style="--delay: 1">AI Integration & Ecommerce Architecture</p>
         <h1 class="hero-headline hero-animate" style="--delay: 2">For Companies Ready to Ship</h1>
         <p class="hero-subheadline hero-animate" style="--delay: 3">
-          AI agents, LLM integration, full-stack development. Built for production, not PowerPoint.
+          LLM-powered automation, custom applications, and platform architecture. Built for production, not PowerPoint.
         </p>
         <a href="#contact" class="cta-button hero-animate" style="--delay: 4">
           Book a Call
@@ -82,66 +82,44 @@
     <!-- What I Do Section -->
     <section class="services">
       <h2 class="section-title animate-on-scroll">What I Do</h2>
-      <div class="services-grid services-grid-4">
+      <div class="services-grid services-grid-3">
         <div class="service-card animate-on-scroll" style="--stagger: 0">
-          <h3 class="service-title">AI & LLM Integration</h3>
+          <h3 class="service-title">AI Integration</h3>
           <p class="service-description">
-            Multi-agent orchestration with LangGraph. Claude, GPT, Perplexity: matched to the task. Production systems, not prototypes.
+            Building LLM-powered features into existing products and workflows. Claude API, OpenAI, multi-agent orchestration, RAG systems.
           </p>
         </div>
         <div class="service-card animate-on-scroll" style="--stagger: 1">
-          <h3 class="service-title">Full-Stack Development</h3>
+          <h3 class="service-title">Ecommerce Architecture</h3>
           <p class="service-description">
-            React, Svelte, Swift on the frontend. Python, TypeScript, Node on the backend. I build the whole thing.
+            Platform migration strategy, Shopify Plus implementation, headless commerce with Hydrogen, SAP and Salesforce integration patterns.
           </p>
         </div>
         <div class="service-card animate-on-scroll" style="--stagger: 2">
-          <h3 class="service-title">Cloud & Infrastructure</h3>
+          <h3 class="service-title">Technical Strategy</h3>
           <p class="service-description">
-            AWS, Cloudflare, Fly.io, Vercel. CI/CD, Docker, cost optimization. The boring stuff that keeps systems running.
-          </p>
-        </div>
-        <div class="service-card animate-on-scroll" style="--stagger: 3">
-          <h3 class="service-title">Workflow Automation</h3>
-          <p class="service-description">
-            Find the repetitive work killing your team's time. Automate it. Ship it. Move on.
+            Helping teams make architecture decisions that scale. Middleware design, API strategy, build vs. buy analysis.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Tech Stack Section -->
-    <section class="tech-stack">
-      <h2 class="section-title animate-on-scroll">Tech Stack</h2>
-      <div class="stack-grid animate-on-scroll">
-        <div class="stack-row">
-          <span class="stack-label">Frontend</span>
-          <span class="stack-items">React, Svelte, SvelteKit, Swift/SwiftUI, TypeScript</span>
-        </div>
-        <div class="stack-row">
-          <span class="stack-label">Backend</span>
-          <span class="stack-items">Python, Node.js, Fastify, GraphQL, PostgreSQL, Hasura</span>
-        </div>
-        <div class="stack-row">
-          <span class="stack-label">AI/ML</span>
-          <span class="stack-items">LangGraph, Claude API, Perplexity, OpenAI Whisper, Vision Transformers</span>
-        </div>
-        <div class="stack-row">
-          <span class="stack-label">Infrastructure</span>
-          <span class="stack-items">AWS, Cloudflare, Fly.io, Vercel, Docker</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Why Me Section -->
+    <!-- Background Section -->
     <section class="about">
-      <h2 class="section-title animate-on-scroll">Why Me</h2>
+      <h2 class="section-title animate-on-scroll">Background</h2>
       <div class="about-content animate-on-scroll">
         <p>
-          15+ years shipping production software. Former CTO. Founded and exited a profitable consultancy. Led technical programs for Home Depot, Thermo Fisher, P&G.
+          15+ years, 100+ implementations, Fortune 500 to high-growth DTC. Former Shopify Plus agency founder. Former CTO. Currently building an AI verification platform.
         </p>
-        <p class="about-emphasis">
-          Currently building CapCheck: multi-agent LLM pipelines processing real-time fact verification. I know what breaks because I'm breaking it right now.
+      </div>
+    </section>
+
+    <!-- Rate Section -->
+    <section class="about">
+      <h2 class="section-title animate-on-scroll">Rate</h2>
+      <div class="about-content animate-on-scroll">
+        <p>
+          Available for project-based or advisory engagements. Reach out at <a href="mailto:me@aaronkantrowitz.com" class="inline-link">me@aaronkantrowitz.com</a>.
         </p>
       </div>
     </section>
@@ -457,8 +435,8 @@
   }
 
   @media (min-width: 900px) {
-    .services-grid.services-grid-4 {
-      grid-template-columns: repeat(4, 1fr);
+    .services-grid.services-grid-3 {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
@@ -483,60 +461,15 @@
   }
 
   @media (min-width: 900px) {
-    .services-grid-4 .service-card {
-      padding: 1rem 0.75rem;
+    .services-grid-3 .service-card {
+      padding: 1.5rem 1rem;
     }
-    .services-grid-4 .service-title {
-      font-size: 0.9375rem;
+    .services-grid-3 .service-title {
+      font-size: 1rem;
     }
-    .services-grid-4 .service-description {
-      font-size: 0.8125rem;
+    .services-grid-3 .service-description {
+      font-size: 0.875rem;
     }
-  }
-
-  /* Tech Stack */
-  .tech-stack {
-    padding: 4rem 0;
-    border-top: 1px solid var(--ivory-dark);
-  }
-
-  .stack-grid {
-    max-width: 36rem;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-    font-size: 0.875rem;
-  }
-
-  .stack-row {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    padding: 0.75rem 1rem;
-    background-color: var(--ivory-med);
-    border-radius: 0.25rem;
-  }
-
-  @media (min-width: 640px) {
-    .stack-row {
-      flex-direction: row;
-      gap: 1.5rem;
-      align-items: baseline;
-    }
-  }
-
-  .stack-label {
-    color: var(--gray);
-    min-width: 6rem;
-    flex-shrink: 0;
-    font-weight: 500;
-  }
-
-  .stack-items {
-    color: var(--text-color);
-    line-height: 1.5;
   }
 
   /* About */
@@ -561,6 +494,17 @@
   .about-emphasis {
     color: var(--text-color);
     font-weight: 400;
+  }
+
+  .inline-link {
+    color: var(--text-color);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 200ms;
+  }
+
+  .inline-link:hover {
+    color: var(--riso);
   }
 
   /* Process */
