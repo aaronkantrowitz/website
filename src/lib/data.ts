@@ -356,9 +356,9 @@ export const slides: Slide[] = [
     title: 'My Work',
     description: `I build things at the intersection of commerce and AI.
 
-Currently building CapCheck, a fact verification platform using multi-agent pipelines, Claude API, and multi-source evidence synthesis. In beta and heading to the App Store.
+Currently building CapCheck, a fact verification platform using multi-agent pipelines, Claude API, and multi-source evidence synthesis. In beta, heading to the App Store.
 
-On the consulting side, I help companies integrate AI into their existing systems and architect ecommerce platforms. 15 years shipping production software. 100+ implementations. Fortune 500 to high-growth DTC.`,
+I also consult on AI integration and ecommerce architecture. 15 years shipping production software. 100+ implementations. Fortune 500 to high-growth DTC.`,
   },
   ...companies.map((company, index) => {
     const roleData = companyRoles[company] || { role: '', description: '' };
